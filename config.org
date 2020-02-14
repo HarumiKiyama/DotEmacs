@@ -10,27 +10,27 @@ code that converts/tangles (only) the Elisp blocks into the
 Note that all Elisp blocks part of a =DISABLED= or =DOING= headings or which are
 marked with =:tangle no= won't be tangled to the =config.el= file.
 
-* config tools
-* general settings
+* DOING config tools
+* ACTIVE general settings
 #+begin_src elisp
 (push '("/LICENSE\\'" . text-mode) auto-mode-alist)
 (push '("\\.log\\'" . text-mode) auto-mode-alist)
 (push '("\\.env\\'" . sh-mode) auto-mode-alist)
 (load-theme 'zenburn)
 #+end_src
-* package config
+* ACTIVE package config
 #+begin_src elisp
 (package-initialize)
 (setq package-archives '(("gnu" . "http://elpa.emacs-china.org/gnu/")
                          ("melpa" . "http://elpa.emacs-china.org/melpa/")
                          ("org" . "http://elpa.emacs-china.org/org/")))
 #+end_src
-* elisp config
-* org contrib config
-* python config
-* rust config
-* keymap based on general config
-* evil config
+* DOING elisp config
+* DOING org contrib config
+* DISABLED python config
+* DOING rust config
+* DOING keymap based on general config
+* DOING evil config
 #+begin_src elisp
 (use-package evil)
 #+end_src
