@@ -1,0 +1,36 @@
+ # -*- mode: org; coding: utf-8; -*-
+#+TITLE: emacs config
+#+DESCRIPTION: Just A try for literate programming
+#+TODO: ACTIVE | DISABLED DOING
+#+STARTUP: indent
+This is the GNU/Emacs config file of Harumi Kiyama inspired by [[https://karl-voit.at/2017/06/03/emacs-org/][karl voit]].
+This file is named =config.org=. My =init.el= got some nifty Elisp
+code that converts/tangles (only) the Elisp blocks into the
+=config.el=.
+Note that all Elisp blocks part of a =DISABLED= or =DOING= headings or which are
+marked with =:tangle no= won't be tangled to the =config.el= file.
+
+* config tools
+* general settings
+#+begin_src elisp
+(push '("/LICENSE\\'" . text-mode) auto-mode-alist)
+(push '("\\.log\\'" . text-mode) auto-mode-alist)
+(push '("\\.env\\'" . sh-mode) auto-mode-alist)
+(load-theme 'zenburn)
+#+end_src
+* package config
+#+begin_src elisp
+(package-initialize)
+(setq package-archives '(("gnu" . "http://elpa.emacs-china.org/gnu/")
+                         ("melpa" . "http://elpa.emacs-china.org/melpa/")
+                         ("org" . "http://elpa.emacs-china.org/org/")))
+#+end_src
+* elisp config
+* org contrib config
+* python config
+* rust config
+* keymap based on general config
+* evil config
+#+begin_src elisp
+(use-package evil)
+#+end_src
