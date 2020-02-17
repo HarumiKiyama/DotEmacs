@@ -28,9 +28,9 @@ marked with =:tangle no= won't be tangled to the =init.el= file.
 (push '("/LICENSE\\'" . text-mode) auto-mode-alist)
 (push '("\\.log\\'" . text-mode) auto-mode-alist)
 (push '("\\.env\\'" . sh-mode) auto-mode-alist)
-(setq confirm-kill-emacs nil
-      menu-bar-mode nil
-      tool-bar-mode nil)
+(setq confirm-kill-emacs nil)
+(menu-bar-mode -1)
+(tool-bar-mode -1)
 #+end_src
 ** set theme
 #+begin_src elisp
@@ -61,9 +61,11 @@ marked with =:tangle no= won't be tangled to the =init.el= file.
 * company set
 ivy setting
 #+begin_src elisp
+(use-package ivy)
 #+end_src
 company setting
 #+begin_src elisp
+(use-package company)
 #+end_src
 * org contrib config
 * python config
