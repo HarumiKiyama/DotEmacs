@@ -1,36 +1,71 @@
  # -*- mode: org; coding: utf-8; -*-
 #+TITLE: emacs config
 #+DESCRIPTION: Just A try for literate programming
-#+TODO: ACTIVE | DISABLED DOING
+#+TAG: notangle
 #+STARTUP: indent
 This is the GNU/Emacs config file of Harumi Kiyama inspired by [[https://karl-voit.at/2017/06/03/emacs-org/][karl voit]].
-This file is named =config.org=. My =init.el= got some nifty Elisp
+This file is named =config.org=. My =compile= got some nifty Elisp
 code that converts/tangles (only) the Elisp blocks into the
-=config.el=.
+=init.el=.
 Note that all Elisp blocks part of a =DISABLED= or =DOING= headings or which are
-marked with =:tangle no= won't be tangled to the =config.el= file.
+marked with =:tangle no= won't be tangled to the =init.el= file.
 
-* DOING config tools
-* ACTIVE general settings
+* General Setting
+** package initialize
+#+begin_src elisp 
+(eval-when-compile
+  (package-initialize)
+  (require 'use-package))
+(setq package-archives '(("gnu" . "http://elpa.emacs-china.org/gnu/")
+                         ("melpa" . "http://elpa.emacs-china.org/melpa/")
+                         ("org" . "http://elpa.emacs-china.org/org/")))
+(require 'use-package-ensure)
+(setq use-package-always-ensure t)
+
+#+end_src
+** misc.
 #+begin_src elisp
 (push '("/LICENSE\\'" . text-mode) auto-mode-alist)
 (push '("\\.log\\'" . text-mode) auto-mode-alist)
 (push '("\\.env\\'" . sh-mode) auto-mode-alist)
-(load-theme 'zenburn)
+(setq confirm-kill-emacs nil
+      menu-bar-mode nil
+      tool-bar-mode nil)
 #+end_src
-* ACTIVE package config
+** set theme
 #+begin_src elisp
-(package-initialize)
-(setq package-archives '(("gnu" . "http://elpa.emacs-china.org/gnu/")
-                         ("melpa" . "http://elpa.emacs-china.org/melpa/")
-                         ("org" . "http://elpa.emacs-china.org/org/")))
+  (use-package zenburn-theme
+    :config
+    (load-theme 'zenburn t)
+    (set-face-attribute 'default nil :font "DejaVu Sans Mono" :height 180)
+    )
 #+end_src
-* DOING elisp config
-* DOING org contrib config
-* DISABLED python config
-* DOING rust config
-* DOING keymap based on general config
-* DOING evil config
+** personal information
 #+begin_src elisp
-(use-package evil)
+(setq user-full-name "Harumi Kiyama"
+      user-mail-address "h.kiyama0720@gmail.com")
 #+end_src
+* Evil Config
+#+begin_src elisp
+  (use-package evil
+    :config
+    (defadvice evil-insert-state (around emacs-state-instead-of-insert-state activate)
+      (evil-emacs-state))
+    (evil-mode 1)
+    (setq evil-normal-state-cursor 'box
+          evil-emacs-state-cursor '(box "#ff9999")
+          evil-insert-state-cursor 'bar
+          evil-visual-state-cursor '(box "grey")))
+#+end_src
+* keymap config tool
+* company set
+ivy setting
+#+begin_src elisp
+#+end_src
+company setting
+#+begin_src elisp
+#+end_src
+* org contrib config
+* python config
+* rust config
+* elisp and other lisp like lang
