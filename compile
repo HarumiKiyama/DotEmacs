@@ -41,5 +41,5 @@ trees with the :notangle: tag."
             :override #'*org-babel-tangle-collect-blocks)
 
 (org-babel-tangle-file "config.org" "init.el" "elisp")
-(byte-compile-file "init.el")
+;; (byte-compile-file "init.el")
 (kill-emacs 0)
