@@ -63,6 +63,11 @@ add which key support
 ** modeline
 ** dashboard
 ** popup system
+* keymap config tool
+general config
+#+begin_src elisp
+(use-package general)
+#+end_src
 * Edit Config
 ** window config
 #+BEGIN_SRC elisp
@@ -103,7 +108,6 @@ add which key support
   :after ivy
   :config
   (ivy-rich-mode 1))
-
 #+end_src
 ** yasnippet config
 * org config
@@ -185,7 +189,6 @@ use ox-hugo to export blog
   :config
   (setq org-hugo-export-with-toc t))
 #+end_src
-* keymap config tool
 * Programming Languages Config
 ** rust config
 ** lisp config
