@@ -1,73 +1,219 @@
  # -*- mode: org; coding: utf-8; -*-
 #+TITLE: emacs config
 #+DESCRIPTION: Just A try for literate programming
-#+TAG: notangle
+#+TAGS: notangle
 #+STARTUP: indent
 This is the GNU/Emacs config file of Harumi Kiyama inspired by [[https://karl-voit.at/2017/06/03/emacs-org/][karl voit]].
 This file is named =config.org=. My =compile= got some nifty Elisp
 code that converts/tangles (only) the Elisp blocks into the
 =init.el=.
-Note that all Elisp blocks part of a =DISABLED= or =DOING= headings or which are
+Note that all Elisp blocks part of a =notangle= tag or which are
 marked with =:tangle no= won't be tangled to the =init.el= file.
 
-* General Setting
+* General Config
 ** package initialize
 #+begin_src elisp 
-(eval-when-compile
   (package-initialize)
-  (require 'use-package))
-(setq package-archives '(("gnu" . "http://elpa.emacs-china.org/gnu/")
-                         ("melpa" . "http://elpa.emacs-china.org/melpa/")
-                         ("org" . "http://elpa.emacs-china.org/org/")))
-(require 'use-package-ensure)
-(setq use-package-always-ensure t)
-
-#+end_src
-** misc.
-#+begin_src elisp
-(push '("/LICENSE\\'" . text-mode) auto-mode-alist)
-(push '("\\.log\\'" . text-mode) auto-mode-alist)
-(push '("\\.env\\'" . sh-mode) auto-mode-alist)
-(setq confirm-kill-emacs nil)
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-#+end_src
-** set theme
-#+begin_src elisp
-  (use-package zenburn-theme
-    :config
-    (load-theme 'zenburn t)
-    (set-face-attribute 'default nil :font "DejaVu Sans Mono" :height 180)
-    )
+  (setq package-archives '(("gnu" . "http://elpa.emacs-china.org/gnu/")
+                           ("melpa" . "http://elpa.emacs-china.org/melpa/")
+                           ("org" . "http://elpa.emacs-china.org/org/")))
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+  (require 'use-package)
+  (require 'use-package-ensure)
+  (setq use-package-always-ensure t)
 #+end_src
 ** personal information
 #+begin_src elisp
 (setq user-full-name "Harumi Kiyama"
       user-mail-address "h.kiyama0720@gmail.com")
 #+end_src
-* Evil Config
-#+begin_src elisp
-  (use-package evil
+** which key
+add which key support
+#+BEGIN_SRC elisp
+  (use-package which-key
     :config
-    (defadvice evil-insert-state (around emacs-state-instead-of-insert-state activate)
-      (evil-emacs-state))
-    (evil-mode 1)
-    (setq evil-normal-state-cursor 'box
-          evil-emacs-state-cursor '(box "#ff9999")
-          evil-insert-state-cursor 'bar
-          evil-visual-state-cursor '(box "grey")))
+  ;; Allow C-h to trigger which-key before it is done automatically
+  ;; (setq which-key-show-early-on-C-h t)
+  ;; make sure which-key doesn't show normally but refreshes quickly after it is
+  ;; triggered.
+  ;; (setq which-key-idle-delay 10000)
+  ;; (setq which-key-idle-secondary-delay 0.05)
+    (which-key-mode))
+#+END_SRC
+** misc.
+#+begin_src elisp
+  (push '("/LICENSE\\'" . text-mode) auto-mode-alist)
+  (push '("\\.log\\'" . text-mode) auto-mode-alist)
+  (push '("\\.env\\'" . sh-mode) auto-mode-alist)
+  (setq confirm-kill-emacs nil)
+#+end_src
+* UI Config
+** theme and font config
+#+begin_src elisp
+  (use-package zenburn-theme
+    :config
+    (load-theme 'zenburn t)
+    (set-face-attribute 'default nil :font "DejaVu Sans Mono" :height 200)
+    (menu-bar-mode -1)
+    (tool-bar-mode -1)
+    (scroll-bar-mode -1))
+#+end_src
+** modeline
+** dashboard
+** popup system
+* Edit Config
+** window config
+#+BEGIN_SRC elisp
+(use-package ace-window
+  :config
+  :defer t
+  (setq aw-keys '(?a ?s ?d ?f ?j ?k ?l)
+        aw-scope 'frame
+        aw-background t))
+#+END_SRC
+** Workspace
+** avy config
+** projectile config
+* Completion Config
+** company config
+#+begin_src elisp
+  (use-package company
+    :config
+    (global-company-mode 1))
+#+end_src
+** ivy config
+#+begin_src elisp
+(use-package ivy
+  :after-call pre-command-hook
+  :config
+  (setq ivy-height 17
+        ivy-wrap t
+        ivy-fixed-height-minibuffer t
+        projectile-completion-system 'ivy
+        ivy-use-virtual-buffers nil
+        ivy-virtual-abbreviate 'full
+        ivy-on-del-error-function #'ignore
+        ivy-use-selectable-prompt t)
+  (ivy-mode 1))
+(use-package counsel)
+(use-package swiper)
+(use-package ivy-rich
+  :after ivy
+  :config
+  (ivy-rich-mode 1))
+
+#+end_src
+** yasnippet config
+* org config
+use newest org version
+#+BEGIN_SRC elisp
+(use-package org :ensure org-plus-contrib :pin org
+  :config
+  (setq org-agenda-window-setup 'current-window
+        org-agenda-dim-blocked-tasks 'invisible
+        org-agenda-inhibit-startup t
+        org-agenda-span 'day
+        org-agenda-start-on-weekday nil
+        org-agenda-start-day nil
+        org-agenda-files '("~/org-mode/task.org"
+                           "~/org-mode/notation.org"
+                           "~/org-mode/blog.org")
+        org-tag-alist '(("Routine" . ?r)
+                        ("Algorithms" . ?a)
+                        ("Reading" . ?R))
+        org-use-sub-superscripts '{}
+        org-priority-faces '((?A . (:foreground "red" :weight 'bold))
+                             (?B . (:foreground "yellow"))
+                             (?C . (:foreground "gray")))
+        org-refile-targets '(("~/org-mode/task.org" :maxlevel . 1)
+                             ("~/org-mode/notes.org" :maxlevel . 1)
+                             ("~/org-mode/someday.org" :maxlevel . 1)
+                             ("~/org-mode/blog.org" :maxlevel . 1)
+                             (nil . (:maxlevel . 2)))
+        org-refile-use-outline-path 'file
+        org-outline-path-complete-in-steps nil
+        org-archive-location "~/org-mode/archive.org::"
+
+        org-todo-keywords
+        '((sequence "TODO(t)" "START(s)" "SUSPEND(p)"
+                    "|" "DONE(d!)" "ABORT(a!)"))
+        org-todo-keyword-faces '(("START" . (:inherit (bold org-scheduled-today)))
+                                 ("SUSPEND" . (:inherit (bold warning)))
+                                 ("ABORT" . (:inherit (bold error))))
+        org-log-into-drawer t
+        (add-to-list 'org-src-lang-modes '("rust". rustic))
+        ;; Refresh inline images after executing src blocks, be useful for
+        ;; result could be an image
+        (add-hook 'org-babel-after-execute-hook #'org-redisplay-inline-images)
+
+        org-capture-templates '(("w" "Words" entry (file+headline "Esperanto.org" "Words")
+           "** word :drill:\n%^{Esperanto}[%^{English}]")
+          ("e" "Emacs" entry (file+headline "task.org" "Emacs Hacking") "** TODO %?")
+          ("a" "Algorithm" entry (file +create-algorithm-org-file) "* Description\n%?\n* Solution")
+          ("t" "Trivial" entry (file+headline "task.org" "Trivial") "** TODO %?")
+          ("b" "Blog" entry (file "blog.org") "* SUSPEND %?")
+          ;; Will use {org-directory}/{+org-capture-projects-file} and store
+          ;; these under {ProjectName}/{Tasks,Notes,Changelog} headings. They
+          ;; support `:parents' to specify what headings to put them under, e.g.
+          ;; :parents ("Projects")
+          ("o" "Centralized templates for projects")
+          ("ot" "Project todo" entry
+           (function +org-capture-central-project-todo-file)
+           "* TODO %?\n %i\n %a"
+           :heading "Tasks"
+           :prepend nil)
+          ("on" "Project notes" entry
+           (function +org-capture-central-project-notes-file)
+           "* %U %?\n %i\n %a"
+           :heading "Notes"
+           :prepend t)
+          ("oc" "Project changelog" entry
+           (function +org-capture-central-project-changelog-file)
+           "* %U %?\n %i\n %a"
+           :heading "Changelog"
+           :prepend t))
+        )
+  )
+#+END_SRC
+
+use ox-hugo to export blog
+#+begin_src elisp
+(use-package ox-hugo
+  :after ox
+  :config
+  (setq org-hugo-export-with-toc t))
 #+end_src
 * keymap config tool
-* company set
-ivy setting
+* Programming Languages Config
+** rust config
+** lisp config
+use lispy to edit
 #+begin_src elisp
-(use-package ivy)
+(use-package lispy
+  :hook
+  ((common-lisp-mode . lispy-mode)
+   (emacs-lisp-mode . lispy-mode)
+   (scheme-mode . lispy-mode)
+   (racket-mode . lispy-mode)
+   (hy-mode . lispy-mode)
+   (lfe-mode . lispy-mode)
+   (dune-mode . lispy-mode)
+   (clojure-mode . lispy-mode))
+  :config
+  (setq lispy-close-quotes-at-end-p t)
+  (add-hook 'lispy-mode-hook #'turn-off-smartparens-mode))
 #+end_src
-company setting
-#+begin_src elisp
-(use-package company)
-#+end_src
-* org contrib config
-* python config
-* rust config
-* elisp and other lisp like lang
+*** elisp config
+** python config
+* Natural Languages Config
+** English
+* Evil Config :notangle:
+#+BEGIN_SRC elisp
+  (use-package evil
+    :config
+    (evil-mode 1)
+  (defadvice evil-insert-state (around emacs-state-instead-of-insert-state activate)
+    (evil-emacs-state)))
+#+END_SRC
