@@ -13,3 +13,8 @@
 recentf
 
 init.el
+
+# Eshell history files
+eshell/
+# Elpa files
+elpa/
