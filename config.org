@@ -47,7 +47,17 @@ add which key support
   (push '("/LICENSE\\'" . text-mode) auto-mode-alist)
   (push '("\\.log\\'" . text-mode) auto-mode-alist)
   (push '("\\.env\\'" . sh-mode) auto-mode-alist)
-  (setq confirm-kill-emacs nil)
+(setq confirm-kill-emacs nil
+      auto-save-default nil)
+
+
+#+end_src
+* keymap config tool
+general config
+#+begin_src elisp
+(use-package general
+  :config
+  (general-evil-setup))
 #+end_src
 * UI Config
 ** theme and font config
@@ -63,10 +73,29 @@ add which key support
 ** modeline
 ** dashboard
 ** popup system
-* keymap config tool
-general config
+** help system
 #+begin_src elisp
-(use-package general)
+(use-package helpful
+  :commands helpful--read-symbol
+  :init
+  (global-set-key [remap describe-function] #'helpful-callable)
+  (global-set-key [remap describe-command] #'helpful-command)
+  (global-set-key [remap describe-variable] #'helpful-variable)
+  (global-set-key [remap describe-key] #'helpful-key)
+  (global-set-key [remap describe-symbol] #'helpful-symbol))
+
+(use-package apropos
+  :built-in t
+  (dolist (fun-bt '(apropos-function apropos-macro apropos-command))
+    (button-type-put
+     fun-bt 'action
+     (lambda (button)
+       (helpful-callable (button-get button 'apropos-symbol)))))
+  (dolist (var-bt '(apropos-variable apropos-user-option))
+    (button-type-put
+     var-bt 'action
+     (lambda (button)
+       (helpful-variable (button-get button 'apropos-symbol))))))
 #+end_src
 * Edit Config
 ** window config
@@ -182,7 +211,9 @@ use newest org version
     ;; babel config
     (setq org-babel-load-languages '((python . t)
                                      (elisp . t)
-                                     (scheme . t)))
+                                     (scheme . t))
+          org-src-preserve-indentation nil
+          org-confirm-babel-evaluate nil)
     ;; Refresh inline images after executing src blocks, be useful for
     ;; result could be an image
     (add-hook 'org-babel-after-execute-hook #'org-redisplay-inline-images)
@@ -219,13 +250,24 @@ use lispy to edit
 *** elisp config
 *** scheme config
 ** python config
+** scheme config
+#+begin_src elisp
+(use-package scheme)
+(use-package geiser
+  :init
+  (setq geiser-active-implementations '(guile mit chez)
+        geiser-default-implementation 'mit
+        scheme-program-name "mit-scheme"))
+#+end_src
 * Natural Languages Config
 ** English
-* Evil Config :notangle:
+* Evil Config
 #+BEGIN_SRC elisp
   (use-package evil
     :config
     (evil-mode 1)
-  (defadvice evil-insert-state (around emacs-state-instead-of-insert-state activate)
-    (evil-emacs-state)))
+    (defadvice evil-insert-state (around emacs-state-instead-of-insert-state activate)
+      (evil-emacs-state))
+    (general-emap
+     "ESC" #'evil-normal-state))
 #+END_SRC
