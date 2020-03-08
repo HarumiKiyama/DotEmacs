@@ -18,3 +18,8 @@ init.el
 eshell/
 # Elpa files
 elpa/
+
+# misc.
+/amx-items
+/bookmarks
+/transient/
