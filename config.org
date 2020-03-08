@@ -44,13 +44,13 @@ add which key support
 #+END_SRC
 ** misc.
 #+begin_src elisp
-  (push '("/LICENSE\\'" . text-mode) auto-mode-alist)
-  (push '("\\.log\\'" . text-mode) auto-mode-alist)
-  (push '("\\.env\\'" . sh-mode) auto-mode-alist)
+(push '("/LICENSE\\'" . text-mode) auto-mode-alist)
+(push '("\\.log\\'" . text-mode) auto-mode-alist)
+(push '("\\.env\\'" . sh-mode) auto-mode-alist)
 (setq confirm-kill-emacs nil
-      auto-save-default nil)
-
-
+      auto-save-default nil
+      indent-tabs-mode nil
+      tab-width 4)
 #+end_src
 ** help system
 #+begin_src elisp
@@ -64,7 +64,6 @@ add which key support
     (global-set-key [remap describe-symbol] #'helpful-symbol))
 #+end_src
 * keymap config tool
-general config
 #+begin_src elisp
 (use-package general
   :config
@@ -87,20 +86,20 @@ general config
 * Edit Config
 ** window config
 #+BEGIN_SRC elisp
-  (use-package ace-window
-    :config
-    :defer t
-    :config
-    (setq aw-keys '(?a ?s ?d ?f ?j ?k ?l)
-          aw-scope 'frame
-          aw-background t))
+(use-package ace-window
+  :config
+  :defer t
+  :config
+  (setq aw-keys '(?a ?s ?d ?f ?j ?k ?l)
+        aw-scope 'frame
+        aw-background t))
 #+END_SRC
 ** Workspace
 ** avy config
 ** projectile config
 ** magit config
 #+begin_src elisp
-  (use-package magit)
+(use-package magit)
 #+end_src
 * Completion Config
 ** company config
