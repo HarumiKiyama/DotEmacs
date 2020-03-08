@@ -2,7 +2,7 @@
 #+TITLE: emacs config
 #+DESCRIPTION: Just A try for literate programming
 #+TAGS: notangle
-#+STARTUP: indent
+#+STARTUP: contents
 This is the GNU/Emacs config file of Harumi Kiyama inspired by [[https://karl-voit.at/2017/06/03/emacs-org/][karl voit]].
 This file is named =config.org=. My =compile= got some nifty Elisp
 code that converts/tangles (only) the Elisp blocks into the
@@ -52,6 +52,17 @@ add which key support
 
 
 #+end_src
+** help system
+#+begin_src elisp
+  (use-package helpful
+    :commands helpful--read-symbol
+    :init
+    (global-set-key [remap describe-function] #'helpful-callable)
+    (global-set-key [remap describe-command] #'helpful-command)
+    (global-set-key [remap describe-variable] #'helpful-variable)
+    (global-set-key [remap describe-key] #'helpful-key)
+    (global-set-key [remap describe-symbol] #'helpful-symbol))
+#+end_src
 * keymap config tool
 general config
 #+begin_src elisp
@@ -73,30 +84,6 @@ general config
 ** modeline
 ** dashboard
 ** popup system
-** help system
-#+begin_src elisp
-(use-package helpful
-  :commands helpful--read-symbol
-  :init
-  (global-set-key [remap describe-function] #'helpful-callable)
-  (global-set-key [remap describe-command] #'helpful-command)
-  (global-set-key [remap describe-variable] #'helpful-variable)
-  (global-set-key [remap describe-key] #'helpful-key)
-  (global-set-key [remap describe-symbol] #'helpful-symbol))
-
-(use-package apropos
-  :built-in t
-  (dolist (fun-bt '(apropos-function apropos-macro apropos-command))
-    (button-type-put
-     fun-bt 'action
-     (lambda (button)
-       (helpful-callable (button-get button 'apropos-symbol)))))
-  (dolist (var-bt '(apropos-variable apropos-user-option))
-    (button-type-put
-     var-bt 'action
-     (lambda (button)
-       (helpful-variable (button-get button 'apropos-symbol))))))
-#+end_src
 * Edit Config
 ** window config
 #+BEGIN_SRC elisp
@@ -124,23 +111,24 @@ general config
 #+end_src
 ** ivy config
 #+begin_src elisp
-(use-package ivy
-  :config
-  (setq ivy-height 17
-        ivy-wrap t
-        ivy-fixed-height-minibuffer t
-        projectile-completion-system 'ivy
-        ivy-use-virtual-buffers nil
-        ivy-virtual-abbreviate 'full
-        ivy-on-del-error-function #'ignore
-        ivy-use-selectable-prompt t)
-  (ivy-mode 1))
-(use-package counsel)
-(use-package swiper)
-(use-package ivy-rich
-  :after ivy
-  :config
-  (ivy-rich-mode 1))
+  (use-package ivy
+    :config
+    (setq ivy-height 17
+          ivy-wrap t
+          ivy-fixed-height-minibuffer t
+          projectile-completion-system 'ivy
+          ivy-use-virtual-buffers nil
+          ivy-virtual-abbreviate 'full
+          ivy-on-del-error-function #'ignore
+          ivy-use-selectable-prompt t)
+    (ivy-mode 1))
+  (use-package counsel)
+  (use-package swiper)
+  (use-package ivy-rich
+    :after ivy
+    :config
+    (ivy-rich-mode 1))
+  (use-package amx)
 #+end_src
 ** yasnippet config
 * org config
@@ -157,6 +145,8 @@ use newest org version
           org-agenda-files '("~/org-mode/task.org"
                              "~/org-mode/notation.org"
                              "~/org-mode/blog.org")
+          org-directory "~/org-mode/"
+
           org-tag-alist '(("Routine" . ?r)
                           ("Algorithms" . ?a)
                           ("Reading" . ?R))
@@ -209,6 +199,7 @@ use newest org version
                                    :heading "Changelog"
                                    :prepend t)))
     ;; babel config
+    ;; use autoload
     (setq org-babel-load-languages '((python . t)
                                      (elisp . t)
                                      (scheme . t))
@@ -264,10 +255,13 @@ use lispy to edit
 * Evil Config
 #+BEGIN_SRC elisp
   (use-package evil
+    :init
+    (setq evil-disable-insert-state-bindings t)
     :config
     (evil-mode 1)
-    (defadvice evil-insert-state (around emacs-state-instead-of-insert-state activate)
-      (evil-emacs-state))
-    (general-emap
-     "ESC" #'evil-normal-state))
+    (setq evil-insert-state-cursor '(box "white")
+          evil-normal-state-cursor "orange"
+          evil-motion-state nil
+          evil-default-state 'insert
+          evil-want-Y-yank-to-eol t))
 #+END_SRC
