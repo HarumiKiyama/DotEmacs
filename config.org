@@ -2,11 +2,8 @@
 #+TITLE: emacs config
 #+DESCRIPTION: Just A try for literate programming
 #+TAGS: notangle
-#+STARTUP: contents
+#+STARTUP: overview
 This is the GNU/Emacs config file of Harumi Kiyama inspired by [[https://karl-voit.at/2017/06/03/emacs-org/][karl voit]].
-This file is named =config.org=. My =compile= got some nifty Elisp
-code that converts/tangles (only) the Elisp blocks into the
-=init.el=.
 Note that all Elisp blocks part of a =notangle= tag or which are
 marked with =:tangle no= won't be tangled to the =init.el= file.
 
@@ -51,6 +48,7 @@ add which key support
       auto-save-default nil
       indent-tabs-mode nil
       tab-width 4)
+(use-package sicp)
 #+end_src
 ** help system
 #+begin_src elisp
@@ -94,7 +92,10 @@ add which key support
         aw-scope 'frame
         aw-background t))
 #+END_SRC
-** Workspace
+** workspace
+#+begin_src elisp
+(use-package eyebrowse)
+#+end_src
 ** avy config
 ** projectile config
 ** magit config
@@ -131,7 +132,7 @@ add which key support
 #+end_src
 ** yasnippet config
 * org config
-use newest org version
+** org general config
 #+BEGIN_SRC elisp
   (use-package org :ensure org-plus-contrib :pin org
     :config
@@ -198,7 +199,6 @@ use newest org version
                                    :heading "Changelog"
                                    :prepend t)))
     ;; babel config
-    ;; use autoload
     (setq org-babel-load-languages '((python . t)
                                      (elisp . t)
                                      (scheme . t))
@@ -210,7 +210,7 @@ use newest org version
     ;; (add-to-list 'org-src-lang-modes '(rust . rustic))
     )
 #+END_SRC
-use ox-hugo to export blog
+** use ox-hugo to export blog
 #+begin_src elisp
 (use-package ox-hugo
   :after ox
@@ -218,9 +218,7 @@ use ox-hugo to export blog
   (setq org-hugo-export-with-toc t))
 #+end_src
 * Programming Languages Config
-** rust config
-** lisp config
-use lispy to edit
+** lisp like language config
 #+begin_src elisp
   (use-package lispy
     :hook
@@ -238,17 +236,26 @@ use lispy to edit
   )
 #+end_src
 *** elisp config
-*** scheme config
-** python config
-** scheme config
 #+begin_src elisp
-(use-package scheme)
+(use-package elisp-demos
+  :defer t
+  :init
+  (advice-add 'describe-function-1 :after #'elisp-demos-advice-describe-function-1)
+  (advice-add 'helpful-update :after #'elisp-demos-advice-helpful-update))
+(use-package eros
+  :hook (emacs-lisp-mode . eros-mode))
+#+end_src
+*** scheme config
+#+begin_src elisp
 (use-package geiser
   :init
-  (setq geiser-active-implementations '(guile mit chez)
-        geiser-default-implementation 'mit
-        scheme-program-name "mit-scheme"))
+  (setq geiser-active-implementations '(guile chicken)
+        geiser-default-implementation 'guile
+        scheme-program-name "guile"))
 #+end_src
+** rust config
+** python config
+** Coq config
 * Natural Languages Config
 ** English
 * Evil Config
