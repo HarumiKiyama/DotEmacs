@@ -73,7 +73,7 @@ add which key support
   (use-package zenburn-theme
     :config
     (load-theme 'zenburn t)
-    (set-face-attribute 'default nil :font "DejaVu Sans Mono" :height 200)
+    (set-face-attribute 'default nil :font "DejaVu Sans Mono" :height 140)
     (menu-bar-mode -1)
     (tool-bar-mode -1)
     (scroll-bar-mode -1))
@@ -114,24 +114,27 @@ add which key support
   (use-package ivy
     :config
     (setq ivy-height 17
-          ivy-wrap t
-          ivy-fixed-height-minibuffer t
-          projectile-completion-system 'ivy
-          ivy-use-virtual-buffers nil
-          ivy-virtual-abbreviate 'full
-          ivy-on-del-error-function #'ignore
-          ivy-use-selectable-prompt t)
+	  ivy-wrap t
+	  ivy-fixed-height-minibuffer t
+	  projectile-completion-system 'ivy
+	  ivy-use-virtual-buffers nil
+	  ivy-virtual-abbreviate 'full
+	  ivy-on-del-error-function #'ignore
+	  ivy-use-selectable-prompt t)
     (ivy-mode 1))
   (use-package counsel)
   (use-package swiper)
   (use-package ivy-rich
     :after ivy
     :config
+    (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
     (ivy-rich-mode 1))
   (use-package amx)
 #+end_src
 ** yasnippet config
 * org config
+** org useful functions
+
 ** org general config
 #+BEGIN_SRC elisp
   (use-package org :ensure org-plus-contrib :pin org
@@ -207,7 +210,7 @@ add which key support
     ;; Refresh inline images after executing src blocks, be useful for
     ;; result could be an image
     (add-hook 'org-babel-after-execute-hook #'org-redisplay-inline-images)
-    ;; (add-to-list 'org-src-lang-modes '(rust . rustic))
+
     )
 #+END_SRC
 ** use ox-hugo to export blog
