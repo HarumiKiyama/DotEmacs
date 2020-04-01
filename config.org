@@ -1,6 +1,6 @@
 # -*- mode: org; coding: utf-8; -*-
 #+TITLE: emacs config
-#+DESCRIPTION: Just A try for literate programming
+#+DESCRIPTION: Just a try for literate programming
 #+TAGS: notangle
 #+STARTUP: overview
 This is the GNU/Emacs config file of Harumi Kiyama inspired by [[https://karl-voit.at/2017/06/03/emacs-org/][karl voit]].
@@ -61,7 +61,7 @@ add which key support
     (global-set-key [remap describe-key] #'helpful-key)
     (global-set-key [remap describe-symbol] #'helpful-symbol))
 #+end_src
-* keymap config tool
+** keymap config tool
 #+begin_src elisp
 (use-package general
   :config
@@ -256,6 +256,18 @@ add which key support
 ** rust config
 ** python config
 ** Coq config
+** SUSPEND lsp
+#+begin_src elisp
+(use-package 'nox
+  :config
+  (dolist (hook (list
+                 'rust-mode-hook
+                 'python-mode-hook
+                 'sh-mode-hook
+                 'c-mode-common-hook
+                 'c-mode-hook))
+    (add-hook hook '(lambda () (nox-ensure)))))
+#+end_src
 * Natural Languages Config
 ** English
 * Evil Config
