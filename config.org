@@ -65,7 +65,7 @@ add which key support
 #+begin_src elisp
 (use-package general
   :config
-  (general-evil-setup))
+  (general-setup))
 #+end_src
 * UI Config
 ** theme and font config
@@ -134,7 +134,6 @@ add which key support
 ** yasnippet config
 * org config
 ** org useful functions
-
 ** org general config
 #+BEGIN_SRC elisp
   (use-package org :ensure org-plus-contrib :pin org
@@ -273,16 +272,10 @@ add which key support
 #+end_src
 * Natural Languages Config
 ** English
-* Evil Config
+* Hydra Config
 #+BEGIN_SRC elisp
-  (use-package evil
-    :init
-    (setq evil-disable-insert-state-bindings t)
-    :config
-    (evil-mode 1)
-    (setq evil-insert-state-cursor '(box "white")
-          evil-normal-state-cursor "orange"
-          evil-motion-state nil
-          evil-default-state 'insert
-          evil-want-Y-yank-to-eol t))
+  (use-package hydra)
 #+END_SRC
+* Keybindings
+  #+begin_src elisp
+  #+end_src
