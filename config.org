@@ -274,7 +274,13 @@ add which key support
 ** English
 * Hydra Config
 #+BEGIN_SRC elisp
-  (use-package hydra)
+(use-package hydra
+  :config
+  (defhydra hydra-navigation
+    (global-map "C-[")
+    "vim"
+
+    ))
 #+END_SRC
 * Keybindings
   #+begin_src elisp
