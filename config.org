@@ -64,8 +64,7 @@ add which key support
 ** keymap config tool
 #+begin_src elisp
 (use-package general
-  :config
-  (general-setup))
+  )
 #+end_src
 * UI Config
 ** theme and font config
@@ -219,6 +218,14 @@ add which key support
   :config
   (setq org-hugo-export-with-toc t))
 #+end_src
+** org journal
+#+begin_src elisp
+  (use-package org-journal
+    :ensure t
+    :defer t
+    :config
+    (setq org-journal-dir "~/org-mode/journal/"))
+#+end_src
 * Programming Languages Config
 ** lisp like language config
 #+begin_src elisp
@@ -258,8 +265,8 @@ add which key support
 ** rust config
 ** python config
 ** Coq config
-** SUSPEND lsp
-#+begin_src elisp
+** SUSPEND lsp							   :notangle:
+#+begin_src elisp 
 (use-package 'nox
   :config
   (dolist (hook (list
@@ -270,6 +277,9 @@ add which key support
                  'c-mode-hook))
     (add-hook hook '(lambda () (nox-ensure)))))
 #+end_src
+
+#+RESULTS:
+
 * Natural Languages Config
 ** English
 * Hydra Config
