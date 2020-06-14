@@ -76,7 +76,9 @@ add which key support
     (menu-bar-mode -1)
     (tool-bar-mode -1)
     (scroll-bar-mode -1)
-    (toggle-frame-fullscreen))
+    (toggle-frame-fullscreen)
+    (when (string= system-type "darwin")
+      (setq dired-use-ls-dired nil)))
 #+end_src
 ** modeline
 ** dashboard
@@ -98,7 +100,7 @@ add which key support
 #+end_src
 ** avy config
 ** projectile config
-** magit config
+** magit connnfig
 #+begin_src elisp
 (use-package magit)
 #+end_src
