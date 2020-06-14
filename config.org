@@ -104,7 +104,7 @@ add which key support
 #+end_src
 ** avy config
 ** projectile config
-** magit connnfig
+** magit config
 #+begin_src elisp
   (use-package magit)
 #+end_src
