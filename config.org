@@ -106,8 +106,7 @@ add which key support
 ** projectile config
 ** magit connnfig
 #+begin_src elisp
-  (use-package magit
-    :defer t)
+  (use-package magit)
 #+end_src
 * Completion Config
 ** company config
@@ -147,7 +146,7 @@ add which key support
     :config
     (general-define-key :prefix "C-c"
 			"c" #'org-capture
-			"a" #'org-agenda
+			"a" #'org-agenda-list
 			"b" #'counsel-bookmark)
     (setq org-agenda-window-setup 'current-window
 	  org-agenda-dim-blocked-tasks 'invisible
