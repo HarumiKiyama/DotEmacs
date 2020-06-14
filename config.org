@@ -230,17 +230,10 @@ add which key support
 #+end_src
 ** org journal
 #+begin_src elisp
-    (use-package org-journal
-      :defer t
-      :config
-      (setq org-journal-dir "~/org-mode/journal/"
-	    org-journal-date-format "%Y-%m-%d %A")
-      (general-define-key :keymaps org-agenda-keymap
-			  "C-c C-j" #'org-journal-new-entry
-			  :keymaps org-journal-keymap
-			  "C-c C-c" (lambda () ((save-buffer) (delete-window)))
-			  "C-c n" #'org-journal-open-next-entry
-			  "C-c p" #'org-journal-open-previous-entry))
+  (use-package org-journal
+    :config
+    (setq org-journal-dir "~/org-mode/journal/"
+	  org-journal-date-format "%Y-%m-%d %A"))
 #+end_src
 * Programming Languages Config
 ** lisp like language config
