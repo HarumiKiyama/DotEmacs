@@ -72,10 +72,11 @@ add which key support
   (use-package zenburn-theme
     :config
     (load-theme 'zenburn t)
-    (set-face-attribute 'default nil :font "DejaVu Sans Mono" :height 140)
+    (set-face-attribute 'default nil :font "DejaVu Sans Mono" :height 180)
     (menu-bar-mode -1)
     (tool-bar-mode -1)
-    (scroll-bar-mode -1))
+    (scroll-bar-mode -1)
+    (toggle-frame-fullscreen))
 #+end_src
 ** modeline
 ** dashboard
