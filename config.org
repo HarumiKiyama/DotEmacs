@@ -86,13 +86,17 @@ add which key support
 * Edit Config
 ** window config
 #+BEGIN_SRC elisp
-(use-package ace-window
-  :config
-  :defer t
-  :config
-  (setq aw-keys '(?a ?s ?d ?f ?j ?k ?l)
-        aw-scope 'frame
-        aw-background t))
+  (use-package ace-window
+    :config
+    :defer t
+    :config
+    (setq aw-keys '(?a ?s ?d ?f ?j ?k ?l)
+	  aw-scope 'frame
+	  aw-background t)
+    (general-define-key :prefix "C-x"
+			"0" #'ace-delete-window
+			"1" #'ace-delete-other-windows
+			"o" #'ace-window))
 #+END_SRC
 ** workspace
 #+begin_src elisp
