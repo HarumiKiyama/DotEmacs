@@ -67,7 +67,7 @@ add which key support
   )
 #+end_src
 * UI Config
-** theme and font config
+** theme font and misc. config
 #+begin_src elisp
   (use-package zenburn-theme
     :config
@@ -78,7 +78,8 @@ add which key support
     (scroll-bar-mode -1)
     (toggle-frame-fullscreen)
     (when (string= system-type "darwin")
-      (setq dired-use-ls-dired nil)))
+      (setq dired-use-ls-dired nil))
+    (server-start))
 #+end_src
 ** modeline
 ** dashboard
@@ -87,10 +88,9 @@ add which key support
 ** window config
 #+BEGIN_SRC elisp
   (use-package ace-window
-    :config
     :defer t
     :config
-    (setq aw-keys '(?a ?s ?d ?f ?j ?k ?l)
+    (setq aw-keys '(?a ?s ?d ?f)
 	  aw-scope 'frame
 	  aw-background t)
     (general-define-key :prefix "C-x"
@@ -106,7 +106,8 @@ add which key support
 ** projectile config
 ** magit connnfig
 #+begin_src elisp
-(use-package magit)
+  (use-package magit
+    :defer t)
 #+end_src
 * Completion Config
 ** company config
@@ -144,74 +145,78 @@ add which key support
 #+BEGIN_SRC elisp
   (use-package org :ensure org-plus-contrib :pin org
     :config
+    (general-define-key :prefix "C-c"
+			"c" #'org-capture
+			"a" #'org-agenda
+			"b" #'counsel-bookmark)
     (setq org-agenda-window-setup 'current-window
-          org-agenda-dim-blocked-tasks 'invisible
-          org-agenda-inhibit-startup t
-          org-agenda-span 'day
-          org-agenda-start-on-weekday nil
-          org-agenda-start-day nil
-          org-agenda-files '("~/org-mode/task.org"
-                             "~/org-mode/notation.org"
-                             "~/org-mode/blog.org")
-          org-directory "~/org-mode/"
+	  org-agenda-dim-blocked-tasks 'invisible
+	  org-agenda-inhibit-startup t
+	  org-agenda-span 'day
+	  org-agenda-start-on-weekday nil
+	  org-agenda-start-day nil
+	  org-agenda-files '("~/org-mode/task.org"
+			     "~/org-mode/notation.org"
+			     "~/org-mode/blog.org")
+	  org-directory "~/org-mode/"
 
-          org-tag-alist '(("Routine" . ?r)
-                          ("Algorithms" . ?a)
-                          ("Reading" . ?R))
-          org-use-sub-superscripts '{}
-          org-priority-faces '((?A . (:foreground "red" :weight 'bold))
-                               (?B . (:foreground "yellow"))
-                               (?C . (:foreground "gray")))
-          org-refile-targets '(("~/org-mode/task.org" :maxlevel . 1)
-                               ("~/org-mode/notes.org" :maxlevel . 1)
-                               ("~/org-mode/someday.org" :maxlevel . 1)
-                               ("~/org-mode/blog.org" :maxlevel . 1)
-                               (nil . (:maxlevel . 2)))
-          org-refile-use-outline-path 'file
-          org-outline-path-complete-in-steps nil
-          org-archive-location "~/org-mode/archive.org::"
+	  org-tag-alist '(("Routine" . ?r)
+			  ("Algorithms" . ?a)
+			  ("Reading" . ?R))
+	  org-use-sub-superscripts '{}
+	  org-priority-faces '((?A . (:foreground "red" :weight 'bold))
+			       (?B . (:foreground "yellow"))
+			       (?C . (:foreground "gray")))
+	  org-refile-targets '(("~/org-mode/task.org" :maxlevel . 1)
+			       ("~/org-mode/notes.org" :maxlevel . 1)
+			       ("~/org-mode/someday.org" :maxlevel . 1)
+			       ("~/org-mode/blog.org" :maxlevel . 1)
+			       (nil . (:maxlevel . 2)))
+	  org-refile-use-outline-path 'file
+	  org-outline-path-complete-in-steps nil
+	  org-archive-location "~/org-mode/archive.org::"
 
-          org-todo-keywords
-          '((sequence "TODO(t)" "START(s)" "SUSPEND(p)"
-                      "|" "DONE(d!)" "ABORT(a!)"))
-          org-todo-keyword-faces '(("START" . (:inherit (bold org-scheduled-today)))
-                                   ("SUSPEND" . (:inherit (bold warning)))
-                                   ("ABORT" . (:inherit (bold error))))
-          org-log-into-drawer t
-          org-src-preserve-indentation t
+	  org-todo-keywords
+	  '((sequence "TODO(t)" "START(s)" "SUSPEND(p)"
+		      "|" "DONE(d!)" "ABORT(a!)"))
+	  org-todo-keyword-faces '(("START" . (:inherit (bold org-scheduled-today)))
+				   ("SUSPEND" . (:inherit (bold warning)))
+				   ("ABORT" . (:inherit (bold error))))
+	  org-log-into-drawer t
+	  org-src-preserve-indentation t
 
-          org-capture-templates '(("w" "Words" entry (file+headline "Esperanto.org" "Words")
-                                   "** word :drill:\n%^{Esperanto}[%^{English}]")
-                                  ("e" "Emacs" entry (file+headline "task.org" "Emacs Hacking") "** TODO %?")
-                                  ("a" "Algorithm" entry (file +create-algorithm-org-file) "* Description\n%?\n* Solution")
-                                  ("t" "Trivial" entry (file+headline "task.org" "Trivial") "** TODO %?")
-                                  ("b" "Blog" entry (file "blog.org") "* SUSPEND %?")
-                                  ;; Will use {org-directory}/{+org-capture-projects-file} and store
-                                  ;; these under {ProjectName}/{Tasks,Notes,Changelog} headings. They
-                                  ;; support `:parents' to specify what headings to put them under, e.g.
-                                  ;; :parents ("Projects")
-                                  ("o" "Centralized templates for projects")
-                                  ("ot" "Project todo" entry
-                                   (function +org-capture-central-project-todo-file)
-                                   "* TODO %?\n %i\n %a"
-                                   :heading "Tasks"
-                                   :prepend nil)
-                                  ("on" "Project notes" entry
-                                   (function +org-capture-central-project-notes-file)
-                                   "* %U %?\n %i\n %a"
-                                   :heading "Notes"
-                                   :prepend t)
-                                  ("oc" "Project changelog" entry
-                                   (function +org-capture-central-project-changelog-file)
-                                   "* %U %?\n %i\n %a"
-                                   :heading "Changelog"
-                                   :prepend t)))
+	  org-capture-templates '(("w" "Words" entry (file+headline "Esperanto.org" "Words")
+				   "** word :drill:\n%^{Esperanto}[%^{English}]")
+				  ("e" "Emacs" entry (file+headline "task.org" "Emacs Hacking") "** TODO %?")
+				  ("a" "Algorithm" entry (file +create-algorithm-org-file) "* Description\n%?\n* Solution")
+				  ("t" "Trivial" entry (file+headline "task.org" "Trivial") "** TODO %?")
+				  ("b" "Blog" entry (file "blog.org") "* SUSPEND %?")
+				  ;; Will use {org-directory}/{+org-capture-projects-file} and store
+				  ;; these under {ProjectName}/{Tasks,Notes,Changelog} headings. They
+				  ;; support `:parents' to specify what headings to put them under, e.g.
+				  ;; :parents ("Projects")
+				  ("o" "Centralized templates for projects")
+				  ("ot" "Project todo" entry
+				   (function +org-capture-central-project-todo-file)
+				   "* TODO %?\n %i\n %a"
+				   :heading "Tasks"
+				   :prepend nil)
+				  ("on" "Project notes" entry
+				   (function +org-capture-central-project-notes-file)
+				   "* %U %?\n %i\n %a"
+				   :heading "Notes"
+				   :prepend t)
+				  ("oc" "Project changelog" entry
+				   (function +org-capture-central-project-changelog-file)
+				   "* %U %?\n %i\n %a"
+				   :heading "Changelog"
+				   :prepend t)))
     ;; babel config
     (setq org-babel-load-languages '((python . t)
-                                     (elisp . t)
-                                     (scheme . t))
-          org-src-preserve-indentation nil
-          org-confirm-babel-evaluate nil)
+				     (elisp . t)
+				     (scheme . t))
+	  org-src-preserve-indentation nil
+	  org-confirm-babel-evaluate nil)
     ;; Refresh inline images after executing src blocks, be useful for
     ;; result could be an image
     (add-hook 'org-babel-after-execute-hook #'org-redisplay-inline-images)
@@ -228,7 +233,6 @@ add which key support
 ** org journal
 #+begin_src elisp
   (use-package org-journal
-    :ensure t
     :defer t
     :config
     (setq org-journal-dir "~/org-mode/journal/"))
@@ -248,7 +252,6 @@ add which key support
      (clojure-mode . lispy-mode))
     :config
     (setq lispy-close-quotes-at-end-p t)
-    ;; (add-hook 'lispy-mode-hook #'turn-off-smartparens-mode)
   )
 #+end_src
 *** elisp config
@@ -299,6 +302,4 @@ add which key support
 
     ))
 #+END_SRC
-* Keybindings
-  #+begin_src elisp
-  #+end_src
+
