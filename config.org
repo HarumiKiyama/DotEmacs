@@ -65,6 +65,14 @@ add which key support
 (use-package general
   )
 #+end_src
+** start and kill hooks
+#+begin_src elisp
+  (defun org-push-private ()
+    "git commit and push to private remote repo"
+    (interactive)
+    (call-process-shell-command "cd ~/org-mode && git add .&&git commit -m \"$(date +%Y/%m/%d)\"&&git push" nil 0 0))
+  (add-hook 'kill-emacs-hook #'org-push-private)
+#+end_src
 * UI Config
 ** theme font and misc. config
 #+begin_src elisp
