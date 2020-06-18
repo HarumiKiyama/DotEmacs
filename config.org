@@ -54,9 +54,6 @@ add which key support
   (use-package helpful
     :commands helpful--read-symbol
     :init
-    (global-set-key [remap describe-function] #'helpful-callable)
-    (global-set-key [remap describe-command] #'helpful-command)
-    (global-set-key [remap describe-variable] #'helpful-variable)
     (global-set-key [remap describe-key] #'helpful-key)
     (global-set-key [remap describe-symbol] #'helpful-symbol))
 #+end_src
@@ -69,9 +66,11 @@ add which key support
 #+begin_src elisp
   (defun org-push-private ()
     "git commit and push to private remote repo"
-    (interactive)
     (call-process-shell-command "cd ~/org-mode && git add .&&git commit -m \"$(date +%Y/%m/%d)\"&&git push" nil 0 0))
+  (defun org-pull-private ()
+    (start-process-shell-command "git-pull" nil "cd ~/org-mode&& git pull"))
   (add-hook 'kill-emacs-hook #'org-push-private)
+  (add-hook 'emacs-startup-hook #'org-pull-private)
 #+end_src
 * UI Config
 ** theme font and misc. config
@@ -135,8 +134,19 @@ add which key support
 	  ivy-on-del-error-function #'ignore
 	  ivy-use-selectable-prompt t)
     (ivy-mode 1))
-  (use-package counsel)
-  (use-package swiper)
+  (use-package counsel
+    :config
+    (general-define-key
+     "M-x" #'counsel-M-x
+     "C-h f" #'counsel-describe-function
+     "C-h v" #'counsel-describe-variable)
+    (setq counsel-describe-function-function #'helpful-callable
+	  counsel-describe-variable-function #'helpful-variable)
+    )
+  (use-package swiper
+    :config
+    (general-define-key
+     "C-s" #'swiper))
   (use-package ivy-rich
     :after ivy
     :config
