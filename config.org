@@ -2,7 +2,7 @@
 #+TITLE: emacs config
 #+DESCRIPTION: Just a try for literate programming
 #+TAGS: notangle
-#+STARTUP: overview
+#+STARTUP: showall
 This is the GNU/Emacs config file of Harumi Kiyama inspired by [[https://karl-voit.at/2017/06/03/emacs-org/][karl voit]].
 Note that all Elisp blocks part of a =notangle= tag or which are
 marked with =:tangle no= won't be tangled to the =init.el= file.
@@ -40,14 +40,15 @@ add which key support
 #+END_SRC
 ** misc.
 #+begin_src elisp
-(push '("/LICENSE\\'" . text-mode) auto-mode-alist)
-(push '("\\.log\\'" . text-mode) auto-mode-alist)
-(push '("\\.env\\'" . sh-mode) auto-mode-alist)
-(setq confirm-kill-emacs nil
-      auto-save-default nil
-      indent-tabs-mode nil
-      tab-width 4)
-(use-package sicp)
+  (push '("/LICENSE\\'" . text-mode) auto-mode-alist)
+  (push '("\\.log\\'" . text-mode) auto-mode-alist)
+  (push '("\\.env\\'" . sh-mode) auto-mode-alist)
+  (setq confirm-kill-emacs nil
+	auto-save-default nil
+	indent-tabs-mode nil
+	tab-width 4
+	make-backup-files nil)
+  (use-package sicp)
 #+end_src
 ** help system
 #+begin_src elisp
@@ -59,8 +60,7 @@ add which key support
 #+end_src
 ** keymap config tool
 #+begin_src elisp
-(use-package general
-  )
+(use-package general)
 #+end_src
 ** start and kill hooks
 #+begin_src elisp
@@ -85,6 +85,7 @@ add which key support
     (toggle-frame-fullscreen)
     (when (string= system-type "darwin")
       (setq dired-use-ls-dired nil))
+    (setq fill-column 80)
     (server-start))
 #+end_src
 ** modeline
@@ -109,6 +110,15 @@ add which key support
 (use-package eyebrowse)
 #+end_src
 ** avy config
+#+begin_src elisp
+  (use-package avy
+    :config
+    (avy-setup-default)
+    (general-define-key :prefix "M-g"
+			"w" #'avy-goto-word-1
+			"g" #'avy-goto-line
+			"c" #'avy-goto-char))
+#+end_src
 ** projectile config
 ** magit config
 #+begin_src elisp
@@ -119,7 +129,18 @@ add which key support
 #+begin_src elisp
   (use-package company
     :config
-    (global-company-mode 1))
+    (global-company-mode 1)
+    (general-define-key :keymaps 'company-active-map
+			"M-n" nil
+			"M-p" nil
+			"C-n" #'company-select-next
+			"C-p" #'company-select-previous)
+
+    (general-define-key :keymaps 'company-search-map
+			"M-n" nil
+			"M-p" nil
+			"C-n" #'company-select-next
+			"C-p" #'company-select-previous))
 #+end_src
 ** ivy config
 #+begin_src elisp
@@ -165,6 +186,8 @@ add which key support
 			"c" #'org-capture
 			"a" #'org-agenda-list
 			"b" #'counsel-bookmark)
+    (add-hook 'text-mode-hook 'auto-fill-mode)
+    (add-hook 'org-journal-mode-hook 'auto-fill-mode)
     (setq org-agenda-window-setup 'current-window
 	  org-agenda-dim-blocked-tasks 'invisible
 	  org-agenda-inhibit-startup t
