@@ -221,9 +221,11 @@ add which key support
 	  org-todo-keyword-faces '(("START" . (:inherit (bold org-scheduled-today)))
 				   ("SUSPEND" . (:inherit (bold warning)))
 				   ("ABORT" . (:inherit (bold error))))
+	  org-clock-in-switch-to-state "START"
+	  org-clock-out-switch-to-state "TODO"
+	  org-clock-persist t
 	  org-log-into-drawer t
 	  org-src-preserve-indentation t
-
 	  org-capture-templates '(("w" "Words" entry (file+headline "Esperanto.org" "Words")
 				   "** word :drill:\n%^{Esperanto}[%^{English}]")
 				  ("e" "Emacs" entry (file+headline "task.org" "Emacs Hacking") "** TODO %?")
