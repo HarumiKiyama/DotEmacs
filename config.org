@@ -226,7 +226,7 @@ add which key support
 	  org-clock-out-switch-to-state "TODO"
 	  org-clock-persist t
 	  org-log-into-drawer t
-	  org-src-preserve-indentation t
+	  org-src-preserve-indentation nil
 	  org-capture-templates '(("w" "Words" entry (file+headline "Esperanto.org" "Words")
 				   "** word :drill:\n%^{Esperanto}[%^{English}]")
 				  ("e" "Emacs" entry (file+headline "task.org" "Emacs Hacking") "** TODO %?")
