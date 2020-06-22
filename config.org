@@ -82,9 +82,10 @@ add which key support
     (menu-bar-mode -1)
     (tool-bar-mode -1)
     (scroll-bar-mode -1)
-    (toggle-frame-fullscreen)
+
     (when (string= system-type "darwin")
-      (setq dired-use-ls-dired nil))
+      (setq dired-use-ls-dired nil)
+      (toggle-frame-fullscreen))
     (setq fill-column 80)
     (server-start))
 #+end_src
