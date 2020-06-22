@@ -188,7 +188,7 @@ add which key support
 			"a" #'org-agenda-list
 			"b" #'counsel-bookmark)
     (add-hook 'text-mode-hook 'auto-fill-mode)
-
+    (org-cycle-hide-drawers 'all)
     (setq org-agenda-window-setup 'current-window
 	  org-agenda-dim-blocked-tasks 'invisible
 	  org-agenda-inhibit-startup t
