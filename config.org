@@ -188,7 +188,7 @@ add which key support
 			"a" #'org-agenda-list
 			"b" #'counsel-bookmark)
     (add-hook 'text-mode-hook 'auto-fill-mode)
-    (add-hook 'org-journal-mode-hook 'auto-fill-mode)
+
     (setq org-agenda-window-setup 'current-window
 	  org-agenda-dim-blocked-tasks 'invisible
 	  org-agenda-inhibit-startup t
@@ -274,10 +274,17 @@ add which key support
 #+end_src
 ** org journal
 #+begin_src elisp
+  (defun org-journal-close-window ()
+    (interactive)
+    (save-buffer)
+    (kill-buffer-and-window))
   (use-package org-journal
     :config
+    (add-hook 'org-journal-mode-hook 'auto-fill-mode)
     (setq org-journal-dir "~/org-mode/journal/"
-	  org-journal-date-format "%Y-%m-%d %A"))
+	  org-journal-date-format "%Y-%m-%d %A")
+    (general-define-key :keymaps 'org-journal-mode-map
+			"C-c C-c" #'org-journal-close-window))
 #+end_src
 * Programming Languages Config
 ** lisp like language config
@@ -314,8 +321,8 @@ add which key support
         geiser-default-implementation 'guile
         scheme-program-name "guile"))
 #+end_src
-** rust config
 ** python config
+** rust config
 ** Coq config
 ** SUSPEND lsp							   :notangle:
 #+begin_src elisp 
