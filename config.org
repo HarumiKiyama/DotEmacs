@@ -260,7 +260,6 @@ add which key support
 	  org-confirm-babel-evaluate nil)
     (org-babel-do-load-languages
      'org-babel-load-languages '((python . t)
-				 (elisp . t)
 				 (scheme . t)))
     ;; Refresh inline images after executing src blocks, be useful for
     ;; result could be an image
