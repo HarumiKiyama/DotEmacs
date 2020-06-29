@@ -11,8 +11,8 @@ marked with =:tangle no= won't be tangled to the =init.el= file.
 #+begin_src elisp 
   (package-initialize)
   (setq package-archives '(("gnu" . "http://elpa.emacs-china.org/gnu/")
-                           ("melpa" . "http://elpa.emacs-china.org/melpa/")
-                           ("org" . "http://elpa.emacs-china.org/org/")))
+			   ("melpa" . "http://elpa.emacs-china.org/melpa/")
+			   ("org" . "http://elpa.emacs-china.org/org/")))
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
     (package-install 'use-package))
@@ -188,10 +188,8 @@ add which key support
 			"a" #'org-agenda-list
 			"b" #'counsel-bookmark)
     (add-hook 'text-mode-hook 'auto-fill-mode)
-    (org-cycle-hide-drawers 'all)
     (setq org-agenda-window-setup 'current-window
 	  org-agenda-dim-blocked-tasks 'invisible
-	  org-agenda-inhibit-startup t
 	  org-agenda-span 'day
 	  org-agenda-start-on-weekday nil
 	  org-agenda-start-day nil
@@ -226,7 +224,7 @@ add which key support
 	  org-clock-out-switch-to-state "TODO"
 	  org-clock-persist t
 	  org-log-into-drawer t
-	  org-src-preserve-indentation nil
+	  org-src-preserve-indentation t
 	  org-capture-templates '(("w" "Words" entry (file+headline "Esperanto.org" "Words")
 				   "** word :drill:\n%^{Esperanto}[%^{English}]")
 				  ("e" "Emacs" entry (file+headline "task.org" "Emacs Hacking") "** TODO %?")
