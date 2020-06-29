@@ -64,13 +64,17 @@ add which key support
 #+end_src
 ** start and kill hooks
 #+begin_src elisp
-  (defun org-push-private ()
+  (defun org-private-push ()
     "git commit and push to private remote repo"
     (call-process-shell-command "cd ~/org-mode && git add .&&git commit -m \"$(date +%Y/%m/%d)\"&&git push" nil 0 0))
-  (defun org-pull-private ()
+  (defun org-private-pull ()
     (start-process-shell-command "git-pull" nil "cd ~/org-mode&& git pull"))
-  (add-hook 'kill-emacs-hook #'org-push-private)
-  (add-hook 'emacs-startup-hook #'org-pull-private)
+  (defun emacs-config-push ())
+  (defun emacs-config-pull ())
+  (add-hook 'kill-emacs-hook #'org-private-push)
+  (add-hook 'kill-emacs-hook #'emacs-config-push)
+  (add-hook 'emacs-startup-hook #'org-private-pull)
+  (add-hook 'emacs-startup-hook #'emacs-config-pull)
 #+end_src
 * UI Config
 ** theme font and misc. config
@@ -251,6 +255,7 @@ add which key support
 				   "* %U %?\n %i\n %a"
 				   :heading "Changelog"
 				   :prepend t)))
+    (org-cycle-hide-drawers 'all)
     ;; babel config
     (setq org-babel-load-languages '((python . t)
 				     (elisp . t)
@@ -259,9 +264,7 @@ add which key support
 	  org-confirm-babel-evaluate nil)
     ;; Refresh inline images after executing src blocks, be useful for
     ;; result could be an image
-    (add-hook 'org-babel-after-execute-hook #'org-redisplay-inline-images)
-
-    )
+    (add-hook 'org-babel-after-execute-hook #'org-redisplay-inline-images))
 #+END_SRC
 ** use ox-hugo to export blog
 #+begin_src elisp
