@@ -218,13 +218,12 @@ add which key support
 	  org-refile-use-outline-path 'file
 	  org-outline-path-complete-in-steps nil
 	  org-archive-location "~/org-mode/archive.org::"
-
 	  org-todo-keywords
 	  '((sequence "TODO(t)" "START(s)" "SUSPEND(p)"
 		      "|" "DONE(d!)" "ABORT(a!)"))
-	  p	org-todo-keyword-faces '(("START" . (:inherit (bold org-scheduled-today)))
-					   ("SUSPEND" . (:inherit (bold warning)))
-					   ("ABORT" . (:inherit (bold error))))
+	  org-todo-keyword-faces '(("START" . (:inherit (bold org-scheduled-today)))
+				   ("SUSPEND" . (:inherit (bold warning)))
+				   ("ABORT" . (:inherit (bold error))))
 	  org-clock-in-switch-to-state "START"
 	  org-clock-out-switch-to-state "TODO"
 	  org-clock-persist t
@@ -338,19 +337,14 @@ add which key support
                  'c-mode-hook))
     (add-hook hook '(lambda () (nox-ensure)))))
 #+end_src
-
-#+RESULTS:
-
 * Natural Languages Config
 ** English
 * Hydra Config
 #+BEGIN_SRC elisp
-(use-package hydra
-  :config
-  (defhydra hydra-navigation
-    (global-map "C-[")
-    "vim"
-
-    ))
+  (use-package hydra
+    :config
+    (defhydra hydra-navigation
+      (global-map "C-[")
+      "vim"))
 #+END_SRC
 
