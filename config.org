@@ -2,7 +2,7 @@
 #+TITLE: emacs config
 #+DESCRIPTION: Just a try for literate programming
 #+TAGS: notangle
-#+STARTUP: showall
+#+STARTUP: content
 This is the GNU/Emacs config file of Harumi Kiyama inspired by [[https://karl-voit.at/2017/06/03/emacs-org/][karl voit]].
 Note that all Elisp blocks part of a =notangle= tag or which are
 marked with =:tangle no= won't be tangled to the =init.el= file.
@@ -61,6 +61,13 @@ add which key support
 ** keymap config tool
 #+begin_src elisp
 (use-package general)
+#+end_src
+** OSX env
+#+begin_src elisp
+  (use-package exec-path-from-shell
+    :config
+    (when (memq window-system '(mac ns x))
+      (exec-path-from-shell-initialize)))
 #+end_src
 ** start and kill hooks
 #+begin_src elisp
