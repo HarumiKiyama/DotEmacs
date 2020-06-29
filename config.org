@@ -192,6 +192,7 @@ add which key support
 			"a" #'org-agenda-list
 			"b" #'counsel-bookmark)
     (add-hook 'text-mode-hook 'auto-fill-mode)
+    (add-hook 'ediff-prepare-buffer-hook #'show-all)
     (setq org-agenda-window-setup 'current-window
 	  org-agenda-dim-blocked-tasks 'invisible
 	  org-agenda-span 'day
@@ -221,9 +222,9 @@ add which key support
 	  org-todo-keywords
 	  '((sequence "TODO(t)" "START(s)" "SUSPEND(p)"
 		      "|" "DONE(d!)" "ABORT(a!)"))
-	  org-todo-keyword-faces '(("START" . (:inherit (bold org-scheduled-today)))
-				   ("SUSPEND" . (:inherit (bold warning)))
-				   ("ABORT" . (:inherit (bold error))))
+	  p	org-todo-keyword-faces '(("START" . (:inherit (bold org-scheduled-today)))
+					   ("SUSPEND" . (:inherit (bold warning)))
+					   ("ABORT" . (:inherit (bold error))))
 	  org-clock-in-switch-to-state "START"
 	  org-clock-out-switch-to-state "TODO"
 	  org-clock-persist t
@@ -255,13 +256,13 @@ add which key support
 				   "* %U %?\n %i\n %a"
 				   :heading "Changelog"
 				   :prepend t)))
-    (org-cycle-hide-drawers 'all)
     ;; babel config
-    (setq org-babel-load-languages '((python . t)
-				     (elisp . t)
-				     (scheme . t))
-	  org-src-preserve-indentation nil
+    (setq org-src-preserve-indentation nil
 	  org-confirm-babel-evaluate nil)
+    (org-babel-do-load-languages
+     'org-babel-load-languages '((python . t)
+				 (elisp . t)
+				 (scheme . t)))
     ;; Refresh inline images after executing src blocks, be useful for
     ;; result could be an image
     (add-hook 'org-babel-after-execute-hook #'org-redisplay-inline-images))
