@@ -9,6 +9,7 @@ marked with =:tangle no= won't be tangled to the =init.el= file.
 * General Config
 ** package initialize
 #+begin_src elisp 
+  (require 'package)
   (package-initialize)
   (setq package-archives '(("gnu" . "http://elpa.emacs-china.org/gnu/")
 			   ("melpa" . "http://elpa.emacs-china.org/melpa/")
@@ -296,17 +297,20 @@ add which key support
 ** org roam
 #+begin_src elisp
   (use-package org-roam
+    :hook
+    (after-init . org-roam-mode)
+    :custom
+    (org-roam-directory "~/org-mode/roam")
     :config
-    (setq org-roam-directory "~/org-mode/roam")
     (general-define-key :keymaps 'org-roam-mode-map
 			:prefix "C-c n"
-			"l" org-roam
-			"f" org-roam-find-file
-			"g" org-roam-graph-show)
+			"l" #'org-roam
+			"f" #'org-roam-find-file
+			"g" #'org-roam-graph-show)
     (general-define-key :keymaps 'org-mode-map
 			:prefix "C-c n"
-			"i" org-roam-insert
-			"I" org-roam-insert-immediate))
+			"i" #'org-roam-insert
+			"I" #'org-roam-insert-immediate))
 
   (use-package org-roam-server
     :config
