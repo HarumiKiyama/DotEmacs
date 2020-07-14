@@ -198,7 +198,7 @@ add which key support
 			"c" #'org-capture
 			"a" #'org-agenda-list
 			"b" #'counsel-bookmark)
-    (add-hook 'text-mode-hook 'auto-fill-mode)
+    (add-hook 'text-mode-hook 'turn-on-auto-fill)
     (add-hook 'ediff-prepare-buffer-hook #'show-all)
     (setq org-agenda-window-setup 'current-window
 	  org-agenda-dim-blocked-tasks 'invisible
@@ -373,7 +373,7 @@ add which key support
   (use-package hydra
     :config
     (defhydra hydra-navigation
-      (global-map "C-[")
+      (global-map "C-x v")
       "vim"))
 #+END_SRC
 
