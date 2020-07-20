@@ -127,6 +127,8 @@ add which key support
   (use-package avy
     :config
     (avy-setup-default)
+    (general-define-key "C-'" 'avy-goto-line
+			"C-:" 'avy-got-char)
     (general-define-key :prefix "M-g"
 			"w" #'avy-goto-word-1
 			"g" #'avy-goto-line
