@@ -1,27 +1,24 @@
-# Compiled
-*.elc
-
-# Packaging
+auto-save-list
 .cask
-
-# Backup files
-*~
-
-# Undo-tree save-files
-*.~undo-tree
-
+elpa
+anaconda-mode
+company-statistics-cache.el
+.cache/
 recentf
-
-init.el
-
-# Eshell history files
-eshell/
-# Elpa files
-elpa/
-
-# misc.
-/amx-items
-/bookmarks
-/transient/
+eln-cache
+/bin/
+/tutorial/
+/server/
+projects
+/quelpa/
+librime
+transient/history.el
+/.mc-lists.el
+/semanticdb/
+/url/
 tramp
-
+/.lsp-session-v1
+/org-roam.db
+/.org-id-locations
+/bookmarks
+/persp-confs/
