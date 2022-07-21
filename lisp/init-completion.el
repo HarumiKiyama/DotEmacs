@@ -209,7 +209,7 @@
   (advice-add #'multi-occur :override #'consult-multi-occur)
   (advice-add #'consult-line
               :around
-              #'zilongshanren/consult-line
+              #'harumi/consult-line
               '((name . "wrapper")))
 
   :config

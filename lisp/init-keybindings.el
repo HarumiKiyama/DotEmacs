@@ -1,54 +1,18 @@
 ;;; init.el -*- lexical-binding: t no-byte-compile: t -*-
 
-;; Copyright (C) 2021-2022 zilongshanren
-
-;; Author: zilongshanren <guanghui8827@gmail.com>
-;; URL: https://github.com/zilongshanren/emacs.d
-
-
-;; This file is not part of GNU Emacs.
-;;
-;; This program is free software; you can redistribute it and/or
-;; modify it under the terms of the GNU General Public License as
-;; published by the Free Software Foundation; either version 3, or
-;; (at your option) any later version.
-;;
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-;; General Public License for more details.
-;;
-;; You should have received a copy of the GNU General Public License
-;; along with this program; see the file COPYING.  If not, write to
-;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth
-;; Floor, Boston, MA 02110-1301, USA.
-;;
-
-
-
-
 (use-package which-key
   :hook (after-init . which-key-mode)
   :ensure t
   :init
   (setq which-key-side-window-location 'bottom))
 
-
-
-
 (global-set-key "\C-s" 'consult-line)
-
-
 (global-set-key (kbd "s-/") 'hippie-expand)
-(global-set-key (kbd "<f2>") 'open-my-init-file)
-
-
 (global-set-key "\C-x\ \C-r" 'recentf-open-files)
-
 (global-set-key (kbd "C-h C-f") 'find-function)
 (global-set-key (kbd "C-h C-v") 'find-variable)
 (global-set-key (kbd "C-h C-k") 'find-function-on-key)
-(global-set-key (kbd "s-1") 'lispy-describe-inline)
+(global-set-key (kbd "C-c d") 'lispy-describe-inline)
 
 ;; mimic macos keybindgs
 (when sys/mac-x-p
@@ -87,8 +51,8 @@
 
 
 (global-set-key (kbd "s-r") #'revert-this-buffer)
-(global-set-key (kbd "s-d") 'zilongshanren/my-mc-mark-next-like-this)
-(global-set-key (kbd "C-c l") 'zilongshanren/insert-chrome-current-tab-url)
+(global-set-key (kbd "s-d") 'harumi/my-mc-mark-next-like-this)
+(global-set-key (kbd "C-c l") 'harumi/insert-chrome-current-tab-url)
 
 
 
@@ -127,14 +91,14 @@
     "1" 'select-window-1
     "2" 'select-window-2
     "3" 'select-window-3
-    ";" 'vterm
+    ";" 'eshell
     "hdf" 'describe-function
     "hdv" 'describe-variable
     "hdk" 'describe-key
     "qq" 'save-buffers-kill-terminal
     "qR" 'restart-emacs
-    "hh" 'zilongshanren/highlight-dwim
-    "hc" 'zilongshanren/clearn-highlight
+    "hh" 'harumi/highlight-dwim
+    "hc" 'harumi/clearn-highlight
     "sj" 'my/imenu
     "en" 'my-goto-next-error
     "ry" 'consult-yank-pop
@@ -142,7 +106,7 @@
     "el" 'my-list-errors
     "sp" 'consult-ripgrep
     "oy" 'youdao-dictionary-search-at-point+
-    "oo" 'zilongshanren/hotspots
+    "oo" 'harumi/hotspots
     "or" 'org-roam-node-find
     "gs" 'magit-status
     "gd" 'vc-diff
@@ -232,7 +196,6 @@ Create prefix map: +general-global-NAME. Prefix bindings in BODY with INFIX-KEY.
     "e" 'project-eshell
     "m" 'my/project-run-makefile-target
     "c" 'project-compile
-    "t" 'my/project-citre
     "p" 'project-switch-project
     "i" 'my/project-info
     "a" 'project-remember-projects-under
@@ -243,7 +206,6 @@ Create prefix map: +general-global-NAME. Prefix bindings in BODY with INFIX-KEY.
     :states '(emacs normal hybrid motion visual operator)
     :prefix ","
     "" '(:ignore t :which-key (lambda (arg) `(,(cadr (split-string (car arg) " ")) . ,(replace-regexp-in-string "-mode$" "" (symbol-name major-mode))))))
-
   ;; mode specific major key
   (global-leader
     :major-modes

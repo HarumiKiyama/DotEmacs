@@ -1,32 +1,5 @@
 ;;; init-org.el -*- lexical-binding: t no-byte-compile: t -*-
 
-;; Copyright (C) 2021-2022 zilongshanren
-
-;; Author: zilongshanren <guanghui8827@gmail.com>
-;; URL: https://github.com/zilongshanren/emacs.d
-
-
-;; This file is not part of GNU Emacs.
-;;
-;; This program is free software; you can redistribute it and/or
-;; modify it under the terms of the GNU General Public License as
-;; published by the Free Software Foundation; either version 3, or
-;; (at your option) any later version.
-;;
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-;; General Public License for more details.
-;;
-;; You should have received a copy of the GNU General Public License
-;; along with this program; see the file COPYING.  If not, write to
-;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth
-;; Floor, Boston, MA 02110-1301, USA.
-;;
-
-
-
-
 (use-package org-pomodoro
   :ensure t
   :commands org-pomodoro
@@ -156,7 +129,7 @@ unwanted space when exporting org-mode to hugo markdown."
     (setq org-agenda-log-mode-items '(clock closed state))
 
 
-    (defun zilong/org-return (&optional indent)
+    (defun harumi/org-return (&optional indent)
       "Goto next table row or insert a newline.
 Calls `org-table-next-row' or `newline', depending on context.
 When optional INDENT argument is non-nil, call
@@ -240,7 +213,7 @@ object (e.g., within a comment).  In these case, you need to use
 
 
     (define-key org-mode-map (kbd "RET")
-      'zilong/org-return)
+      'harumi/org-return)
 
     (evil-define-key 'normal org-mode-map
       "+" #'org-cycle-list-bullet)
@@ -363,7 +336,7 @@ object (e.g., within a comment).  In these case, you need to use
                                  (company-mode -1))
                                ;; keybinding for inserting code blocks
                                (local-set-key (kbd "C-c i s")
-                                              'zilongshanren/org-insert-src-block)))
+                                              'harumi/org-insert-src-block)))
     (require 'ox-publish)
     (add-to-list 'org-latex-classes '("ctexart" "\\documentclass[11pt]{ctexart}
                                         [NO-DEFAULT-PACKAGES]
@@ -575,7 +548,7 @@ object (e.g., within a comment).  In these case, you need to use
 	        ("L" "Protocol Link" entry (file+headline org-agenda-file-note "Inbox")
              "* %? [[%:link][%:description]] \nCaptured On: %U")
             ("c" "Chrome" entry (file+headline org-agenda-file-note "Quick notes")
-             "* TODO [#C] %?\n %(zilongshanren/retrieve-chrome-current-tab-url)\n %i\n %U"
+             "* TODO [#C] %?\n %(harumi/retrieve-chrome-current-tab-url)\n %i\n %U"
              :empty-lines 1)
             ("l" "links" entry (file+headline org-agenda-file-note "Quick notes")
              "* TODO [#C] %?\n  %i\n %a \n %U"
@@ -621,7 +594,7 @@ See `org-capture-templates' for more information."
             ("b" "Blog" tags-todo "BLOG")
             ("p" . "项目安排")
             ("pw" tags-todo "PROJECT+WORK+CATEGORY=\"work\"")
-            ("pl" tags-todo "PROJECT+DREAM+CATEGORY=\"zilongshanren\"")
+            ("pl" tags-todo "PROJECT+DREAM+CATEGORY=\"harumi\"")
             ("W" "Weekly Review"
              ((stuck "") ;; review stuck projects as designated by org-stuck-projects
               (tags-todo "PROJECT") ;; review all projects (assuming you use todo keywords to designate projects)
@@ -637,14 +610,14 @@ See `org-capture-templates' for more information."
                                 (org-agenda-clockreport-mode t))))))
 
 
-    (defvar zilongshanren-website-html-preamble
+    (defvar harumi-website-html-preamble
       "<div class='nav'>
 <ul>
-<li><a href='http://zilongshanren.com'>博客</a></li>
+<li><a href='http://harumi.com'>博客</a></li>
 <li><a href='/index.html'>Wiki目录</a></li>
 </ul>
 </div>")
-    (defvar zilongshanren-website-html-blog-head
+    (defvar harumi-website-html-blog-head
       " <link rel='stylesheet' href='css/site.css' type='text/css'/> \n
     <link rel=\"stylesheet\" type=\"text/css\" href=\"/css/worg.css\"/>")
     (setq org-publish-project-alist
@@ -655,15 +628,15 @@ See `org-capture-templates' for more information."
              :publishing-directory "~/org-mode/public_html/"
 
              :recursive t
-             :html-head , zilongshanren-website-html-blog-head
+             :html-head , harumi-website-html-blog-head
              :publishing-function org-html-publish-to-html
              :headline-levels 4         ; Just the default for this project.
              :auto-preamble t
              :exclude "gtd.org"
              :exclude-tags ("ol" "noexport")
              :section-numbers nil
-             :html-preamble ,zilongshanren-website-html-preamble
-             :author "zilongshanren"
+             :html-preamble ,harumi-website-html-preamble
+             :author "harumi"
              :email "guanghui8827@gmail.com"
              :auto-sitemap t            ; Generate sitemap.org automagically...
              :sitemap-filename "index.org" ; ... call it sitemap.org (it's the default)...
@@ -682,8 +655,8 @@ See `org-capture-templates' for more information."
 
 
 
-    (add-hook 'org-after-todo-statistics-hook 'zilong/org-summary-todo)
-    ;; used by zilong/org-clock-sum-today-by-tags
+    (add-hook 'org-after-todo-statistics-hook 'harumi/org-summary-todo)
+    ;; used by harumi/org-clock-sum-today-by-tags
 
     (define-key org-mode-map (kbd "s-p") 'org-priority)
 

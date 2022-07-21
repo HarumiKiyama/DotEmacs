@@ -1,45 +1,10 @@
 ;;; init-funcs.el -*- lexical-binding: t no-byte-compile: t -*-
-
-;; Copyright (C) 2021-2022 zilongshanren
-
-;; Author: zilongshanren <guanghui8827@gmail.com>
-;; URL: https://github.com/zilongshanren/emacs.d
-
-
-;; This file is not part of GNU Emacs.
-;;
-;; This program is free software; you can redistribute it and/or
-;; modify it under the terms of the GNU General Public License as
-;; published by the Free Software Foundation; either version 3, or
-;; (at your option) any later version.
-;;
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-;; General Public License for more details.
-;;
-;; You should have received a copy of the GNU General Public License
-;; along with this program; see the file COPYING.  If not, write to
-;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth
-;; Floor, Boston, MA 02110-1301, USA.
-;;
-
-;;; Commentary:
-;;
-;; Define functions.
-;;
-
-;;; Code:
-
 (require 'cl-lib)
-
 (require 'init-const)
 (require 'init-custom)
 
-
 (unless (fboundp 'caadr)
   (defalias 'caadr #'cl-caadr))
-
 
 ;; Dos2Unix/Unix2Dos
 (defun dos2unix ()
@@ -118,7 +83,7 @@ Same as `replace-string C-q C-m RET RET'."
   (kill-new (buffer-name)))
 
 ;; Browse URL
-(defun zilongshanren-webkit-browse-url (url &optional pop-buffer new-session)
+(defun harumi-webkit-browse-url (url &optional pop-buffer new-session)
   "Browse url with webkit and switch or pop to the buffer.
 POP-BUFFER specifies whether to pop to the buffer.
 NEW-SESSION specifies whether to create a new xwidget-webkit session."
@@ -151,11 +116,11 @@ NEW-SESSION specifies whether to create a new xwidget-webkit session."
   "Open or create `custom-file'."
   (interactive)
   (unless (file-exists-p custom-file)
-    (if (file-exists-p zilongshanren-custom-example-file)
-        (copy-file zilongshanren-custom-example-file custom-file)
-      (user-error "The file `%s' doesn't exist" zilongshanren-custom-example-file)))
+    (if (file-exists-p harumi-custom-example-file)
+        (copy-file harumi-custom-example-file custom-file)
+      (user-error "The file `%s' doesn't exist" harumi-custom-example-file)))
   (find-file custom-file)
-  (find-file-other-window zilongshanren-custom-post-file))
+  (find-file-other-window harumi-custom-post-file))
 
 ;; Misc
 (defun create-scratch-buffer ()
@@ -193,11 +158,11 @@ NEW-SESSION specifies whether to create a new xwidget-webkit session."
 
 (defun icons-displayable-p ()
   "Return non-nil if `all-the-icons' is displayable."
-  (and zilongshanren-icon
+  (and harumi-icon
        (display-graphic-p)
        (require 'all-the-icons nil t)))
 
-(defun zilongshanren-set-variable (variable value &optional no-save)
+(defun harumi-set-variable (variable value &optional no-save)
   "Set the VARIABLE to VALUE, and return VALUE.
 
 Save to `custom-file' if NO-SAVE is nil."
@@ -225,16 +190,16 @@ Save to `custom-file' if NO-SAVE is nil."
   (interactive
    (list
     (intern (completing-read "Select package archives: "
-                             (mapcar #'car zilongshanren-package-archives-alist)))))
+                             (mapcar #'car harumi-package-archives-alist)))))
   ;; Set option
-  (zilongshanren-set-variable 'zilongshanren-package-archives archives no-save)
+  (harumi-set-variable 'harumi-package-archives archives no-save)
 
   ;; Refresh if need
   (and refresh (package-refresh-contents async))
 
   ;; (message "Set package archives to `%s'" archives)
   )
-(defalias 'zilongshanren-set-package-archives #'set-package-archives)
+(defalias 'harumi-set-package-archives #'set-package-archives)
 
 
 ;; WORKAROUND: fix blank screen issue on macOS.
@@ -250,12 +215,12 @@ This issue has been addressed in 28."
 
 
 ;; Fonts
-(defun zilongshanren-install-fonts ()
+(defun harumi-install-fonts ()
   "Install necessary fonts."
   (interactive)
 
   (let* ((url-format "https://raw.githubusercontent.com/domtronn/all-the-icons.el/master/fonts/%s")
-         (url (concat zilongshanren-homepage "/files/6135060/symbola.zip"))
+         (url (concat harumi-homepage "/files/6135060/symbola.zip"))
          (font-dest (cond
                      ;; Default Linux install directories
                      ((member system-type '(gnu gnu/linux gnu/kfreebsd))
@@ -306,12 +271,12 @@ This issue has been addressed in 28."
              font-dest)))
 
 
-(defun zilongshanren/insert-chrome-current-tab-url()
+(defun harumi/insert-chrome-current-tab-url()
   "Get the URL of the active tab of the first window"
   (interactive)
-  (insert (zilongshanren/retrieve-chrome-current-tab-url)))
+  (insert (harumi/retrieve-chrome-current-tab-url)))
 
-(defun zilongshanren/retrieve-chrome-current-tab-url()
+(defun harumi/retrieve-chrome-current-tab-url()
   "Get the URL of the active tab of the first window"
   (interactive)
   (let ((result (do-applescript
@@ -364,7 +329,7 @@ This issue has been addressed in 28."
         (message "Indent buffer.")))))
 
 ;;http://emacsredux.com/blog/2013/03/26/smarter-open-line/
-(defun zilongshanren/smart-open-line ()
+(defun harumi/smart-open-line ()
   "Insert an empty line after the current line.
 Position the cursor at its beginning, according to the current mode."
   (interactive)
@@ -372,7 +337,7 @@ Position the cursor at its beginning, according to the current mode."
   (newline-and-indent))
 
 
-(defun zilongshanren/rename-file-and-buffer ()
+(defun harumi/rename-file-and-buffer ()
   "Rename the current buffer and file it is visiting."
   (interactive)
   (let ((filename (buffer-file-name)))
@@ -385,7 +350,7 @@ Position the cursor at its beginning, according to the current mode."
           (rename-file filename new-name t)
           (set-visited-file-name new-name t t)))))))
 
-(defun zilongshanren/yank-to-end-of-line ()
+(defun harumi/yank-to-end-of-line ()
   "Yank to end of line."
   (interactive)
   (evil-yank (point) (point-at-eol)))
@@ -469,7 +434,7 @@ Position the cursor at its beginning, according to the current mode."
         (dired-find-alternate-file)
       (dired-find-file-other-window))))
 
-(defun zilongshanren/dired-do-command (command)
+(defun harumi/dired-do-command (command)
   "Run COMMAND on marked files. Any files not already open will be opened.
 After this command has been run, any buffers it's modified will remain
 open and unsaved."
@@ -480,12 +445,12 @@ open and unsaved."
             (call-interactively command))
           (dired-get-marked-files))))
 
-(defun zilongshanren/dired-up-directory()
+(defun harumi/dired-up-directory()
   "goto up directory and resue buffer"
   (interactive)
   (find-alternate-file ".."))
 
-(defun zilongshanren/insert-space-after-point ()
+(defun harumi/insert-space-after-point ()
   (interactive)
   (save-excursion (insert " ")))
 
@@ -509,7 +474,7 @@ open and unsaved."
 (dakra-define-up/downcase-dwim "capitalize")
 
 
-(defun zilongshanren/consult-line (consult-line-function &rest rest)
+(defun harumi/consult-line (consult-line-function &rest rest)
   "Advising function around `CONSULT-LINE-FUNCTION'.
 
 When there's an active region, use that as the first parameter
@@ -586,27 +551,27 @@ the current layouts buffers."
       (global-display-line-numbers-mode -1)
     (global-display-line-numbers-mode 1)))
 
-;; (defun doom/escape (&optional interactive)
-;;   "Run `doom-escape-hook'."
-;;   (interactive (list 'interactive))
-;;   (cond ((minibuffer-window-active-p (minibuffer-window))
-;;          ;; quit the minibuffer if open.
-;;          (when interactive
-;;            (setq this-command 'abort-recursive-edit))
-;;          (abort-recursive-edit))
-;;         ;; don't abort macros
-;;         ((or defining-kbd-macro executing-kbd-macro) nil)
-;;         ;; Back to the default
-;;         ((unwind-protect (keyboard-quit)
-;;            (when interactive
-;;              (setq this-command 'keyboard-quit))))))
+(defun doom/escape (&optional interactive)
+  "Run `doom-escape-hook'."
+  (interactive (list 'interactive))
+  (cond ((minibuffer-window-active-p (minibuffer-window))
+         ;; quit the minibuffer if open.
+         (when interactive
+           (setq this-command 'abort-recursive-edit))
+         (abort-recursive-edit))
+        ;; don't abort macros
+        ((or defining-kbd-macro executing-kbd-macro) nil)
+        ;; Back to the default
+        ((unwind-protect (keyboard-quit)
+           (when interactive
+             (setq this-command 'keyboard-quit))))))
 
-;; (global-set-key [remap keyboard-quit] #'doom/escape)
+(global-set-key [remap keyboard-quit] #'doom/escape)
 
 (with-eval-after-load 'eldoc
   (eldoc-add-command 'doom/escape))
 
-(defun zilongshanren/evil-quick-replace (beg end )
+(defun harumi/evil-quick-replace (beg end )
   (interactive "r")
   (when (evil-visual-state-p)
     (evil-exit-visual-state)
@@ -674,7 +639,7 @@ the current layouts buffers."
 
 ;;http://emacsredux.com/blog/2013/03/26/smarter-open-line/
 ;;;###autoload
-(defun zilongshanren/smart-open-line ()
+(defun harumi/smart-open-line ()
   "Insert an empty line after the current line.
 Position the cursor at its beginning, according to the current mode."
   (interactive)
@@ -683,7 +648,7 @@ Position the cursor at its beginning, according to the current mode."
 
 
 ;;;###autoload
-(defun zilongshanren/yank-to-end-of-line ()
+(defun harumi/yank-to-end-of-line ()
   "Yank to end of line."
   (interactive)
   (evil-yank (point) (point-at-eol)))
@@ -775,7 +740,7 @@ Position the cursor at its beginning, according to the current mode."
       (dired-find-file-other-window))))
 
 ;;;###autoload
-(defun zilongshanren/dired-do-command (command)
+(defun harumi/dired-do-command (command)
   "Run COMMAND on marked files. Any files not already open will be opened.
 After this command has been run, any buffers it's modified will remain
 open and unsaved."
@@ -787,13 +752,13 @@ open and unsaved."
           (dired-get-marked-files))))
 
 ;;;###autoload
-(defun zilongshanren/dired-up-directory()
+(defun harumi/dired-up-directory()
   "goto up directory and resue buffer"
   (interactive)
   (find-alternate-file ".."))
 
 ;;;###autoload
-(defun zilongshanren/insert-space-after-point ()
+(defun harumi/insert-space-after-point ()
   (interactive)
   (save-excursion (insert " ")))
 
@@ -835,7 +800,7 @@ open and unsaved."
           (browse-url (concat "http://localhost:" hugo-service-port))))))
 
 ;;;###autoload
-(defun zilongshanren/highlight-dwim ()
+(defun harumi/highlight-dwim ()
   (interactive)
   (if (use-region-p)
       (progn
@@ -852,13 +817,13 @@ open and unsaved."
                          (buffer-substring (region-beginning) (region-end))))))
 
 ;;;###autoload
-(defun zilongshanren/clearn-highlight ()
+(defun harumi/clearn-highlight ()
   (interactive)
   (clear-highlight-frame)
   (symbol-overlay-remove-all))
 
 ;;;###autoload
-(defun zilongshanren/my-mc-mark-next-like-this ()
+(defun harumi/my-mc-mark-next-like-this ()
   (interactive)
   (if (region-active-p)
       (mc/mark-next-like-this 1)
@@ -882,7 +847,7 @@ open and unsaved."
 (defun my-erc-hook (match-type nick message)
   "Shows a growl notification, when user's nick was mentioned. If the buffer is currently not visible, makes it sticky."
   (unless (posix-string-match "^\\** *Users on #" message)
-    (zilongshanren/growl-notification
+    (harumi/growl-notification
      (concat "ERC: : " (buffer-name (current-buffer)))
      message
      t
@@ -890,13 +855,13 @@ open and unsaved."
 
 ;; "http://xuchunyang.me/Opening-iTerm-From-an-Emacs-Buffer/"
 ;;;###autoload
-(defun zilongshanren/iterm-shell-command (command &optional prefix)
+(defun harumi/iterm-shell-command (command &optional prefix)
   "cd to `default-directory' then run COMMAND in iTerm.
 With PREFIX, cd to project root."
   (interactive (list (read-shell-command
                       "iTerm Shell Command: ")
                      current-prefix-arg))
-  (let* ((dir (if prefix (zilongshanren/git-project-root)
+  (let* ((dir (if prefix (harumi/git-project-root)
                 default-directory))
          ;; if COMMAND is empty, just change directory
          (cmd (format "cd %s ;%s" dir command)))
@@ -914,7 +879,7 @@ With PREFIX, cd to project root."
   " cmd))))
 
 ;;;###autoload
-(defun zilongshanren/evil-quick-replace (beg end )
+(defun harumi/evil-quick-replace (beg end )
   (interactive "r")
   (when (evil-visual-state-p)
     (evil-exit-visual-state)
@@ -925,20 +890,20 @@ With PREFIX, cd to project root."
         (evil-ex command-string)))))
 
 ;;;###autoload
-(defun zilongshanren/git-project-root ()
+(defun harumi/git-project-root ()
   "Return the project root for current buffer."
   (let ((directory default-directory))
     (locate-dominating-file directory ".git")))
 
 ;; insert date and time
 ;;;###autoload
-(defun zilongshanren/now ()
+(defun harumi/now ()
   "Insert string for the current time formatted like '2:34 PM'."
   (interactive)                 ; permit invocation in minibuffer
   (insert (format-time-string "%H:%M:%S" (current-time))))
 
 ;;;###autoload
-(defun zilongshanren/today ()
+(defun harumi/today ()
   "Insert string for today's date nicely formatted in American style,
 e.g. Sunday, September 17, 2000."
   (interactive)                 ; permit invocation in minibuffer
@@ -946,7 +911,7 @@ e.g. Sunday, September 17, 2000."
 
 ;; https://github.com/syohex/emacs-browser-refresh/blob/master/browser-refresh.el
 ;;;###autoload
-(defun zilongshanren/browser-refresh--chrome-applescript ()
+(defun harumi/browser-refresh--chrome-applescript ()
   (interactive)
   (do-applescript
    (format
@@ -988,7 +953,7 @@ e.g. Sunday, September 17, 2000."
 ;; (shell-command-to-string (encode-coding-string (replace-regexp-in-string "/" "\\\\" (format "explorer.exe %s" (file-name-directory file))) 'gbk))
 
 
-(defun zilongshanren/directory-parent (directory)
+(defun harumi/directory-parent (directory)
   (let ((parent (file-name-directory (directory-file-name directory))))
     (if (not (equal directory parent))
         parent)))
@@ -996,12 +961,12 @@ e.g. Sunday, September 17, 2000."
 
 
 ;; Screenshot
-(defun zilongshanren//insert-org-or-md-img-link (prefix imagename)
+(defun harumi//insert-org-or-md-img-link (prefix imagename)
   (if (equal (file-name-extension (buffer-file-name)) "org")
       (insert (format "[[%s%s]]" prefix imagename))
     (insert (format "![%s](%s%s)" imagename prefix imagename))))
 
-(defun zilongshanren/capture-screenshot (basename)
+(defun harumi/capture-screenshot (basename)
   "Take a screenshot into a time stamped unique-named file in the
   same directory as the org-buffer/markdown-buffer and insert a link to this file."
   (interactive "sScreenshot name: ")
@@ -1014,10 +979,10 @@ e.g. Sunday, September 17, 2000."
         (progn
           (setq resize-command-str (format "convert %s -resize 800x600 %s" final-image-full-path final-image-full-path))
           (shell-command-to-string resize-command-str)))
-    (zilongshanren//insert-org-or-md-img-link "./" (concat basename ".png")))
+    (harumi//insert-org-or-md-img-link "./" (concat basename ".png")))
   (insert "\n"))
 
-(defun zilongshanren/org-archive-done-tasks ()
+(defun harumi/org-archive-done-tasks ()
   (interactive)
   (org-map-entries
    (lambda ()
@@ -1025,7 +990,7 @@ e.g. Sunday, September 17, 2000."
      (setq org-map-continue-from (outline-previous-heading)))
    "/DONE" 'file))
 
-(defun zilongshanren/org-archive-cancel-tasks ()
+(defun harumi/org-archive-cancel-tasks ()
   (interactive)
   (org-map-entries
    (lambda ()
@@ -1034,7 +999,7 @@ e.g. Sunday, September 17, 2000."
    "/CANCELLED" 'file))
 
 ;; "https://github.com/vhallac/.emacs.d/blob/master/config/customize-org-agenda.el"
-(defun zilongshanren/skip-non-stuck-projects ()
+(defun harumi/skip-non-stuck-projects ()
   "Skip trees that are not stuck projects"
   (bh/list-sublevels-for-projects-indented)
   (save-restriction
@@ -1056,7 +1021,7 @@ e.g. Sunday, September 17, 2000."
               nil)) ; a stuck project, has subtasks but no next task
         next-headline))))
 
-(defun zilongshanren/org-insert-src-block (src-code-type)
+(defun harumi/org-insert-src-block (src-code-type)
   "Insert a `SRC-CODE-TYPE' type source code block in org-mode."
   (interactive
    (let ((src-code-types
@@ -1076,16 +1041,16 @@ e.g. Sunday, September 17, 2000."
 
 
 
-(defun zilong/org-summary-todo (n-done n-not-done)
+(defun harumi/org-summary-todo (n-done n-not-done)
   "Switch entry to DONE when all subentries are done, to TODO otherwise."
   (let (org-log-done org-log-states)    ; turn off logging
     (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
-(defun zilong/filter-by-tags ()
+(defun harumi/filter-by-tags ()
   (let ((head-tags (org-get-tags-at)))
     (member current-tag head-tags)))
 
-(defun zilong/org-clock-sum-today-by-tags (timerange &optional tstart tend noinsert)
+(defun harumi/org-clock-sum-today-by-tags (timerange &optional tstart tend noinsert)
   (interactive "P")
   (let* ((timerange-numeric-value (prefix-numeric-value timerange))
          (files (org-add-archive-files (org-agenda-files)))
@@ -1107,7 +1072,7 @@ e.g. Sunday, September 17, 2000."
                                 (error "No such file %s" file)))
       (with-current-buffer org-agenda-buffer
         (dolist (current-tag include-tags)
-          (org-clock-sum tstart tend 'zilong/filter-by-tags)
+          (org-clock-sum tstart tend 'harumi/filter-by-tags)
           (setcdr (assoc current-tag tags-time-alist)
                   (+ org-clock-file-total-minutes (cdr (assoc current-tag tags-time-alist)))))))
     (while (setq item (pop tags-time-alist))
@@ -1123,7 +1088,7 @@ e.g. Sunday, September 17, 2000."
     output-string))
 
 ;;;###autoload
-(defun zilongshanren/hotspots ()
+(defun harumi/hotspots ()
   (interactive)
   (require 'consult)
   (setq-local source '(("Calendar" . (lambda ()  (browse-url "https://www.google.com/calendar/render")))
@@ -1139,10 +1104,10 @@ e.g. Sunday, September 17, 2000."
 
                        ;;todo (calc-eval "(1+1)*3")
                        ;; ("Calculator" . (lambda () (helm-calcul-expression)))
-                       ("Run current flie" . (lambda () (zilongshanren/run-current-file)))
+                       ("Run current flie" . (lambda () (harumi/run-current-file)))
                        ("Agenda" . (lambda () (org-agenda "" "a")))
                        ("sicp" . (lambda() (browse-url "http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-4.html#%_toc_start")))))
-  (let* ((result (consult--read (mapcar 'car source) :prompt "zilong's hotpot ")))
+  (let* ((result (consult--read (mapcar 'car source) :prompt "harumi's hotpot ")))
     (when result
       (funcall (cdr (assoc result source))))))
 
@@ -1270,11 +1235,6 @@ earlier revisions.  Show up to LIMIT entries (non-nil means unlimited)."
       (kill-buffer b))
 	(async-shell-command (concat "make " (shell-quote-argument target)) buf-name)))
 
-(defun my/project-citre ()
-  (interactive)
-  (let ((default-directory (project-root (project-current t))))
-    (citre-create-tags-file)
-    (add-dir-local-variable 'prog-mode 'eval '(citre-mode))))
 
 (defun unfill-paragraph (&optional region)
   "Takes a multi-line paragraph and makes it into a single line of text."
@@ -1342,7 +1302,7 @@ Puts point in the middle line as well as indent it by correct amount."
         (av/auto-indent-method)
       (newline-and-indent))))
 
-(defun zilongshanren/run-current-file ()
+(defun harumi/run-current-file ()
   (interactive)
   (quickrun))
 

@@ -43,7 +43,7 @@
     (define-key evil-visual-state-map (kbd "y") 'my-evil-yank)
 
     (define-key evil-normal-state-map
-                (kbd "Y") 'zilongshanren/yank-to-end-of-line)
+                (kbd "Y") 'harumi/yank-to-end-of-line)
 
     (define-key evil-normal-state-map (kbd "[ SPC") (lambda () (interactive) (evil-insert-newline-above) (forward-line)))
     (define-key evil-normal-state-map (kbd "] SPC") (lambda () (interactive) (evil-insert-newline-below) (forward-line -1)))
@@ -74,7 +74,7 @@
 
     (define-key minibuffer-local-map (kbd "C-w") 'evil-delete-backward-word)
 
-    (define-key evil-visual-state-map (kbd "C-r") 'zilongshanren/evil-quick-replace)
+    (define-key evil-visual-state-map (kbd "C-r") 'harumi/evil-quick-replace)
     (define-key evil-visual-state-map (kbd "mn") 'mc/mark-next-like-this)
     (define-key evil-visual-state-map (kbd "mp") 'mc/mark-previous-like-this)
     (define-key evil-visual-state-map (kbd "ma") 'mc/mark-all-like-this)
@@ -95,7 +95,7 @@
           evil-motion-state-tag   (propertize "[M]" 'face '((:background "plum3") :foreground "white"))
           evil-visual-state-tag   (propertize "[V]" 'face '((:background "gray" :foreground "black")))
           evil-operator-state-tag (propertize "[O]" 'face '((:background "purple"))))
-    (setq evil-insert-state-cursor '("chartreuse3" bar))
+    (setq evil-insert-state-cursor 'bar)
     (define-key evil-insert-state-map (kbd "C-z") 'evil-emacs-state)
 
 
@@ -135,12 +135,12 @@
     "o" 'link-hint-open-link)
   )
 
-;;(use-package undo-tree
-;;  :diminish
-;;  :init
-;;  (global-undo-tree-mode 1)
-;;  (setq undo-tree-auto-save-history nil)
-;;  (evil-set-undo-system 'undo-tree))
+(use-package undo-tree
+ :diminish
+ :init
+ (global-undo-tree-mode 1)
+ (setq undo-tree-auto-save-history nil)
+ (evil-set-undo-system 'undo-tree))
 
 (use-package evil-surround
   :ensure t
@@ -151,7 +151,6 @@
   :init
   (define-key evil-normal-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
   (define-key evil-visual-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
-
   ;; (evilnc-default-hotkeys)
   )
 
@@ -161,8 +160,6 @@
   :init
   (evil-snipe-mode +1)
   (evil-snipe-override-mode +1))
-
-
 
 
 
