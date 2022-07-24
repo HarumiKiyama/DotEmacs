@@ -59,14 +59,7 @@
     (define-key evil-motion-state-map (kbd "[ b") 'previous-buffer)
     (define-key evil-motion-state-map (kbd "] b") 'next-buffer)
     (define-key evil-normal-state-map (kbd "M-y") 'consult-yank-pop)
-
-    (define-key evil-emacs-state-map (kbd "s-f") 'forward-word)
-    (define-key evil-insert-state-map (kbd "s-f") 'forward-word)
     (define-key evil-insert-state-map (kbd "C-w") 'evil-delete-backward-word)
-    (define-key evil-emacs-state-map (kbd "s-b") 'backward-word)
-    (define-key evil-insert-state-map (kbd "s-b") 'backward-word)
-
-
 
     (define-key evil-ex-completion-map "\C-a" 'move-beginning-of-line)
     (define-key evil-ex-completion-map "\C-b" 'backward-char)
@@ -101,13 +94,6 @@
 
     ))
 
-(use-package evil-anzu
-  :ensure t
-  :after evil
-  :diminish
-  :demand t
-  :init
-  (global-anzu-mode t))
 
 
 (use-package evil-collection
@@ -146,21 +132,6 @@
   :ensure t
   :init
   (global-evil-surround-mode 1))
-
-(use-package evil-nerd-commenter
-  :init
-  (define-key evil-normal-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
-  (define-key evil-visual-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
-  ;; (evilnc-default-hotkeys)
-  )
-
-(use-package evil-snipe
-  :ensure t
-  :diminish
-  :init
-  (evil-snipe-mode +1)
-  (evil-snipe-override-mode +1))
-
 
 
 (provide 'init-evil)

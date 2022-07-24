@@ -2,7 +2,7 @@
 
 (use-package magit
   :commands (magit-status)
-  :config)
-
+  :init
+  (setq magit-refs-show-commit-count 'all))
 
 (provide 'init-git)

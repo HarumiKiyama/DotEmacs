@@ -24,16 +24,12 @@
 (use-package doom-modeline
   :ensure t
   :init
-  (setq doom-modeline-minor-modes t)
-  :custom-face
-  (mode-line ((t (:height 0.95))))
-  (mode-line-inactive ((t (:height 0.95))))
+  (setq doom-modeline-minor-modes t
+        doom-modeline-unicode-fallback t)
   :hook (after-init . doom-modeline-mode))
 
 (use-package visual-fill-column
   :init
-  ;; Configure fill width
 (setq visual-fill-column-width 110
       visual-fill-column-center-text t))
-
 (provide 'init-ui)

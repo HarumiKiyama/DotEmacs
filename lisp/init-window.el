@@ -1,6 +1,10 @@
 ;;; init-window.el -*- lexical-binding: t no-byte-compile: t -*-
 
 
+(use-package posframe
+  :ensure t
+  )
+
 (use-package window-numbering
   :init
   :hook (after-init . window-numbering-mode))

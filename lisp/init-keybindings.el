@@ -13,22 +13,16 @@
 (global-set-key (kbd "C-h C-v") 'find-variable)
 (global-set-key (kbd "C-h C-k") 'find-function-on-key)
 (global-set-key (kbd "C-c d") 'lispy-describe-inline)
+(global-set-key (kbd "C-x ;") 'comment-line)
 
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-M-\\") 'indent-region-or-buffer)
-(global-set-key (kbd "s-/") 'hippie-expand)
+(global-set-key [remap dabbrev-expand] 'hippie-expand)
 
 ;; r aka remember
 (global-set-key (kbd "C-c r") 'org-capture)
 (global-set-key (kbd "M-s e") 'iedit-mode)
-(global-set-key (kbd "C-=") 'er/expand-region)
-
-
-(global-set-key (kbd "C-w") 'backward-kill-word)
 (global-set-key (kbd "C-h a") 'apropos)
-
-
-(global-set-key (kbd "s-r") #'revert-this-buffer)
 (global-set-key (kbd "s-d") 'harumi/my-mc-mark-next-like-this)
 (global-set-key (kbd "C-c l") 'harumi/insert-chrome-current-tab-url)
 
