@@ -14,35 +14,13 @@
 (global-set-key (kbd "C-h C-k") 'find-function-on-key)
 (global-set-key (kbd "C-c d") 'lispy-describe-inline)
 
-;; mimic macos keybindgs
-(when sys/mac-x-p
-    (progn
-      (global-set-key (kbd "s-x") 'kill-region)
-      (global-set-key (kbd "s-c") 'kill-ring-save)
-      (global-set-key (kbd "s-v") 'yank)
-      (global-set-key (kbd "s-z") 'undo)
-      (global-set-key (kbd "s-l") 'goto-line)
-      (global-set-key (kbd "s-a") 'mark-whole-buffer)
-      (global-set-key (kbd "s-s") 'save-buffer)))
-
-
-
-
 (global-set-key (kbd "C-c a") 'org-agenda)
-
 (global-set-key (kbd "C-M-\\") 'indent-region-or-buffer)
-(define-key global-map (kbd "s-e") 'rime-inline-ascii)
 (global-set-key (kbd "s-/") 'hippie-expand)
-
 
 ;; r aka remember
 (global-set-key (kbd "C-c r") 'org-capture)
-
-
-
-
 (global-set-key (kbd "M-s e") 'iedit-mode)
-
 (global-set-key (kbd "C-=") 'er/expand-region)
 
 

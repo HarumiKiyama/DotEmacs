@@ -1,23 +1,20 @@
 ;;; init-ui.el -*- lexical-binding: t no-byte-compile: t -*-
 
 (setq inhibit-splash-screen t)
-(setq-default cursor-type 'bar)
-
 (setq  initial-frame-alist (quote ((fullscreen . maximized))))
-
 (global-hl-line-mode t)
-
+(menu-bar-mode -1)
 (setq frame-title-format
       `((buffer-file-name "%f" "%b")
         ,(format " - GNU Emacs %s" emacs-version)))
 
-
-
 (use-package doom-themes
+  :ensure t
   :init
-    (load-theme 'doom-tomorrow-night))
+  (progn
+    (load-theme 'doom-dracula)
+    (set-face-attribute 'default nil :height 150 :family "dejavu")))
 
-(set-face-attribute 'default nil :height 150)
 
 (use-package valign
   :ensure t

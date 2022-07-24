@@ -45,6 +45,7 @@
 (advice-add #'package-initialize :after #'update-load-path)
 (advice-add #'package-initialize :after #'add-subdirs-to-load-path)
 
+
 (update-load-path)
 
 ;; Packages
@@ -58,6 +59,9 @@
   ;; To disable collection of benchmark data after init is done.
   (add-hook 'after-init-hook 'benchmark-init/deactivate))
 
+;;(use-package exec-path-from-shell
+;;  :ensure t
+;;  :init (when sys/mac-x-p (exec-path-from-shell-initialize)))
 
 ;; Core
 (require 'init-basic)
@@ -84,6 +88,7 @@
 ;; Languages
 (require 'init-lisp)
 (require 'init-rust)
+(require 'init-coq)
 ;; personal
 (require 'init-keybindings)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

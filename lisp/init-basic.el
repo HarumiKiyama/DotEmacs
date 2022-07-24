@@ -7,6 +7,8 @@
 (setq user-full-name "Harumi Kiyama"
       user-mail-address "lucius0720@hotmail.com")
 
+
+
 (with-no-warnings
   ;; Key Modifiers
   (cond
@@ -15,7 +17,7 @@
     (setq mac-option-modifier 'meta
           mac-command-modifier 'super)))
   ;; Optimization
-   ; read more at a time (was 4K)
+                                        ; read more at a time (was 4K)
   (unless sys/macp
     (setq command-line-ns-option-alist nil))
   (unless sys/linuxp
@@ -50,16 +52,15 @@
   (use-package exec-path-from-shell
     :init
     (setq exec-path-from-shell-variables '("PATH" "MANPATH")
-          exec-path-from-shell-arguments '("-l"))
+          exec-path-from-shell-arguments '("-l")
+          exec-path-from-shell-shell-name "/bin/zsh")
     (exec-path-from-shell-initialize)))
 
-;; Start server
-(use-package server
-  :ensure nil
-  :if harumi-server
-  :hook (after-init . (lambda ()
-                        ;; (server-force-delete)
-                        (server-mode))))
+;; Cursor
+(use-package evil-terminal-cursor-changer
+  :ensure t
+  :hook (after-init . evil-terminal-cursor-changer-activate))
+
 
 ;; History
 (use-package saveplace
@@ -67,6 +68,8 @@
   :hook (after-init . save-place-mode)
   :init
   (setq save-place-file (expand-file-name ".cache/places" user-emacs-directory)))
+
+
 
 (use-package recentf
   :ensure nil
@@ -149,32 +152,14 @@
       sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
       sentence-end-double-space nil)
 
-;; Fullscreen
-(when (display-graphic-p)
-  (add-hook 'window-setup-hook #'fix-fullscreen-cocoa)
-  (bind-keys ("C-<f11>" . toggle-frame-fullscreen)
-             ("C-s-f" . toggle-frame-fullscreen) ; Compatible with macOS
-             ("S-s-<return>" . toggle-frame-fullscreen)
-             ("M-S-<return>" . toggle-frame-fullscreen)))
-
-(setq save-abbrevs nil)
-
-;; turn on abbrev mode globally
-(setq-default abbrev-mode t)
 
 (setq-default split-height-threshold nil)
 ;; prevent dired window split 3 columns
 (setq-default split-width-threshold (* 2 (window-width)))
-
 (setq recenter-positions '(top middle bottom))
 (setq project-find-functions '(my/project-try-local project-try-vc))
 (setq create-lockfiles nil)
 (show-paren-mode t)
-
-(use-package restart-emacs
-  :ensure t
-  :commands (restart-emacs))
-
 (provide 'init-basic)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
