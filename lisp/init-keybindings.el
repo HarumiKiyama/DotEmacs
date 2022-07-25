@@ -151,13 +151,11 @@ Create prefix map: +general-global-NAME. Prefix bindings in BODY with INFIX-KEY.
   (+general-global-menu! "toggle" "t"
     "s" 'flycheck-mode
     "S" 'flyspell-prog-mode
-    "e" 'toggle-corfu-english-helper
     "r" 'read-only-mode
     "n" 'my-toggle-line-numbber
     "w" 'distraction-free
     "l" 'my/enable-lsp-bridge
-    "k" '+toggle-keycast
-    "c" 'global-corfu-mode)
+    "k" '+toggle-keycast)
 
   (+general-global-menu! "project" "p"
     "f" 'project-find-file

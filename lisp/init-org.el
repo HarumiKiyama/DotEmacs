@@ -36,38 +36,45 @@
   (add-hook 'evil-insert-state-entry-hook #'org-appear-manual-start nil t)
   (add-hook 'evil-insert-state-exit-hook #'org-appear-manual-stop nil t))
 
-(use-package org-appear
-  :ensure t
-  :after org
-  :hook (org-mode . org-appear-mode)
-  :init
-  (setq org-appear-trigger 'manual)
-  (add-hook 'org-mode-hook 'org-apperance-evil-hack))
-
-(use-package org-superstar
-  :ensure t
-  :after org
-  :hook (org-mode . org-superstar-mode)
-  :config
-  (setq org-superstar-special-todo-items t))
-
 (use-package org
   :ensure t
   :pin gnu)
 
 (with-eval-after-load 'org
   (progn
-    ;; If you intend to use org, it is recommended you change this!
     (setq org-directory "~/org-mode")
-
     (setq org-startup-indented t
           org-pretty-entities t
           org-hide-emphasis-markers t
           org-startup-with-inline-images t
-          org-image-actual-width '(300))
-
-    (setq org-ellipsis "⤵")
-
+          org-image-actual-width '(300)
+          org-agenda-dir "~/org-mode"
+          deft-dir "~/org-mode"
+          org-todo-keywords '((sequence "TODO(t)" "START" "SUSPEND(p)" "|" "DONE(d!)" "ABORT(a!)"))
+          org-todo-keyword-faces '(("START" . (:inherit (bold org-scheduled-today)))
+                                   ("SUSPEND" . (:inherit (bold warning)))
+                                   ("ABORT" . (:inherit (bold error))))
+          org-clock-in-switch-to-state "START"
+          org-clock-out-switch-to-state "TODO"
+          org-clock-persist t
+          org-tag-alist '(("Routine" . ?r)
+                          ("Programming" . ?p)
+                          ("Reading" . ?R))
+          org-capture-templates '(("e" "Emacs" entry (file+headline "task.org" "Emacs Hacking") "** TODO %?")
+                                  ("a" "Algorithm" entry (file +create-algorithm-org-file) "* Description\n%?\n* Solution")
+                                  ("t" "Trivial" entry (file+headline "task.org" "Trivial") "** TODO %?")
+                                  ("b" "Blog" entry (file "blog.org") "* SUSPEND %?"))
+          org-agenda-files '("~/org-mode/task.org"
+                             "~/org-mode/notation.org"
+                             "~/org-mode/blog.org")
+          org-refile-targets '(("~/org-mode/task.org" :maxlevel . 1)
+                               ("~/org-mode/notes.org" :maxlevel . 1)
+                               ("~/org-mode/someday.org" :maxlevel . 1)
+                               ("~/org-mode/blog.org" :maxlevel . 1)
+                               (nil . (:maxlevel . 2)))
+          org-refile-use-outline-path 'file
+          org-archive-location "~/org-mode/archive.org::"
+          org-startup-truncated nil)
 
     (setq org-emphasis-alist
           '(("*" my-org-emphasis-bold)
@@ -93,17 +100,6 @@
          :foreground "#ef8b50"))
       "My italic emphasis for Org.")
 
-
-    (defvar org-agenda-dir ""
-      "gtd org files location")
-
-    (defvar deft-dir ""
-      "deft org files locaiton")
-
-    (setq org-agenda-dir "~/org-mode")
-    (setq deft-dir  "~/org-mode")
-
-
     ;; https://emacs-china.org/t/ox-hugo-auto-fill-mode-markdown/9547/4
     (defadvice org-hugo-paragraph (before org-hugo-paragraph-advice
                                           (paragraph contents info) activate)
@@ -125,10 +121,7 @@ unwanted space when exporting org-mode to hugo markdown."
     ;; Below is needed to apply the modified `org-emphasis-regexp-components'
     ;; settings from above.
     (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)
-
     (setq org-agenda-log-mode-items '(clock closed state))
-
-
     (defun harumi/org-return (&optional indent)
       "Goto next table row or insert a newline.
 Calls `org-table-next-row' or `newline', depending on context.
@@ -217,7 +210,6 @@ object (e.g., within a comment).  In these case, you need to use
 
     (evil-define-key 'normal org-mode-map
       "+" #'org-cycle-list-bullet)
-
 
     (setq org-complete-tags-always-offer-all-agenda-tags t)
 
@@ -314,9 +306,6 @@ object (e.g., within a comment).  In these case, you need to use
         (diary-chinese-anniversary lunar-month lunar-day year mark)))
 
 
-    (setq org-todo-keywords
-          (quote ((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)")
-                  (sequence "WAITING(w@/!)" "SOMEDAY(S)" "|" "CANCELLED(c@/!)" "MEETING(m)" "PHONE(p)"))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ;; Org clock
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -501,14 +490,6 @@ object (e.g., within a comment).  In these case, you need to use
     (require 'ox-md nil t)
 
     ;; define the refile targets
-    (setq org-agenda-file-note (expand-file-name "notes.org" org-agenda-dir))
-    (setq org-agenda-file-gtd (expand-file-name "gtd.org" org-agenda-dir))
-    (setq org-agenda-file-work (expand-file-name "work.org" org-agenda-dir))
-    (setq org-agenda-file-journal (expand-file-name "journal.org" org-agenda-dir))
-    (setq org-agenda-file-code-snippet (expand-file-name "snippet.org" org-agenda-dir))
-    (setq org-default-notes-file (expand-file-name "gtd.org" org-agenda-dir))
-    (setq org-agenda-file-blogposts (expand-file-name "all-posts.org" org-agenda-dir))
-    (setq org-agenda-files (list org-agenda-file-gtd org-agenda-file-journal org-agenda-file-blogposts org-agenda-file-work org-agenda-file-note))
 
     ;; C-n for the next org agenda item
     (define-key org-agenda-mode-map (kbd "C-p") 'org-agenda-previous-item)
@@ -517,46 +498,10 @@ object (e.g., within a comment).  In these case, you need to use
     (with-eval-after-load 'org-agenda
       (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro)
       ;; 默认显示节假日
-      (setq org-agenda-include-diary t)
-      )
+      (setq org-agenda-include-diary t))
     ;; the %i would copy the selected text into the template
     ;;http://www.howardism.org/Technical/Emacs/journaling-org.html
     ;;add multi-file journal
-    (setq org-capture-templates
-          '(("t" "Todo" entry (file+headline org-agenda-file-gtd "Workspace")
-             "* TODO [#B] %?\n  %i\n %U"
-             :empty-lines 1)
-            ("n" "notes" entry (file+headline org-agenda-file-note "Quick notes")
-             "* %?\n  %i\n %U"
-             :empty-lines 1)
-            ("b" "Blog Ideas" entry (file+headline org-agenda-file-note "Blog Ideas")
-             "* TODO [#B] %?\n  %i\n %U"
-             :empty-lines 1)
-            ("s" "Slipbox" entry  (file "inbox.org")
-             "* %?\n")
-            ("S" "Code Snippet" entry
-             (file org-agenda-file-code-snippet)
-             "* %?\t%^g\n#+BEGIN_SRC %^{language}\n\n#+END_SRC")
-            ("w" "work" entry (file+headline org-agenda-file-work "Work")
-             "* TODO [#A] %?\n  %i\n %U"
-             :empty-lines 1)
-            ("x" "Web Collections" entry
-             (file+headline org-agenda-file-note "Web")
-             "* %U %:annotation\n\n%:initial\n\n%?")
-            ("p" "Protocol" entry (file+headline org-agenda-file-note "Inbox")
-             "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
-	        ("L" "Protocol Link" entry (file+headline org-agenda-file-note "Inbox")
-             "* %? [[%:link][%:description]] \nCaptured On: %U")
-            ("c" "Chrome" entry (file+headline org-agenda-file-note "Quick notes")
-             "* TODO [#C] %?\n %(harumi/retrieve-chrome-current-tab-url)\n %i\n %U"
-             :empty-lines 1)
-            ("l" "links" entry (file+headline org-agenda-file-note "Quick notes")
-             "* TODO [#C] %?\n  %i\n %a \n %U"
-             :empty-lines 1)
-            ("j" "Journal Entry"
-             entry (file+datetree org-agenda-file-journal)
-             "* %?"
-             :empty-lines 1)))
 
     (with-eval-after-load 'org-capture
       (defun org-hugo-new-subtree-post-capture-template ()
@@ -583,22 +528,6 @@ See `org-capture-templates' for more information."
                      (file+headline org-agenda-file-blogposts "Blog Ideas")
                      (function org-hugo-new-subtree-post-capture-template))))
 
-    ;;An entry without a cookie is treated just like priority ' B '.
-    ;;So when create new task, they are default 重要且紧急
-    (setq org-agenda-custom-commands
-          '(
-            ("w" . "任务安排")
-            ("wa" "重要且紧急的任务" tags-todo "+PRIORITY=\"A\"")
-            ("wb" "重要且不紧急的任务" tags-todo "-Weekly-Monthly-Daily+PRIORITY=\"B\"")
-            ("wc" "不重要且紧急的任务" tags-todo "+PRIORITY=\"C\"")
-            ("b" "Blog" tags-todo "BLOG")
-            ("p" . "项目安排")
-            ("pw" tags-todo "PROJECT+WORK+CATEGORY=\"work\"")
-            ("pl" tags-todo "PROJECT+DREAM+CATEGORY=\"harumi\"")
-            ("W" "Weekly Review"
-             ((stuck "") ;; review stuck projects as designated by org-stuck-projects
-              (tags-todo "PROJECT") ;; review all projects (assuming you use todo keywords to designate projects)
-              ))))
 
     (add-to-list 'org-agenda-custom-commands
                  '("r" "Daily Agenda Review"
@@ -610,52 +539,6 @@ See `org-capture-templates' for more information."
                                 (org-agenda-clockreport-mode t))))))
 
 
-    (defvar harumi-website-html-preamble
-      "<div class='nav'>
-<ul>
-<li><a href='http://harumi.com'>博客</a></li>
-<li><a href='/index.html'>Wiki目录</a></li>
-</ul>
-</div>")
-    (defvar harumi-website-html-blog-head
-      " <link rel='stylesheet' href='css/site.css' type='text/css'/> \n
-    <link rel=\"stylesheet\" type=\"text/css\" href=\"/css/worg.css\"/>")
-    (setq org-publish-project-alist
-          `(
-            ("blog-notes"
-             :base-directory "~/org-mode"
-             :base-extension "org"
-             :publishing-directory "~/org-mode/public_html/"
-
-             :recursive t
-             :html-head , harumi-website-html-blog-head
-             :publishing-function org-html-publish-to-html
-             :headline-levels 4         ; Just the default for this project.
-             :auto-preamble t
-             :exclude "gtd.org"
-             :exclude-tags ("ol" "noexport")
-             :section-numbers nil
-             :html-preamble ,harumi-website-html-preamble
-             :author "harumi"
-             :email "guanghui8827@gmail.com"
-             :auto-sitemap t            ; Generate sitemap.org automagically...
-             :sitemap-filename "index.org" ; ... call it sitemap.org (it's the default)...
-             :sitemap-title "我的wiki"     ; ... with title 'Sitemap'.
-             :sitemap-sort-files anti-chronologically
-             :sitemap-file-entry-format "%t" ; %d to output date, we don't need date here
-             )
-            ("blog-static"
-             :base-directory "~/org-mode"
-             :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
-             :publishing-directory "~/org-mode/public_html/"
-             :recursive t
-             :publishing-function org-publish-attachment
-             )
-            ("blog" :components ("blog-notes" "blog-static"))))
-
-
-
-    (add-hook 'org-after-todo-statistics-hook 'harumi/org-summary-todo)
     ;; used by harumi/org-clock-sum-today-by-tags
 
     (define-key org-mode-map (kbd "s-p") 'org-priority)

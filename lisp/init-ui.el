@@ -16,10 +16,6 @@
     (set-face-attribute 'default nil :height 150 :family "dejavu")))
 
 
-(use-package valign
-  :ensure t
-  :hook ((markdown-mode org-mode) . valign-mode))
-
 
 (use-package doom-modeline
   :ensure t
