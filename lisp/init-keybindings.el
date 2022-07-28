@@ -160,7 +160,7 @@ Create prefix map: +general-global-NAME. Prefix bindings in BODY with INFIX-KEY.
   (+general-global-menu! "project" "p"
     "f" 'project-find-file
     "r" 'consult-recent-file
-    "s" 'project-find-regexp
+    "s" 'consult-ripgrep
     "d" 'project-dired
     "b" 'consult-project-buffer
     "e" 'project-eshell
