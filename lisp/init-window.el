@@ -1,15 +1,10 @@
 ;;; init-window.el -*- lexical-binding: t no-byte-compile: t -*-
 
 
-(use-package posframe
-  :ensure t
-  )
-
 (use-package window-numbering
   :init
   :hook (after-init . window-numbering-mode))
 
-;; Restore old window configurations
 (use-package winner
   :ensure nil
   :commands (winner-undo winner-redo)
@@ -91,13 +86,6 @@
           "\\*rustfmt\\*$" rustic-compilation-mode rustic-cargo-clippy-mode
           rustic-cargo-outdated-mode rustic-cargo-test-moed))
 
-  (when (display-grayscale-p)
-    (setq popper-mode-line
-          '(:eval
-            (concat
-             (propertize " " 'face 'mode-line-emphasis)
-             (all-the-icons-octicon "pin" :height 0.9 :v-adjust 0.0 :face 'mode-line-emphasis)
-             (propertize " " 'face 'mode-line-emphasis)))))
 
   (setq popper-echo-dispatch-actions t)
   (setq popper-group-function nil)
