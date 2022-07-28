@@ -20,8 +20,7 @@
 (use-package doom-modeline
   :ensure t
   :init
-  (setq doom-modeline-minor-modes t
-        doom-modeline-unicode-fallback t)
+  (setq doom-modeline-minor-modes t)
   :hook (after-init . doom-modeline-mode))
 
 (use-package visual-fill-column
