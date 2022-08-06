@@ -152,7 +152,7 @@ Create prefix map: +general-global-NAME. Prefix bindings in BODY with INFIX-KEY.
     "s" 'flycheck-mode
     "S" 'flyspell-prog-mode
     "r" 'read-only-mode
-    "n" 'my-toggle-line-numbber
+    "n" 'my-toggle-line-number
     "w" 'distraction-free
     "l" 'my/enable-lsp-bridge
     "k" '+toggle-keycast)

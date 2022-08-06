@@ -61,9 +61,5 @@ See URL `https://github.com/zaach/jsonlint'."
     :modes json-mode))
 
 
-(use-package flymake-posframe
-  :ensure nil
-  :hook (flymake-mode . flymake-posframe-mode))
-
 
 (provide 'init-syntaxcheck)
