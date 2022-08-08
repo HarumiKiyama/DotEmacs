@@ -549,7 +549,9 @@ the current layouts buffers."
   (interactive)
   (if global-display-line-numbers-mode
       (global-display-line-numbers-mode -1)
-    (global-display-line-numbers-mode 1)))
+    (progn
+      (global-display-line-numbers-mode 1)
+      (setq display-line-numbers 'relative))))
 
 (defun doom/escape (&optional interactive)
   "Run `doom-escape-hook'."
@@ -571,7 +573,7 @@ the current layouts buffers."
 (with-eval-after-load 'eldoc
   (eldoc-add-command 'doom/escape))
 
-(defun harumi/evil-quick-replace (beg end )
+(defun harumi/evil-quick-replace (beg end)
   (interactive "r")
   (when (evil-visual-state-p)
     (evil-exit-visual-state)
