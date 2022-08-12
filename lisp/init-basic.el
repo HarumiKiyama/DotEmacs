@@ -7,6 +7,9 @@
 (setq user-full-name "Harumi Kiyama"
       user-mail-address "lucius0720@hotmail.com")
 
+(setq visible-bell nil
+      ring-bell-function 'ignore)
+
 
 
 (with-no-warnings
@@ -35,6 +38,12 @@
           gcmh-high-cons-threshold #x1000000) ; 16MB
     (gcmh-mode 1)))
 
+(use-package server
+  :ensure nil
+  :hook (after-init . (lambda ()
+                        ;; (server-force-delete)
+                        (server-mode))))
+
 ;; Encoding
 ;; UTF-8 as the default coding system
 (when (fboundp 'set-charset-priority)
@@ -57,9 +66,9 @@
     (exec-path-from-shell-initialize)))
 
 ;; Cursor
-(use-package evil-terminal-cursor-changer
-  :ensure t
-  :hook (after-init . evil-terminal-cursor-changer-activate))
+;; (use-package evil-terminal-cursor-changer
+;;   :ensure t
+;;   :hook (after-init . evil-terminal-cursor-changer-activate))
 
 
 ;; History
@@ -140,8 +149,7 @@
               tab-width 4
               indent-tabs-mode nil)     ; Permanently indent with spaces, never with TABs
 
-(setq visible-bell t
-      inhibit-compacting-font-caches t  ; Don’t compact font caches during GC.
+(setq inhibit-compacting-font-caches t  ; Don’t compact font caches during GC.
       delete-by-moving-to-trash t       ; Deleting files go to OS's trash folder
       make-backup-files nil             ; Forbide to make backup files
       auto-save-default nil             ; Disable auto save

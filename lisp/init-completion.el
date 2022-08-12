@@ -1,6 +1,11 @@
 ;;;;  -*- lexical-binding: t; -*-
 (require 'init-funcs)
 
+
+(use-package all-the-icons
+  :ensure t)
+
+
 (defun nasy/orderless-dispatch-flex-first (_pattern index _total)
   "orderless-flex for corfu."
   (and (eq index 0) 'orderless-flex))
@@ -9,7 +14,7 @@
   "Setup corfu."
   (setq-local orderless-matching-styles '(orderless-flex)
               orderless-style-dispatchers nil)
-    (add-hook 'orderless-style-dispatchers #'nasy/orderless-dispatch-flex-first nil 'local))
+  (add-hook 'orderless-style-dispatchers #'nasy/orderless-dispatch-flex-first nil 'local))
 
 (use-package corfu
   :ensure t
@@ -83,13 +88,6 @@
   (add-to-list 'completion-at-point-functions #'cape-keyword))
 
 
-
-(use-package corfu-terminal
-  :after corfu
-  :init
-  (corfu-terminal-mode +1))
-
-
 (use-package vertico
   :hook (after-init . vertico-mode)
   :config
@@ -157,6 +155,8 @@
         orderless-style-dispatchers '(+orderless-dispatch))
   )
 
+
+
 (use-package consult
   :ensure t
   :defer t
@@ -199,4 +199,58 @@
   :hook (after-init . marginalia-mode)
   :init
   :config)
+
+(use-package embark
+  :defer t
+  :init
+  (setq which-key-use-C-h-commands nil
+        ;; press C-h after a prefix key, it shows all the possible key bindings and let you choose what you want
+        prefix-help-command #'embark-prefix-help-command)
+
+  (setq
+   embark-verbose-indicator-display-action
+   '((display-buffer-at-bottom)
+     (window-parameters (mode-line-format . none))
+     (window-height . fit-window-to-buffer)))
+
+  (define-key minibuffer-local-map (kbd "C-;") 'embark-act)
+  (define-key minibuffer-local-map (kbd "C-c C-;") 'embark-export)
+  (define-key minibuffer-local-map (kbd "C-c C-e") '+vertico/embark-export-write)
+
+  (with-eval-after-load 'popwin
+    (progn
+      (push '(occur-mode :position right :width 100) popwin:special-display-config)
+      (push '(grep-mode :position right :width 100) popwin:special-display-config)
+      (push '(special-mode :position right :width 100) popwin:special-display-config)))
+
+  (global-set-key (kbd "C-;") 'embark-act)
+
+  :config
+  (define-key minibuffer-local-map (kbd "C-'") #'embark-become)
+  ;; list all the keybindings in this buffer
+  (global-set-key (kbd "C-h B") 'embark-bindings)
+  ;; add the package! target finder before the file target finder,
+  ;; so we don't get a false positive match.
+  :config
+  (define-key embark-identifier-map "R" #'consult-ripgrep)
+  (define-key embark-identifier-map (kbd "C-s") #'consult-line)
+
+  (define-key embark-file-map (kbd "E") #'consult-directory-externally)
+  (define-key embark-file-map (kbd "U") #'consult-snv-unlock)
+  )
+
+
+(use-package embark-consult
+  :ensure t
+  :after (embark consult)
+  :demand
+  :config
+  (add-hook 'embark-collect-mode-hook #'consult-preview-at-point-mode))
+
+
+(use-package wgrep
+  :commands wgrep-change-to-wgrep-mode
+  :config (setq wgrep-auto-save-buffer t))
+
+
 (provide 'init-completion)

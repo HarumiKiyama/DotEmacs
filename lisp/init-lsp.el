@@ -1,10 +1,7 @@
 ;;; init-lsp.el -*- lexical-binding: t no-byte-compile: t -*-
-
-
-
-
-
 (require 'lsp-bridge)
+(require 'corfu-info)
+(require 'corfu-history)
 
 (setq lsp-bridge-enable-log nil)
 
@@ -28,8 +25,7 @@
     (define-key lsp-bridge-mode-map (kbd "s-j") 'lsp-bridge-popup-documentation-scroll-down)
     (define-key lsp-bridge-mode-map (kbd "s-k") 'lsp-bridge-popup-documentation-scroll-up)
     (define-key acm-mode-map (kbd "C-j") 'acm-select-next)
-    (define-key acm-mode-map (kbd "C-k") 'acm-select-prev)
-    ))
+    (define-key acm-mode-map (kbd "C-k") 'acm-select-prev)))
 
 
 (add-hook 'rust-mode-hook 'my/enable-lsp-bridge)
