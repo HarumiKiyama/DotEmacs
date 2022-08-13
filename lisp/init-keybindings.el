@@ -72,10 +72,7 @@
     "hh" 'harumi/highlight-dwim
     "hc" 'harumi/clearn-highlight
     "sj" 'my/imenu
-    "en" 'my-goto-next-error
     "ry" 'consult-yank-pop
-    "ep" 'my-goto-previous-error
-    "el" 'my-list-errors
     "sp" 'consult-ripgrep
     "oy" 'youdao-dictionary-search-at-point+
     "oo" 'harumi/hotspots
@@ -154,7 +151,6 @@ Create prefix map: +general-global-NAME. Prefix bindings in BODY with INFIX-KEY.
     "r" 'read-only-mode
     "n" 'my-toggle-line-number
     "w" 'distraction-free
-    "l" 'my/enable-lsp-bridge
     "k" '+toggle-keycast)
 
   (+general-global-menu! "project" "p"

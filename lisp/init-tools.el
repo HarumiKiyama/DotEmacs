@@ -31,9 +31,7 @@
     (define-key global-map (kbd "C-c C-q") 'vr/query-replace)))
 
 (use-package discover-my-major
-  :defer t
-    :init
-    )
+  :defer t)
 
 
 (use-package youdao-dictionary
@@ -99,7 +97,6 @@
   :defer 1
   :config
   (progn
-
     ;; define service
     (prodigy-define-service
       :name "Hugo Server"
@@ -119,19 +116,12 @@
       :kill-signal 'sigkill
       :kill-process-buffer-on-stop t)))
 
-
-
-
-
-;;
 (use-package separedit
   :ensure t
   :init
   (define-key prog-mode-map (kbd "C-c '") #'separedit)
   (define-key minibuffer-local-map (kbd "C-c '") #'separedit)
   (define-key help-mode-map (kbd "C-c '") #'separedit)
-
-
   ;; Default major-mode for edit buffer
   ;; can also be other mode e.g. ‘org-mode’.
   (setq separedit-default-mode 'markdown-mode))
@@ -179,10 +169,7 @@
 (use-package sudo-edit
   :ensure t)
 
-(when (or sys/mac-x-p sys/linux-x-p (daemonp))
-  (use-package  vterm
-    :ensure t
-    ))
+(use-package vterm
+  :ensure t)
 
-(setq tramp-adb-program "/Applications/Unity/Hub/Editor/2021.3.4f1c1/PlaybackEngines/AndroidPlayer/SDK/platform-tools/adb")
 (provide 'init-tools)

@@ -6,11 +6,8 @@
 ;; Personal information
 (setq user-full-name "Harumi Kiyama"
       user-mail-address "lucius0720@hotmail.com")
-
 (setq visible-bell nil
       ring-bell-function 'ignore)
-
-
 
 (with-no-warnings
   ;; Key Modifiers
@@ -18,9 +15,9 @@
    (sys/mac-port-p
     ;; Compatible with Emacs Mac port
     (setq mac-option-modifier 'meta
-          mac-command-modifier 'super)))
+	  mac-command-modifier 'super)))
   ;; Optimization
-                                        ; read more at a time (was 4K)
+  ;; read more at a time (was 4K)
   (unless sys/macp
     (setq command-line-ns-option-alist nil))
   (unless sys/linuxp
@@ -35,14 +32,12 @@
     :diminish
     :init
     (setq gcmh-idle-delay 5
-          gcmh-high-cons-threshold #x1000000) ; 16MB
+	  gcmh-high-cons-threshold 16777216) ; 16MB
     (gcmh-mode 1)))
 
 (use-package server
   :ensure nil
-  :hook (after-init . (lambda ()
-                        ;; (server-force-delete)
-                        (server-mode))))
+  :hook (after-init . (lambda () (server-mode))))
 
 ;; Encoding
 ;; UTF-8 as the default coding system
@@ -57,19 +52,12 @@
   (set-file-name-coding-system 'gbk))
 
 ;; Environment
-(when (or sys/mac-x-p sys/linux-x-p (daemonp))
-  (use-package exec-path-from-shell
-    :init
-    (setq exec-path-from-shell-variables '("PATH" "MANPATH")
-          exec-path-from-shell-arguments '("-l")
-          exec-path-from-shell-shell-name "/bin/zsh")
-    (exec-path-from-shell-initialize)))
 
-;; Cursor
-;; (use-package evil-terminal-cursor-changer
-;;   :ensure t
-;;   :hook (after-init . evil-terminal-cursor-changer-activate))
-
+;; (use-package exec-path-from-shell
+;;   :init
+;;   (setq exec-path-from-shell-variables '("PATH" "MANPATH")
+;;         exec-path-from-shell-arguments '("-l"))
+;;   (exec-path-from-shell-initialize))
 
 ;; History
 (use-package saveplace
@@ -77,8 +65,6 @@
   :hook (after-init . save-place-mode)
   :init
   (setq save-place-file (expand-file-name ".cache/places" user-emacs-directory)))
-
-
 
 (use-package recentf
   :ensure nil
@@ -127,7 +113,6 @@
     "Show trailing spaces and delete on saving."
     (setq show-trailing-whitespace t)
     (add-hook 'before-save-hook #'delete-trailing-whitespace nil t))
-
   ;; Prettify the process list
   )
 
@@ -160,7 +145,6 @@
       sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
       sentence-end-double-space nil)
 
-
 (setq-default split-height-threshold nil)
 ;; prevent dired window split 3 columns
 (setq-default split-width-threshold (* 2 (window-width)))
@@ -170,5 +154,5 @@
 (show-paren-mode t)
 (provide 'init-basic)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init-basic.el ends here

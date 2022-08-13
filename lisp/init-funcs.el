@@ -1308,24 +1308,6 @@ Puts point in the middle line as well as indent it by correct amount."
   (interactive)
   (quickrun))
 
-(defun my-goto-next-error ()
-  (interactive)
-  (if (bound-and-true-p flycheck-mode)
-      (flycheck-next-error)
-    (flymake-goto-next-error)))
-
-(defun my-goto-previous-error ()
-  (interactive)
-  (if (bound-and-true-p flycheck-mode)
-      (flycheck-previous-error)
-    (flymake-goto-prev-error)))
-
-(defun my-list-errors ()
-  (interactive)
-  (if (bound-and-true-p flycheck-mode)
-      (flycheck-list-errors)
-    (flymake-show-buffer-diagnostics)))
-
 (defun file-notify-rm-all-watches ()
   "Remove all existing file notification watches from Emacs."
   (interactive)

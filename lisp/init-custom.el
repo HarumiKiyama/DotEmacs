@@ -1,10 +1,5 @@
 ;;; init-ui.el -*- lexical-binding: t no-byte-compile: t -*-
 
-(defcustom harumi-server t
-  "Enable `server-mode' or not."
-  :group 'harumi
-  :type 'boolean)
-
 (defcustom harumi-package-archives-alist
   (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
                       (not (gnutls-available-p))))

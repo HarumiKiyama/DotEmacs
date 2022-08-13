@@ -1,12 +1,9 @@
 ;;; init-rust.el -*- lexical-binding: t no-byte-compile: t -*-
 
 (use-package rust-mode
-  :hook (rust-mode . my/rust-compile)
   :config
   (setq rust-format-on-save t)
-  (define-key rust-mode-map (kbd "RET") 'av/auto-indent-method-maybe)
-  (defun my/rust-compile ()
-    (setq-local compile-command "cargo check --color never --tests")))
+  (define-key rust-mode-map (kbd "RET") 'av/auto-indent-method-maybe))
 
 
 (use-package cargo

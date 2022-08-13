@@ -18,9 +18,6 @@
     (add-hook hook (lambda () (flyspell-mode 1))))
   (ispell-change-dictionary "american" t))
 
-(use-package corfu-english-helper
-  :ensure nil
-  :commands toggle-corfu-english-helper)
 
 (use-package olivetti
   :init

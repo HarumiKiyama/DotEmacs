@@ -10,7 +10,6 @@
   (setq dired-dwim-target t)
   (setq dired-listing-switches
         "-alh")
-
   (setq dired-guess-shell-alist-user
         '(("\\.pdf\\'" "open")
           ("\\.docx\\'" "open")
@@ -25,9 +24,6 @@
           ("\\.html?\\'" "open")
           ("\\.md\\'" "open")))
 
-
-
-
   ;; always delete and copy recursively
   (setq dired-recursive-deletes 'always)
   (setq dired-recursive-copies 'always))
@@ -39,7 +35,6 @@
   :config
   (setq dired-omit-files
         (concat dired-omit-files "\\|^.DS_Store$\\|^.projectile$\\|\\.js\\.meta$\\|\\.meta$")))
-
 
 
 (use-package smartparens
