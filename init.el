@@ -9,22 +9,23 @@
 ;; speed up startup
 (setq auto-mode-case-fold nil)
 
-(unless (or (daemonp) noninteractive)
-  (let ((old-file-name-handler-alist file-name-handler-alist))
-    ;; if `file-name-handler-alist' is nil, no 256 colors in tui
-    ;; @see https://emacs-china.org/t/spacemacs-centaur-emacs/3802/839
-    (setq file-name-handler-alist
-          (unless (display-graphic-p)
-            '(("\\(?:\\.tzst\\|\\.zst\\|\\.dz\\|\\.txz\\|\\.xz\\|\\.lzma\\|\\.lz\\|\\.g?z\\|\\.\\(?:tgz\\|svgz\\|sifz\\)\\|\\.tbz2?\\|\\.bz2\\|\\.z\\)\\(?:~\\|\\.~[-[:alnum:]:#@^._]+\\(?:~[[:digit:]]+\\)?~\\)?\\'" . jka-compr-handler))))
-    (add-hook 'emacs-startup-hook
-              (lambda ()
-                "recover file name handlers."
-                (setq file-name-handler-alist
-                      (delete-dups (append file-name-handler-alist
-                                           old-file-name-handler-alist)))))))
+;; (unless (or (daemonp) noninteractive)
+;;   (let ((old-file-name-handler-alist file-name-handler-alist))
+;;     ;; if `file-name-handler-alist' is nil, no 256 colors in tui
+;;     ;; @see https://emacs-china.org/t/spacemacs-centaur-emacs/3802/839
+;;     (setq file-name-handler-alist
+;;           (unless (display-graphic-p)
+;;             '(("\\(?:\\.tzst\\|\\.zst\\|\\.dz\\|\\.txz\\|\\.xz\\|\\.lzma\\|\\.lz\\|\\.g?z\\|\\.\\(?:tgz\\|svgz\\|sifz\\)\\|\\.tbz2?\\|\\.bz2\\|\\.z\\)\\(?:~\\|\\.~[-[:alnum:]:#@^._]+\\(?:~[[:digit:]]+\\)?~\\)?\\'" . jka-compr-handler))))
+;;     (add-hook 'emacs-startup-hook
+;;               (lambda ()
+;;                 "recover file name handlers."
+;;                 (setq file-name-handler-alist
+;;                       (delete-dups (append file-name-handler-alist
+;;                                            old-file-name-handler-alist)))))))
 
 (setq gc-cons-threshold most-positive-fixnum
       gc-cons-percentage 0.5)
+
 (add-hook 'emacs-startup-hook
           (lambda ()
             "recover gc values after startup."
@@ -61,18 +62,16 @@
   (add-hook 'after-init-hook 'benchmark-init/deactivate))
 
 
-(require 'yasnippet-snippets)
 (require 'yasnippet)
 (yas-global-mode 1)
 (require 'lsp-bridge)
 (global-lsp-bridge-mode)
-(setq lsp-bridge-enable-log t)
+
 
 ;; core
 (require 'init-basic)
 (require 'init-tools)
 (require 'init-writing)
-
 (require 'init-evil)
 ;; uis
 (require 'init-ui)
