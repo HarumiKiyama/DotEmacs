@@ -1,4 +1,3 @@
-
 (use-package blacken)
 
 (use-package pytest)

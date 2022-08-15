@@ -46,10 +46,7 @@
 
 (set-language-environment 'chinese-gbk)
 (prefer-coding-system 'utf-8-auto)
-
-(if sys/macp
-    (set-file-name-coding-system 'utf-8)
-  (set-file-name-coding-system 'gbk))
+(set-file-name-coding-system 'utf-8)
 
 ;; Environment
 

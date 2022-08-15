@@ -89,6 +89,7 @@
 (require 'init-lisp)
 (require 'init-rust)
 (require 'init-coq)
+(require 'init-python)
 ;; personal
 (require 'init-keybindings)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
