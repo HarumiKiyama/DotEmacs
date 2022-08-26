@@ -31,15 +31,6 @@
 
 (use-package general
   :init
-  (with-eval-after-load 'evil
-    (general-add-hook 'after-init-hook
-                      (lambda (&rest _)
-                        (when-let ((messages-buffer (get-buffer "*Messages*")))
-                          (with-current-buffer messages-buffer
-                            (evil-normalize-keymaps))))
-                      nil
-                      nil
-                      t))
 
   (general-emacs-define-key 'global [remap imenu] 'consult-imenu)
   (general-emacs-define-key 'global [remap apropos] 'consult-apropos)

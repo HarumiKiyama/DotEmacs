@@ -1,8 +1,12 @@
-;;;;  -*- lexical-binding: t; -*-
+;;; init-meow.el -*- lexical-binding: t no-byte-compile: t -*-
+(use-package undo-tree
+ :diminish
+ :init
+ (global-undo-tree-mode 1)
+ (setq undo-tree-auto-save-history nil))
 
-
-
-(defun meow-setup ()
+(use-package meow
+  :config
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
   (meow-motion-overwrite-define-key
    '("j" . meow-next)
@@ -85,7 +89,10 @@
    '("y" . meow-save)
    '("Y" . meow-sync-grab)
    '("z" . meow-pop-selection)
-   '("'" . repeat)
-   '("<escape>" . ignore)))
+   '("." . repeat)
+   '("<escape>" . ignore))
+  )
+
+
 
 (provide 'init-meow)

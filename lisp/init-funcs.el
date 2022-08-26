@@ -350,10 +350,6 @@ Position the cursor at its beginning, according to the current mode."
           (rename-file filename new-name t)
           (set-visited-file-name new-name t t)))))))
 
-(defun harumi/yank-to-end-of-line ()
-  "Yank to end of line."
-  (interactive)
-  (evil-yank (point) (point-at-eol)))
 
 (defun occur-dwim ()
   "Call `occur' with a sane default."
@@ -573,15 +569,7 @@ the current layouts buffers."
 (with-eval-after-load 'eldoc
   (eldoc-add-command 'doom/escape))
 
-(defun harumi/evil-quick-replace (beg end)
-  (interactive "r")
-  (when (evil-visual-state-p)
-    (evil-exit-visual-state)
-    (let ((selection (regexp-quote (buffer-substring-no-properties beg end))))
-      (setq command-string (format "%%s /%s//g" selection))
-      (minibuffer-with-setup-hook
-          (lambda () (backward-char 2))
-        (evil-ex command-string)))))
+
 
 ;; https://emacs-china.org/t/advice/7566
 ;;;###autoload
@@ -648,12 +636,6 @@ Position the cursor at its beginning, according to the current mode."
   (move-end-of-line nil)
   (newline-and-indent))
 
-
-;;;###autoload
-(defun harumi/yank-to-end-of-line ()
-  "Yank to end of line."
-  (interactive)
-  (evil-yank (point) (point-at-eol)))
 
 ;;;###autoload
 (defun occur-dwim ()
@@ -840,12 +822,6 @@ open and unsaved."
   (sp-forward-slurp-sexp))
 
 ;;;###autoload
-(defun evil-paste-after-from-0 ()
-  (interactive)
-  (let ((evil-this-register ?0))
-    (call-interactively 'evil-paste-after)))
-
-;;;###autoload
 (defun my-erc-hook (match-type nick message)
   "Shows a growl notification, when user's nick was mentioned. If the buffer is currently not visible, makes it sticky."
   (unless (posix-string-match "^\\** *Users on #" message)
@@ -879,17 +855,6 @@ With PREFIX, cd to project root."
        end tell
   end tell
   " cmd))))
-
-;;;###autoload
-(defun harumi/evil-quick-replace (beg end )
-  (interactive "r")
-  (when (evil-visual-state-p)
-    (evil-exit-visual-state)
-    (let ((selection (regexp-quote (buffer-substring-no-properties beg end))))
-      (setq command-string (format "%%s /%s//g" selection))
-      (minibuffer-with-setup-hook
-          (lambda () (backward-char 2))
-        (evil-ex command-string)))))
 
 ;;;###autoload
 (defun harumi/git-project-root ()

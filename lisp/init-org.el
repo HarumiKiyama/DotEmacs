@@ -23,18 +23,6 @@
   (add-hook 'org-agenda-mode-hook
             'org-super-agenda-mode))
 
-(use-package evil-org
-  :ensure t
-  :hook (org-mode . evil-org-mode)
-  :after org
-  :config
-  (require 'evil-org-agenda)
-  (evil-org-agenda-set-keys))
-
-
-(defun org-apperance-evil-hack ()
-  (add-hook 'evil-insert-state-entry-hook #'org-appear-manual-start nil t)
-  (add-hook 'evil-insert-state-exit-hook #'org-appear-manual-stop nil t))
 
 (use-package org
   :ensure t
@@ -208,8 +196,6 @@ object (e.g., within a comment).  In these case, you need to use
     (define-key org-mode-map (kbd "RET")
       'harumi/org-return)
 
-    (evil-define-key 'normal org-mode-map
-      "+" #'org-cycle-list-bullet)
 
     (setq org-complete-tags-always-offer-all-agenda-tags t)
 
@@ -537,13 +523,6 @@ See `org-capture-templates' for more information."
                                 (org-agenda-start-with-log-mode nil)
                                 (org-agenda-log-mode-items '(closed clock state))
                                 (org-agenda-clockreport-mode t))))))
-
-
-    ;; used by harumi/org-clock-sum-today-by-tags
-
-    (define-key org-mode-map (kbd "s-p") 'org-priority)
-
-    (define-key evil-normal-state-map (kbd "C-c C-w") 'org-refile)
 
     ;; hack for org headline toc
     (defun org-html-headline (headline contents info)

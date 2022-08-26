@@ -72,7 +72,7 @@
 (require 'init-basic)
 (require 'init-tools)
 (require 'init-writing)
-(require 'init-evil)
+(require 'init-meow)
 ;; uis
 (require 'init-ui)
 (require 'init-window)
@@ -90,6 +90,7 @@
 (require 'init-rust)
 (require 'init-coq)
 (require 'init-python)
+(require 'init-go)
 ;; personal
 (require 'init-keybindings)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
