@@ -6,15 +6,11 @@
  (setq undo-tree-auto-save-history nil))
 
 (defun meow-setup ()
+  (setq meow-goto-line-function 'consult-goto-line)
   (meow-motion-overwrite-define-key
    '("j" . meow-next)
-   '("k" . meow-prev)
-   '("<escape>" . ignore))
+   '("k" . meow-prev))
   (meow-leader-define-key
-   ;; SPC j/k will run the original command in MOTION state.
-   '("j" . "H-j")
-   '("k" . "H-k")
-   ;; Use SPC (0-9) for digit arguments.
    '("1" . meow-digit-argument)
    '("2" . meow-digit-argument)
    '("3" . meow-digit-argument)
@@ -25,6 +21,7 @@
    '("8" . meow-digit-argument)
    '("9" . meow-digit-argument)
    '("0" . meow-digit-argument)
+   '("d" . meow-find-ref)
    '("/" . meow-keypad-describe-key)
    '("?" . meow-cheatsheet))
   (meow-normal-define-key
@@ -78,7 +75,6 @@
    '("s" . meow-kill)
    '("t" . meow-till)
    '("u" . meow-undo)
-   '("U" . meow-undo-in-selection)
    '("v" . meow-visit)
    '("w" . meow-mark-word)
    '("W" . meow-mark-symbol)
@@ -88,14 +84,19 @@
    '("Y" . meow-sync-grab)
    '("z" . meow-pop-selection)
    '("'" . repeat)
-   '("<escape>" . ignore)))
+   ))
 
 (use-package meow
   :config
   (meow-setup)
   (global-meow-mode 1))
 
-
+;; keybinds
+(define-key global-map [remap isearch-forward] 'consult-line)
+(define-key global-map [remap isearch-backward] 'consult-ripgrep)
+(define-key global-map [remap switch-to-buffer] 'consult-buffer)
+(define-key global-map [remap yank] 'consult-yank-from-kill-ring)
+(define-key global-map [remap yank-pop] 'consult-yank-pop)
 
 
 (provide 'init-meow)
