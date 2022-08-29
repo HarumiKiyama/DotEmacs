@@ -35,6 +35,11 @@
 	  gcmh-high-cons-threshold 16777216) ; 16MB
     (gcmh-mode 1)))
 
+(use-package which-key
+  :hook (after-init . which-key-mode)
+  :init
+  (setq which-key-side-window-location 'bottom))
+
 (use-package server
   :ensure nil
   :hook (after-init . (lambda () (server-mode))))

@@ -5,9 +5,7 @@
  (global-undo-tree-mode 1)
  (setq undo-tree-auto-save-history nil))
 
-(use-package meow
-  :config
-  (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
+(defun meow-setup ()
   (meow-motion-overwrite-define-key
    '("j" . meow-next)
    '("k" . meow-prev)
@@ -89,9 +87,14 @@
    '("y" . meow-save)
    '("Y" . meow-sync-grab)
    '("z" . meow-pop-selection)
-   '("." . repeat)
-   '("<escape>" . ignore))
-  )
+   '("'" . repeat)
+   '("<escape>" . ignore)))
+
+(use-package meow
+  :config
+  (meow-setup)
+  (global-meow-mode 1))
+
 
 
 

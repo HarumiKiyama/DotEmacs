@@ -72,7 +72,8 @@
 (require 'init-basic)
 (require 'init-tools)
 (require 'init-writing)
-(require 'init-meow)
+
+
 ;; uis
 (require 'init-ui)
 (require 'init-window)
@@ -82,6 +83,8 @@
 (require 'init-org)
 (require 'init-git)
 (require 'init-completion)
+(require 'init-meow)
+
 
 ;; frameworks
 (require 'init-persp)
@@ -91,8 +94,7 @@
 (require 'init-coq)
 (require 'init-python)
 (require 'init-go)
-;; personal
-(require 'init-keybindings)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
 (put 'dired-find-alternate-file 'disabled nil)

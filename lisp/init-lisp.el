@@ -8,9 +8,7 @@
   (lispy-define-key lispy-mode-map "e" 'eval-last-sexp)
   )
 
-(use-package lispyville
-  :ensure t
-  :hook (lispy-mode . lispyville-mode))
+
 
 (use-package macrostep
   :ensure t)
