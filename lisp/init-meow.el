@@ -111,8 +111,10 @@
    '(meow-motion-indicator ((t ())))
    '(meow-keypad-indicator ((t ())))
    '(meow-insert-indicator ((t ()))))
+  (add-to-list 'meow-expand-exclude-mode-list 'magit-mode)
   (add-to-list 'meow-expand-exclude-mode-list 'dired-mode)
   (add-to-list 'meow-expand-exclude-mode-list 'wdired-mode))
+
 
 
 
