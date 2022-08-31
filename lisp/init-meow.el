@@ -25,7 +25,10 @@
    '("9" . meow-digit-argument)
    '("0" . meow-digit-argument)
    '("/" . meow-keypad-describe-key)
-   '("?" . meow-cheatsheet))
+   '("?" . meow-cheatsheet)
+   '("<tab>" . meow-last-buffer)
+   '("k" . kill-this-buffer)
+   )
   (meow-normal-define-key
    '("0" . meow-expand-0)
    '("9" . meow-expand-9)
@@ -69,7 +72,7 @@
    '("n" . meow-search)
    '("o" . meow-block)
    '("O" . meow-to-block)
-   '("p" . meow-yank)
+   '("p" . meow-save)
    '("q" . meow-quit)
    '("Q" . meow-find-ref)
    '("r" . meow-replace)
@@ -79,11 +82,9 @@
    '("u" . meow-undo)
    '("U" . meow-page-up)
    '("/" . meow-visit)
-   '("w" . meow-mark-word)
-   '("W" . meow-mark-symbol)
    '("x" . meow-line)
    '("X" . meow-goto-line)
-   '("y" . meow-save)
+   '("y" . meow-yank)
    '("Y" . meow-sync-grab)
    '("z" . meow-pop-selection)
    '("'" . repeat)
@@ -92,9 +93,8 @@
    '("V" . ignore)
    '("e" . ignore)
    '("E" . ignore)
-   ))
-
-
+   )
+  )
 
 
 
@@ -102,7 +102,18 @@
 (require 'meow)
 (meow-setup)
 (meow-setup-indicator)
-(meow-global-mode)
+(meow-global-mode t)
+
+(with-eval-after-load "meow"
+  (custom-set-faces
+   '(meow-grab ((t (:inherit secondary-selection))))
+   '(meow-normal-indicator ((t ())))
+   '(meow-motion-indicator ((t ())))
+   '(meow-keypad-indicator ((t ())))
+   '(meow-insert-indicator ((t ()))))
+  (add-to-list 'meow-expand-exclude-mode-list 'dired-mode)
+  (add-to-list 'meow-expand-exclude-mode-list 'wdired-mode))
+
 
 
 ;; keybinds
