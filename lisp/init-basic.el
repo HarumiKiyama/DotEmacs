@@ -13,9 +13,10 @@
   ;; Key Modifiers
   (cond
    (sys/mac-port-p
-    ;; Compatible with Emacs Mac port
     (setq mac-option-modifier 'meta
-	  mac-command-modifier 'super)))
+          mac-command-modifier 'super
+          ns-function-modifier 'hyper)))
+
   ;; Optimization
   ;; read more at a time (was 4K)
   (unless sys/macp
@@ -32,7 +33,7 @@
     :diminish
     :init
     (setq gcmh-idle-delay 5
-	  gcmh-high-cons-threshold 16777216) ; 16MB
+	      gcmh-high-cons-threshold 16777216) ; 16MB
     (gcmh-mode 1)))
 
 (use-package which-key
