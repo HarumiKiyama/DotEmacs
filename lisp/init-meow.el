@@ -26,7 +26,7 @@
    '("0" . meow-digit-argument)
    '("/" . meow-keypad-describe-key)
    '("?" . meow-cheatsheet)
-   '("<tab>" . meow-last-buffer)
+   '("TAB" . meow-last-buffer)
    '("k" . kill-this-buffer)
    )
   (meow-normal-define-key

@@ -11,12 +11,11 @@
 
 (with-no-warnings
   ;; Key Modifiers
+  (setq ns-function-modifier 'hyper)
   (cond
    (sys/mac-port-p
     (setq mac-option-modifier 'meta
-          mac-command-modifier 'super
-          ns-function-modifier 'hyper)))
-
+          mac-command-modifier 'super)))
   ;; Optimization
   ;; read more at a time (was 4K)
   (unless sys/macp
@@ -56,11 +55,11 @@
 
 ;; Environment
 
-;; (use-package exec-path-from-shell
-;;   :init
-;;   (setq exec-path-from-shell-variables '("PATH" "MANPATH")
-;;         exec-path-from-shell-arguments '("-l"))
-;;   (exec-path-from-shell-initialize))
+(use-package exec-path-from-shell
+  :init
+  (setq exec-path-from-shell-variables '("PATH" "MANPATH")
+        exec-path-from-shell-arguments '("-l"))
+  (exec-path-from-shell-initialize))
 
 ;; History
 (use-package saveplace
