@@ -55,11 +55,19 @@
 
 ;; Environment
 
-(use-package exec-path-from-shell
-  :init
-  (setq exec-path-from-shell-variables '("PATH" "MANPATH")
-        exec-path-from-shell-arguments '("-l"))
-  (exec-path-from-shell-initialize))
+;; (use-package exec-path-from-shell
+;;   :init
+;;   (setq exec-path-from-shell-variables '("PATH" "MANPATH")
+;;         exec-path-from-shell-arguments '("-l"))
+;;   (exec-path-from-shell-initialize))
+
+;; (use-package conda
+;;   :config
+;;   (setq conda-anaconda-home (expand-file-name "~/miniconda3")
+;;         conda-env-home-directory (expand-file-name "~/miniconda3/envs"))
+;;   (conda-env-initialize-interactive-shells)
+;;   (conda-env-initialize-eshell)
+;;   (conda-env-autoactivate-mode t))
 
 ;; History
 (use-package saveplace

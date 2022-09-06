@@ -28,7 +28,7 @@
    '("?" . meow-cheatsheet)
    '("TAB" . meow-last-buffer)
    '("k" . kill-this-buffer)
-   )
+   '(";" . eshell))
   (meow-normal-define-key
    '("0" . meow-expand-0)
    '("9" . meow-expand-9)
