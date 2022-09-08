@@ -44,6 +44,15 @@
   :ensure nil
   :hook (after-init . (lambda () (server-mode))))
 
+(use-package tree-sitter
+  :config
+  (global-tree-sitter-mode))
+
+(use-package tree-sitter-langs
+  :config
+  (tree-sitter-require 'rust)
+  (tree-sitter-require))
+
 ;; Encoding
 ;; UTF-8 as the default coding system
 (when (fboundp 'set-charset-priority)
@@ -52,22 +61,6 @@
 (set-language-environment 'chinese-gbk)
 (prefer-coding-system 'utf-8-auto)
 (set-file-name-coding-system 'utf-8)
-
-;; Environment
-
-;; (use-package exec-path-from-shell
-;;   :init
-;;   (setq exec-path-from-shell-variables '("PATH" "MANPATH")
-;;         exec-path-from-shell-arguments '("-l"))
-;;   (exec-path-from-shell-initialize))
-
-;; (use-package conda
-;;   :config
-;;   (setq conda-anaconda-home (expand-file-name "~/miniconda3")
-;;         conda-env-home-directory (expand-file-name "~/miniconda3/envs"))
-;;   (conda-env-initialize-interactive-shells)
-;;   (conda-env-initialize-eshell)
-;;   (conda-env-autoactivate-mode t))
 
 ;; History
 (use-package saveplace
