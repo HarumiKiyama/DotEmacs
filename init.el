@@ -94,6 +94,7 @@
 (require 'init-coq)
 (require 'init-python)
 (require 'init-go)
+(require 'init-elixir)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here

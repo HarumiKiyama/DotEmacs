@@ -91,11 +91,10 @@
    '("<escape>" . ignore)
    '("v" . ignore)
    '("V" . ignore)
-   '("e" . ignore)
-   '("E" . ignore)
+   '("e" . meow-mark-word)
+   '("E" . meow-mark-symbol)
    )
   )
-
 
 
 (use-package meow)
@@ -116,21 +115,15 @@
   (add-to-list 'meow-expand-exclude-mode-list 'wdired-mode))
 
 
-
-
 ;; keybinds
 (define-key global-map [remap isearch-forward] 'consult-line)
 (define-key global-map [remap isearch-backward] 'consult-ripgrep)
 (define-key global-map [remap switch-to-buffer] 'consult-buffer)
-(define-key global-map [remap yank] 'consult-yank-from-kill-ring)
 (define-key global-map [remap yank-pop] 'consult-yank-pop)
 
 (define-key yas-minor-mode-map (kbd "TAB") nil)
 (define-key yas-minor-mode-map (kbd "<tab>") nil)
 (define-key yas-minor-mode-map [(tab)] nil)
-
-
-
 
 
 (provide 'init-meow)
