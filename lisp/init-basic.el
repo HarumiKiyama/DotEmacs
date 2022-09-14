@@ -154,6 +154,7 @@
 (setq recenter-positions '(top middle bottom))
 (setq project-find-functions '(my/project-try-local project-try-vc))
 (setq create-lockfiles nil)
+(setq scroll-conservatively 5)
 (show-paren-mode t)
 (provide 'init-basic)
 
