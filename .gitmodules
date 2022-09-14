@@ -1,3 +1,7 @@
 [submodule "lsp-bridge"]
 	path = site-lisp/lsp-bridge
 	url = https://github.com/manateelazycat/lsp-bridge.git
+    
+[submodule "idris2-mode"]
+	path = site-lisp/idris2-mode
+	url = https://github.com/idris-community/idris2-mode.git
