@@ -27,6 +27,9 @@
    '("/" . meow-keypad-describe-key)
    '("?" . meow-cheatsheet)
    '("TAB" . meow-last-buffer)
+   '("l" . lsp-bridge-list-diagnostics)
+   '("r" . lsp-bridge-rename)
+   '("d" . lsp-bridge-ref)
    '("k" . kill-this-buffer)
    '(";" . eshell))
   (meow-normal-define-key

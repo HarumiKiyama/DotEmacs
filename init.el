@@ -95,6 +95,7 @@
 (require 'init-python)
 (require 'init-go)
 (require 'init-elixir)
+(require 'init-idris)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
