@@ -1,7 +1,7 @@
 
 (use-package proof-general
   :ensure t
-  :config
+  :init
   (setq proof-three-window-mode-policy 'hybrid
         proof-script-fly-past-comments t
         proof-splash-seen t))

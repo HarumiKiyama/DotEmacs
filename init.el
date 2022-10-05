@@ -65,6 +65,9 @@
 (require 'yasnippet)
 (yas-global-mode 1)
 (require 'lsp-bridge)
+(add-to-list
+ 'lsp-bridge-single-lang-server-mode-list '(idris2-mode . "idris2-lsp"))
+(add-to-list 'lsp-bridge-default-mode-hooks 'idris2-mode-hook)
 (global-lsp-bridge-mode)
 
 
@@ -84,6 +87,7 @@
 (require 'init-git)
 (require 'init-completion)
 (require 'init-meow)
+
 
 
 ;; frameworks

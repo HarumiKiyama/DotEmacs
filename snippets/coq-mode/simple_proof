@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: simple_proof
+# key: prre
+# --
+Proof.
+reflexivity.
+Qed.
