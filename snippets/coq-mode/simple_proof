@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: simple_proof
-# key: prre
+# key: re
 # --
 Proof.
 reflexivity.

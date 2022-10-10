@@ -13,7 +13,8 @@
    ;; SPC j/k will run the original command in MOTION state.
    '("j" . "H-j")
    '("k" . "H-k")
-   '("<tab>" . meow-last-buffer)
+   '("D" . lsp-bridge-find-defi)
+   '("TAB" . meow-last-buffer)
    ;; Use SPC (0-9) for digit arguments.
    '("1" . meow-digit-argument)
    '("2" . meow-digit-argument)
@@ -45,7 +46,7 @@
    '("[" . meow-beginning-of-thing)
    '("]" . meow-end-of-thing)
    '("a" . meow-append)
-   '("A" . (lambda () (meow-line) (meow-append)))
+   '("A" . (lambda () (interactive) (meow-end-of-thing 'line) (meow-append)))
    '("b" . meow-back-word)
    '("B" . meow-back-symbol)
    '("c" . meow-change)
@@ -59,7 +60,7 @@
    '("h" . meow-left)
    '("H" . meow-left-expand)
    '("i" . meow-insert)
-   '("I" . (lambda () (meow-line) (meow-insert)))
+   '("I" . (lambda () (interactive) (meow-beginning-of-thing 'line) (meow-insert)))
    '("j" . meow-next)
    '("J" . meow-next-expand)
    '("k" . meow-prev)
@@ -78,21 +79,19 @@
    '("R" . meow-swap-grab)
    '("s" . meow-kill)
    '("t" . meow-till)
-   '("u" . undo)
-   '("U" . undo-redo)
    '("u" . meow-undo)
    '("U" . meow-page-up)
    '("v" . meow-begin-of-buffer)
    '("V" . meow-end-of-buffer)
    '("e" . meow-mark-word)
    '("E" . meow-mark-symbol)
-   '("x" . meow-join)
+   '("x" . meow-search)
    '("X" . meow-goto-line)
    '("y" . meow-save)
    '("Y" . meow-sync-grab)
    '("z" . meow-pop-selection)
    '("'" . repeat)
-   '("<escape>" . mode-line-other-buffer)))
+   '("<escape>" . ignore)))
 (add-hook 'after-init-hook 'meow-setup)
 (meow-global-mode)
 (setq meow-use-clipboard t)
@@ -115,6 +114,7 @@
  t)
 
 (meow-leader-define-key '("d" . one-key-menu-directory))
+
 
 (one-key-create-menu
  "ORG"
