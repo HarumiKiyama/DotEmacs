@@ -214,7 +214,7 @@
 
 
 ;; keybinds
-(define-key global-map [remap isearch-forward] 'meow-visit)
+(define-key global-map [remap isearch-forward] 'consult-line)
 (define-key global-map [remap isearch-backward] 'consult-ripgrep)
 (define-key global-map [remap switch-to-buffer] 'consult-buffer)
 (define-key global-map [remap yank-pop] 'consult-yank-pop)

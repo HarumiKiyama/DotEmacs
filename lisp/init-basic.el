@@ -149,12 +149,10 @@
       sentence-end-double-space nil)
 
 (setq-default split-height-threshold nil)
-;; prevent dired window split 3 columns
 (setq-default split-width-threshold (* 2 (window-width)))
 (setq recenter-positions '(top middle bottom))
 (setq project-find-functions '(my/project-try-local project-try-vc))
 (setq create-lockfiles nil)
-(setq scroll-conservatively 5)
 (show-paren-mode t)
 (provide 'init-basic)
 
