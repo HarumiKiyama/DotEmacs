@@ -86,7 +86,7 @@
    '("e" . meow-mark-word)
    '("E" . meow-mark-symbol)
    '("x" . meow-search)
-   '("X" . meow-goto-line)
+   '("X" . meow-visit)
    '("y" . meow-save)
    '("Y" . meow-sync-grab)
    '("z" . meow-pop-selection)
