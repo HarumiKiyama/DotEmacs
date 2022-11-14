@@ -9,20 +9,6 @@
 ;; speed up startup
 (setq auto-mode-case-fold nil)
 
-;; (unless (or (daemonp) noninteractive)
-;;   (let ((old-file-name-handler-alist file-name-handler-alist))
-;;     ;; if `file-name-handler-alist' is nil, no 256 colors in tui
-;;     ;; @see https://emacs-china.org/t/spacemacs-centaur-emacs/3802/839
-;;     (setq file-name-handler-alist
-;;           (unless (display-graphic-p)
-;;             '(("\\(?:\\.tzst\\|\\.zst\\|\\.dz\\|\\.txz\\|\\.xz\\|\\.lzma\\|\\.lz\\|\\.g?z\\|\\.\\(?:tgz\\|svgz\\|sifz\\)\\|\\.tbz2?\\|\\.bz2\\|\\.z\\)\\(?:~\\|\\.~[-[:alnum:]:#@^._]+\\(?:~[[:digit:]]+\\)?~\\)?\\'" . jka-compr-handler))))
-;;     (add-hook 'emacs-startup-hook
-;;               (lambda ()
-;;                 "recover file name handlers."
-;;                 (setq file-name-handler-alist
-;;                       (delete-dups (append file-name-handler-alist
-;;                                            old-file-name-handler-alist)))))))
-
 (setq gc-cons-threshold most-positive-fixnum
       gc-cons-percentage 0.5)
 
@@ -69,7 +55,7 @@
  'lsp-bridge-single-lang-server-mode-list '(idris2-mode . "idris2-lsp"))
 (add-to-list 'lsp-bridge-default-mode-hooks 'idris2-mode-hook)
 (global-lsp-bridge-mode)
-
+(require 'blink-search)
 
 ;; core
 (require 'init-basic)
@@ -88,8 +74,6 @@
 (require 'init-completion)
 (require 'init-meow)
 
-
-
 ;; frameworks
 (require 'init-persp)
 ;; languages
@@ -98,7 +82,6 @@
 (require 'init-coq)
 (require 'init-python)
 (require 'init-go)
-(require 'init-elixir)
 (require 'init-idris)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
