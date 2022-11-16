@@ -50,10 +50,8 @@
 (use-package yasnippet
   :config
   (yas-global-mode 1))
-(use-package yasnippet-snippets)
 (use-package posframe)
 (use-package markdown-mode)
-
 (require 'lsp-bridge)
 (add-to-list
  'lsp-bridge-single-lang-server-mode-list '(idris2-mode . "idris2-lsp"))
