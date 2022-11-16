@@ -5,6 +5,8 @@
   (global-undo-tree-mode 1)
   (setq undo-tree-auto-save-history nil))
 
+(use-package meow)
+
 (defun meow-setup ()
   (meow-motion-overwrite-define-key
    '("j" . meow-next)

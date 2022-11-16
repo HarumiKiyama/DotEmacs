@@ -1,15 +1,20 @@
 (use-package blacken
   :commands blacken-buffer
   :bind (:map python-mode-map
-              ("C-x = =" . blaken-buffer)))
+              ("C-c = =" . blaken-buffer)))
 
 (use-package pytest)
 
 (use-package pyvenv)
 
+(use-package conda)
+
 (use-package py-isort
   :commands py-isort-buffer
   :bind (:map python-mode-map
-              ("C-x = i" . py-isort-buffer)))
+              ("C-c = i" . py-isort-buffer)))
+(setq python-shell-interpreter "ipython"
+      python-shell-interpreter-args "--pylab"
+      python-shell-completion-native-enable nil)
 
 (provide 'init-python)
