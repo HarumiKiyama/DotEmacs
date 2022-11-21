@@ -46,11 +46,6 @@
    consult-theme
    :preview-key (list (kbd "C-SPC") :debounce 0.5 'any)))
 
-(use-package consult-dir
-  :bind (([remap list-directory] . consult-dir)
-         :map vertico-map
-         ("C-M-d" . consult-dir)))
-
 (use-package orderless
   :demand t
   :config
@@ -149,7 +144,6 @@
   (setq which-key-use-C-h-commands nil
 	;; press C-h after a prefix key, it shows all the possible key bindings and let you choose what you want
 	prefix-help-command #'embark-prefix-help-command)
-
   (setq
    embark-verbose-indicator-display-action
    '((display-buffer-at-bottom)
@@ -189,12 +183,8 @@
   :commands wgrep-change-to-wgrep-mode
   :config (setq wgrep-auto-save-buffer t))
 
-(use-package yasnippet
-  :ensure t)
-
 (use-package dumb-jump
   :ensure t)
-
 
 (with-eval-after-load 'xref
   (setq xref-search-program 'ripgrep)   ;project-find-regexp

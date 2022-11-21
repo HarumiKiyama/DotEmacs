@@ -1240,9 +1240,6 @@ earlier revisions.  Show up to LIMIT entries (non-nil means unlimited)."
           (message "Deleted file %s" filename)
           (kill-buffer))))))
 
-  (defun my/exec-shell-on-buffer (shell-command-text)
-    (interactive "MShell command: ")
-    (shell-command (format "%s %s" shell-command-text (shell-quote-argument buffer-file-name))))
 
 (defun my/imenu ()
   (interactive)

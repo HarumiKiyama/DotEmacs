@@ -1,11 +1,135 @@
 ;;; init-meow.el -*- lexical-binding: t no-byte-compile: t -*-
 (use-package undo-tree
-  :diminish
   :init
   (global-undo-tree-mode 1)
   (setq undo-tree-auto-save-history nil))
 
-(use-package meow)
+
+(use-package meow
+  :custom
+  (meow-use-clipboard t)
+  (meow-goto-line-function 'avy-goto-line)
+  :config
+  (meow-global-mode)
+  (add-to-list 'meow-mode-state-list '(elfeed-show-mode . normal))
+  (add-to-list 'meow-mode-state-list '(elfeed-summary-mode . motion))
+  (add-to-list 'meow-mode-state-list '(helpful-mode . normal))
+  (add-to-list 'meow-mode-state-list '(calibredb-search-mode . motion))
+  (add-to-list 'meow-mode-state-list '(Info-mode-hook . motion))
+
+  (require 'one-key)
+  (setq one-key-popup-window nil)
+  (one-key-create-menu
+   "DIRECTORY"
+   '((("d" . "Downloads") . (lambda () (interactive) (dired "~/Downloads/")))
+     (("i" . "Init") . (lambda () (interactive) (dired "~/.emacs.d/lisp/")))
+     (("b" . "Books") . (lambda () (interactive) (dired "~/Desktop/books"))))
+   t)
+  (meow-leader-define-key '("d" . one-key-menu-directory))
+  (one-key-create-menu
+   "ORG"
+   '((("c" . "Capture") . one-key-menu-org-capture)
+     (("d" . "Download") . one-key-menu-download)
+     (("p" . "Process") . org-gtd-process-inbox)
+     (("P" . "Pomodoro") . org-pomodoro)
+     (("l" . "cliplink") . org-cliplink)
+     (("i" . "ID") . org-id-get-create)
+     (("t" . "Transclusion") . one-key-menu-transclusion))
+   t)
+
+  (meow-leader-define-key '("o" . one-key-menu-org))
+
+  (one-key-create-menu
+   "DOWNLOAD"
+   '((("c" . "clipboard") . org-download-clipboard)
+     (("i" . "image") . org-download-image)
+     (("r" . "rename") . org-download-rename-at-point)
+     (("s" . "screenshot") . org-download-screenshot))
+   t)
+
+  (meow-leader-define-key '("l" . one-key-menu-language))
+
+  (one-key-create-menu
+   "ROAM"
+   '((("a" . "Alias") . one-key-menu-roam-alias)
+     (("c" . "Roam capture") . org-roam-capture)
+     (("d" . "Dailies") . one-key-menu-roam-dailies)
+     (("f" . "Node find") . org-roam-node-find)
+     (("i" . "Node insert") . org-roam-node-insert)
+     (("t" . "Tags") . one-key-menu-roam-tags)
+     (("r" . "Ref") . one-key-menu-roam-ref)
+     (("u" . "UI") . one-key-menu-roam-ui))
+   t)
+
+  (meow-leader-define-key '("r" . one-key-menu-roam))
+
+  (one-key-create-menu
+   "ROAM-ALIAS"
+   '((("a" . "Add") . org-roam-alias-add)
+     (("r" . "Remove") . org-roam-alias-remove))
+   t)
+
+  (one-key-create-menu
+   "ROAM-DAILIES"
+   '((("t" . "Today") . org-roam-dailies-find-today)
+     (("y" . "Yesterday") . org-roam-dailies-find-yesterday)
+     (("d" . "Directory") . org-roam-dailies-find-directory)
+     (("j" . "Date") . org-roam-dailies-goto-date))
+   t)
+
+  (one-key-create-menu
+   "ROAM-REF"
+   '((("a" . "Add") . org-roam-ref-add)
+     (("f" . "Find") . org-roam-ref-find)
+     (("r" . "Remove") . org-roam-ref-remove))
+   t)
+
+  (one-key-create-menu
+   "ROAM-TAGS"
+   '((("a" . "Add") . org-roam-tag-add)
+     (("c" . "Completion") . org-roam-tag-completions)
+     (("r" . "Remove") . org-roam-tag-remove))
+   t)
+
+  (one-key-create-menu
+   "ROAM-UI"
+   '((("o" . "Open") . org-roam-ui-open)
+     (("l" . "Local") . org-roam-ui-node-local)
+     (("z" . "Zome") . org-roam-ui-node-zoom)))
+
+  (one-key-create-menu
+   "WINDOWS"
+   '((("d" . "Destroy") . kill-this-buffer)
+     (("h" . "Left") . windmove-left)
+     (("j" . "Down") . windmove-down)
+     (("k" . "Up") . windmove-up)
+     (("l" . "Right") . windmove-right)
+     (("e" . "Email") . mu4e)
+     (("r" . "RSS") . elfeed-summary)
+     (("t" . "Telega") . telega)
+     (("m" . "Message") . (lambda () (interactive) (switch-to-buffer "*Messages*")))
+     (("s" . "scratch") . (lambda () (interactive) (switch-to-buffer "*scratch*")))
+     (("u" . "Winner Undo") . winner-undo))
+   t)
+
+  (meow-leader-define-key '("w" . one-key-menu-windows))
+
+  (one-key-create-menu
+   "TOOLS"
+   '((("o" . "Outline") . consult-outline))
+   t)
+
+  (meow-leader-define-key '("t" . one-key-menu-tools))
+
+  ;; keybinds
+  (define-key global-map [remap isearch-forward] 'consult-line)
+  (define-key global-map [remap isearch-backward] 'blink-search)
+  (define-key global-map [remap switch-to-buffer] 'consult-buffer)
+  (define-key global-map [remap yank-pop] 'consult-yank-pop)
+  (define-key yas-minor-mode-map (kbd "TAB") nil)
+  (define-key yas-minor-mode-map (kbd "<tab>") nil)
+  (define-key yas-minor-mode-map [(tab)] nil))
+(require 'meow)
 
 (defun meow-setup ()
   (meow-motion-overwrite-define-key
@@ -48,7 +172,6 @@
    '("[" . meow-beginning-of-thing)
    '("]" . meow-end-of-thing)
    '("a" . meow-append)
-   '("A" . (lambda () (interactive) (meow-end-of-thing 'line) (meow-append)))
    '("b" . meow-back-word)
    '("B" . meow-back-symbol)
    '("c" . meow-change)
@@ -63,7 +186,6 @@
    '("h" . meow-left)
    '("H" . meow-left-expand)
    '("i" . meow-insert)
-   '("I" . (lambda () (interactive) (meow-beginning-of-thing 'line) (meow-insert)))
    '("j" . meow-next)
    '("J" . meow-next-expand)
    '("k" . meow-prev)
@@ -88,142 +210,13 @@
    '("E" . meow-mark-symbol)
    '("V" . meow-search)
    '("v" . meow-visit)
-   '("x" . meow-goto-line-function)
+   '("x" . meow-goto-line)
    '("X" . meow-join)
    '("y" . meow-save)
    '("Y" . meow-sync-grab)
    '("z" . meow-pop-selection)
    '("'" . repeat)
    '("<escape>" . ignore)))
-(add-hook 'after-init-hook 'meow-setup)
-(meow-global-mode)
-(setq meow-use-clipboard t)
-
-(setq meow-goto-line-function 'avy-goto-line)
-(add-to-list 'meow-mode-state-list '(elfeed-show-mode . normal))
-(add-to-list 'meow-mode-state-list '(elfeed-summary-mode . motion))
-(add-to-list 'meow-mode-state-list '(helpful-mode . normal))
-(add-to-list 'meow-mode-state-list '(calibredb-search-mode . motion))
-(add-to-list 'meow-mode-state-list '(Info-mode-hook . motion))
-
-(require 'one-key)
-(setq one-key-popup-window nil)
-
-(one-key-create-menu
- "DIRECTORY"
- '((("d" . "Downloads") . (lambda () (interactive) (dired "~/Downloads/")))
-   (("i" . "Init") . (lambda () (interactive) (dired "~/.emacs.d/lisp/")))
-   (("b" . "Books") . (lambda () (interactive) (dired "~/Desktop/books"))))
- t)
-
-(meow-leader-define-key '("d" . one-key-menu-directory))
-
-
-(one-key-create-menu
- "ORG"
- '((("c" . "Capture") . one-key-menu-org-capture)
-   (("d" . "Download") . one-key-menu-download)
-   (("p" . "Process") . org-gtd-process-inbox)
-   (("P" . "Pomodoro") . org-pomodoro)
-   (("l" . "cliplink") . org-cliplink)
-   (("i" . "ID") . org-id-get-create)
-   (("t" . "Transclusion") . one-key-menu-transclusion))
- t)
-
-(meow-leader-define-key '("o" . one-key-menu-org))
-
-(one-key-create-menu
- "DOWNLOAD"
- '((("c" . "clipboard") . org-download-clipboard)
-   (("i" . "image") . org-download-image)
-   (("r" . "rename") . org-download-rename-at-point)
-   (("s" . "screenshot") . org-download-screenshot))
- t)
-
-(meow-leader-define-key '("l" . one-key-menu-language))
-
-(one-key-create-menu
- "ROAM"
- '((("a" . "Alias") . one-key-menu-roam-alias)
-   (("c" . "Roam capture") . org-roam-capture)
-   (("d" . "Dailies") . one-key-menu-roam-dailies)
-   (("f" . "Node find") . org-roam-node-find)
-   (("i" . "Node insert") . org-roam-node-insert)
-   (("t" . "Tags") . one-key-menu-roam-tags)
-   (("r" . "Ref") . one-key-menu-roam-ref)
-   (("u" . "UI") . one-key-menu-roam-ui))
- t)
-
-(meow-leader-define-key '("r" . one-key-menu-roam))
-
-(one-key-create-menu
- "ROAM-ALIAS"
- '((("a" . "Add") . org-roam-alias-add)
-   (("r" . "Remove") . org-roam-alias-remove))
- t)
-
-(one-key-create-menu
- "ROAM-DAILIES"
- '((("t" . "Today") . org-roam-dailies-find-today)
-   (("y" . "Yesterday") . org-roam-dailies-find-yesterday)
-   (("d" . "Directory") . org-roam-dailies-find-directory)
-   (("j" . "Date") . org-roam-dailies-goto-date))
- t)
-
-(one-key-create-menu
- "ROAM-REF"
- '((("a" . "Add") . org-roam-ref-add)
-   (("f" . "Find") . org-roam-ref-find)
-   (("r" . "Remove") . org-roam-ref-remove))
- t)
-
-(one-key-create-menu
- "ROAM-TAGS"
- '((("a" . "Add") . org-roam-tag-add)
-   (("c" . "Completion") . org-roam-tag-completions)
-   (("r" . "Remove") . org-roam-tag-remove))
- t)
-
-(one-key-create-menu
- "ROAM-UI"
- '((("o" . "Open") . org-roam-ui-open)
-   (("l" . "Local") . org-roam-ui-node-local)
-   (("z" . "Zome") . org-roam-ui-node-zoom)))
-
-(one-key-create-menu
- "WINDOWS"
- '((("d" . "Destroy") . kill-this-buffer)
-   (("h" . "Left") . windmove-left)
-   (("j" . "Down") . windmove-down)
-   (("k" . "Up") . windmove-up)
-   (("l" . "Right") . windmove-right)
-   (("e" . "Email") . mu4e)
-   (("r" . "RSS") . elfeed-summary)
-   (("t" . "Telega") . telega)
-   (("m" . "Message") . (lambda () (interactive) (switch-to-buffer "*Messages*")))
-   (("s" . "scratch") . (lambda () (interactive) (switch-to-buffer "*scratch*")))
-   (("u" . "Winner Undo") . winner-undo)
-   (("v" . "vundo") . vundo))
- t)
-
-(meow-leader-define-key '("w" . one-key-menu-windows))
-
-(one-key-create-menu
- "TOOLS"
- '((("o" . "Outline") . consult-outline))
- t)
-
-(meow-leader-define-key '("t" . one-key-menu-tools))
-
-
-;; keybinds
-(define-key global-map [remap isearch-forward] 'consult-line)
-(define-key global-map [remap isearch-backward] 'blink-search)
-(define-key global-map [remap switch-to-buffer] 'consult-buffer)
-(define-key global-map [remap yank-pop] 'consult-yank-pop)
-(define-key yas-minor-mode-map (kbd "TAB") nil)
-(define-key yas-minor-mode-map (kbd "<tab>") nil)
-(define-key yas-minor-mode-map [(tab)] nil)
 
 
 (provide 'init-meow)

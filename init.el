@@ -31,22 +31,16 @@
 
 (advice-add #'package-initialize :after #'update-load-path)
 (advice-add #'package-initialize :after #'add-subdirs-to-load-path)
-
-
 (update-load-path)
 
 ;; packages
-;; without this comment emacs25 adds (package-initialize) here
 (require 'init-package)
 
-(use-package benchmark-init
-  :ensure t
-  :demand t
-  :config
-  ;; to disable collection of benchmark data after init is done.
-  (add-hook 'after-init-hook 'benchmark-init/deactivate))
+;; config path env
+(use-package exec-path-from-shell)
+(exec-path-from-shell-initialize)
 
-
+;; config lsp-brigle
 (use-package yasnippet
   :config
   (yas-global-mode 1))
@@ -56,7 +50,14 @@
 (add-to-list
  'lsp-bridge-single-lang-server-mode-list '(idris2-mode . "idris2-lsp"))
 (add-to-list 'lsp-bridge-default-mode-hooks 'idris2-mode-hook)
+(setq lsp-bridge-python-command (expand-file-name "~/miniconda3/bin/python"))
 (global-lsp-bridge-mode)
+
+;; config meow
+(require 'init-meow)
+(add-hook 'after-init-hook 'meow-setup)
+
+;; config blink-search
 (require 'blink-search)
 
 ;; core
@@ -74,7 +75,6 @@
 (require 'init-org)
 (require 'init-git)
 (require 'init-completion)
-(require 'init-meow)
 
 ;; frameworks
 (require 'init-persp)
@@ -83,8 +83,8 @@
 (require 'init-rust)
 (require 'init-coq)
 (require 'init-python)
-(require 'init-go)
-(require 'init-idris)
+;; (require 'init-go)
+;; (require 'init-idris)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
