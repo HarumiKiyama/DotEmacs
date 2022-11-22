@@ -22,6 +22,6 @@
   :defer t
   :commands blacken-buffer
   :bind (:map python-mode-map
-              ("C-c = =" . blaken-buffer)))
+              ("C-c = =" . blacken-buffer)))
 
 (provide 'init-python)
