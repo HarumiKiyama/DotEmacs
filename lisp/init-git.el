@@ -4,6 +4,6 @@
   :commands (magit-status)
   :init
   (setq magit-refs-show-commit-count 'all
-        magit-status-buffer-switch-function 'switch-to-buffer))
+        magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1))
 
 (provide 'init-git)

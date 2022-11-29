@@ -139,7 +139,8 @@
    ;; SPC j/k will run the original command in MOTION state.
    '("j" . "H-j")
    '("k" . "H-k")
-   '("D" . lsp-bridge-find-defi)
+   '("s" . persp-switch)
+   '("D" . lsp-bridge-find-def)
    '("TAB" . meow-last-buffer)
    ;; Use SPC (0-9) for digit arguments.
    '("1" . meow-digit-argument)

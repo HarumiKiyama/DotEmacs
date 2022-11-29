@@ -129,6 +129,9 @@
     :hook (after-init . global-so-long-mode)
     :config (setq so-long-threshold 4000))
 
+(use-package ssh-deploy)
+
+
 ;; Misc
 (fset 'yes-or-no-p 'y-or-n-p)
 

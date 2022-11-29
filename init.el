@@ -78,6 +78,7 @@
 ;; tools
 (require 'init-org)
 (require 'init-git)
+(require 'init-elfeed)
 (require 'init-completion)
 
 ;; frameworks
