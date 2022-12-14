@@ -47,9 +47,10 @@
 (use-package posframe)
 (use-package markdown-mode)
 (require 'lsp-bridge)
-(add-to-list
- 'lsp-bridge-single-lang-server-mode-list '(idris2-mode . "idris2-lsp"))
-(add-to-list 'lsp-bridge-default-mode-hooks 'idris2-mode-hook)
+;; (add-to-list
+;;  'lsp-bridge-single-lang-server-mode-list '(idris2-mode . "idris2-lsp"))
+;; (add-to-list 'lsp-bridge-default-mode-hooks 'idris2-mode-hook)
+
 (setq lsp-bridge-python-command (let ((home (expand-file-name "~/miniconda3/bin/python"))
                                       (company (expand-file-name "~/anaconda3/bin/python")))
                                   (if (file-exists-p home)
@@ -60,7 +61,6 @@
 ;; config meow
 (require 'init-meow)
 (add-hook 'after-init-hook 'meow-setup)
-
 ;; config blink-search
 (require 'blink-search)
 
@@ -79,6 +79,7 @@
 (require 'init-org)
 (require 'init-git)
 (require 'init-elfeed)
+(require 'init-irc)
 (require 'init-completion)
 
 ;; frameworks

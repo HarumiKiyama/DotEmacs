@@ -116,7 +116,9 @@
 
   (one-key-create-menu
    "TOOLS"
-   '((("o" . "Outline") . consult-outline))
+   '((("o" . "Outline") . consult-outline)
+     (("e" . "elfeed") . elfeed)
+     (("c" . "chat") . erc))
    t)
 
   (meow-leader-define-key '("t" . one-key-menu-tools))
@@ -128,7 +130,7 @@
   (define-key global-map [remap yank-pop] 'consult-yank-pop)
   (define-key yas-minor-mode-map (kbd "TAB") nil)
   (define-key yas-minor-mode-map (kbd "<tab>") nil)
-  (define-key yas-minor-mode-map [(tab)] nil))
+  (define-key yas-minor-mode-map (kbd "M-'") 'yas-expand))
 (require 'meow)
 
 (defun meow-setup ()
