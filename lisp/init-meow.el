@@ -105,7 +105,8 @@
      (("k" . "Up") . windmove-up)
      (("l" . "Right") . windmove-right)
      (("e" . "Email") . mu4e)
-     (("r" . "RSS") . elfeed-summary)
+     (("c" . "Chat") . erc)
+     (("r" . "RSS") . elfeed)
      (("t" . "Telega") . telega)
      (("m" . "Message") . (lambda () (interactive) (switch-to-buffer "*Messages*")))
      (("s" . "scratch") . (lambda () (interactive) (switch-to-buffer "*scratch*")))
@@ -116,9 +117,7 @@
 
   (one-key-create-menu
    "TOOLS"
-   '((("o" . "Outline") . consult-outline)
-     (("e" . "elfeed") . elfeed)
-     (("c" . "chat") . erc))
+   '((("o" . "Outline") . consult-outline))
    t)
 
   (meow-leader-define-key '("t" . one-key-menu-tools))
@@ -140,6 +139,7 @@
   (meow-leader-define-key
    ;; SPC j/k will run the original command in MOTION state.
    '("j" . "H-j")
+   '("SPC" . set-mark-command)
    '("k" . "H-k")
    '("s" . persp-switch)
    '("D" . lsp-bridge-find-def)

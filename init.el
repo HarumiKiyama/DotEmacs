@@ -50,7 +50,6 @@
 ;; (add-to-list
 ;;  'lsp-bridge-single-lang-server-mode-list '(idris2-mode . "idris2-lsp"))
 ;; (add-to-list 'lsp-bridge-default-mode-hooks 'idris2-mode-hook)
-
 (setq lsp-bridge-python-command (let ((home (expand-file-name "~/miniconda3/bin/python"))
                                       (company (expand-file-name "~/anaconda3/bin/python")))
                                   (if (file-exists-p home)
