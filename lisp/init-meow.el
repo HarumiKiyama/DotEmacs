@@ -112,7 +112,6 @@
      (("s" . "scratch") . (lambda () (interactive) (switch-to-buffer "*scratch*")))
      (("u" . "Winner Undo") . winner-undo))
    t)
-
   (meow-leader-define-key '("w" . one-key-menu-windows))
 
   (one-key-create-menu
