@@ -14,7 +14,7 @@
 (use-package doom-themes
   :init
   (set-face-attribute 'default nil :height 180 :family "FiraCode Nerd Font")
-  (load-theme 'doom-solarized-light))
+  (load-theme 'doom-dracula))
 
 (use-package valign
   :ensure t
