@@ -107,7 +107,6 @@
      (("e" . "Email") . mu4e)
      (("c" . "Chat") . erc)
      (("r" . "RSS") . elfeed)
-     (("t" . "Telega") . telega)
      (("m" . "Message") . (lambda () (interactive) (switch-to-buffer "*Messages*")))
      (("s" . "scratch") . (lambda () (interactive) (switch-to-buffer "*scratch*")))
      (("u" . "Winner Undo") . winner-undo))
@@ -120,6 +119,8 @@
    t)
 
   (meow-leader-define-key '("t" . one-key-menu-tools))
+  (meow-leader-define-key '("R" . lsp-bridge-rename))
+  (meow-leader-define-key '("N" . lsp-bridge-diagnostic-jump-next))
 
   ;; keybinds
   (define-key global-map [remap isearch-forward] 'consult-line)
