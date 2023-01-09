@@ -20,14 +20,9 @@
   :ensure t
   :hook ((markdown-mode org-mode) . valign-mode))
 
-(use-package doom-modeline
+(use-package mood-line
   :ensure t
-  :init
-  (setq doom-modeline-minor-modes t)
-  :custom-face
-  (mode-line ((t (:height 0.95))))
-  (mode-line-inactive ((t (:height 0.95))))
-  :hook (after-init . doom-modeline-mode))
+  :hook (after-init . mood-line-mode))
 
 (use-package visual-fill-column
   :init
