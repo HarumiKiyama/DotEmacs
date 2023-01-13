@@ -44,6 +44,8 @@
 (use-package yasnippet
   :config
   (yas-global-mode 1))
+(use-package yasnippet-snippets
+  )
 (use-package posframe)
 (use-package markdown-mode)
 (require 'lsp-bridge)
@@ -51,7 +53,7 @@
 ;;  'lsp-bridge-single-lang-server-mode-list '(idris2-mode . "idris2-lsp"))
 ;; (add-to-list 'lsp-bridge-default-mode-hooks 'idris2-mode-hook)
 (setq lsp-bridge-python-command (let ((home (expand-file-name "~/miniconda3/bin/python"))
-                                      (company (expand-file-name "~/anaconda3/bin/python")))
+                                      (company (expand-file-name "/usr/bin/python")))
                                   (if (file-exists-p home)
                                       home
                                     company)))

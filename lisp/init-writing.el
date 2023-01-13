@@ -1,5 +1,10 @@
 ;;; init-writing.el -*- lexical-binding: t no-byte-compile: t -*-
 
+(use-package rime
+  :init
+  (setq default-input-method "rime"
+        rime-user-data-dir "~/.local/share/fcitx5/rime"))
+
 (use-package ispell-minor-mode
   :ensure nil
   :config

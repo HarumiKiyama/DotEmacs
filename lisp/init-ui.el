@@ -11,11 +11,10 @@
       `((buffer-file-name "%f" "%b")
         ,(format " - GNU Emacs %s" emacs-version)))
 
-(use-package doom-themes
+(use-package zenburn-theme
   :init
   (set-face-attribute 'default nil :height 180 :family "FiraCode Nerd Font")
-  (load-theme 'doom-dracula))
-
+  (load-theme 'zenburn))
 (use-package valign
   :ensure t
   :hook ((markdown-mode org-mode) . valign-mode))
@@ -26,7 +25,11 @@
 
 (use-package visual-fill-column
   :init
-(setq visual-fill-column-width 110
-      visual-fill-column-center-text t))
+  (setq visual-fill-column-width 110
+        visual-fill-column-center-text t))
+
+(use-package hl-todo
+  :config
+  (global-hl-todo-mode))
 
 (provide 'init-ui)
