@@ -1,8 +1,3 @@
-[submodule "lsp-bridge"]
-  path = site-lisp/lsp-bridge
-  url = https://github.com/manateelazycat/lsp-bridge.git
-  branch = master
-    
 [submodule "idris2-mode"]
   path = site-lisp/idris2-mode
   url = https://github.com/idris-community/idris2-mode.git
@@ -16,4 +11,14 @@
 [submodule "site-lisp/blink-search"]
   path = site-lisp/blink-search
   url = git@github.com:manateelazycat/blink-search.git
+  branch = master
+
+[submodule "site-lisp/color-rg"]
+  path = site-lisp/color-rg
+  url = git@github.com:manateelazycat/color-rg.git
+  branch = master
+
+[submodule "lsp-bridge"]
+  path = site-lisp/lsp-bridge
+  url = https://github.com/manateelazycat/lsp-bridge.git
   branch = master

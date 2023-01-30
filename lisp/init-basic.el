@@ -153,7 +153,8 @@
 
 (setq-default split-height-threshold nil)
 (setq-default split-width-threshold (* 2 (window-width)))
-(setq recenter-positions '(top middle bottom))
+(setq recenter-positions '(top middle bottom)
+      wdired-allow-to-change-permissions t)
 (setq project-find-functions '(my/project-try-local project-try-vc))
 (setq create-lockfiles nil)
 (show-paren-mode t)
