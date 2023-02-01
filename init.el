@@ -64,6 +64,11 @@
 (add-hook 'after-init-hook 'meow-setup)
 ;; config blink-search
 (require 'blink-search)
+;; config color-rg
+(require 'color-rg)
+
+;; config aweshell
+(require 'aweshell)
 
 ;; core
 (require 'init-basic)
