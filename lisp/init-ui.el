@@ -11,10 +11,10 @@
       `((buffer-file-name "%f" "%b")
         ,(format " - GNU Emacs %s" emacs-version)))
 
-(use-package zenburn-theme
+(use-package doom-themes
   :init
   (set-face-attribute 'default nil :height 180 :family "FiraCode Nerd Font")
-  (load-theme 'zenburn))
+  (load-theme 'doom-zenburn))
 (use-package valign
   :ensure t
   :hook ((markdown-mode org-mode) . valign-mode))
