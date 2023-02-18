@@ -11,6 +11,8 @@
       `((buffer-file-name "%f" "%b")
         ,(format " - GNU Emacs %s" emacs-version)))
 
+(set-face-foreground 'dired-directory "yellow")
+
 (use-package doom-themes
   :init
   (set-face-attribute 'default nil :height 180 :family "FiraCode Nerd Font")
