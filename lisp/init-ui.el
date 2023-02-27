@@ -11,7 +11,6 @@
       `((buffer-file-name "%f" "%b")
         ,(format " - GNU Emacs %s" emacs-version)))
 
-(set-face-foreground 'dired-directory "yellow")
 
 (use-package doom-themes
   :init

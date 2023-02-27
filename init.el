@@ -56,7 +56,8 @@
                                       (company (expand-file-name "/usr/bin/python")))
                                   (if (file-exists-p home)
                                       home
-                                    company)))
+                                    company))
+      lsp-bridge-python-multi-lsp-server "pyright_ruff")
 (global-lsp-bridge-mode)
 
 ;; config meow
