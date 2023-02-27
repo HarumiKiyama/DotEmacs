@@ -14,7 +14,7 @@
     (setenv "RUST_LOG" "debug")
     (cargo-process-current-test))
   :bind (:map rust-mode-map
-         (("C-c C-t" . my/cargo-test-current)))
+              (("C-c C-t" . my/cargo-test-current)))
   :custom ((cargo-process--command-current-test "test --color never")
            (cargo-process--enable-rust-backtrace t)
            (cargo-process--command-flags "--  --nocapture")))
