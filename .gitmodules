@@ -28,6 +28,6 @@
   path = site-lisp/color-rg
   url = git@github.com:manateelazycat/color-rg.git
   branch = master
-[submodule "site-list/acm-terminal"]
-	path = site-list/acm-terminal
+[submodule "site-lisp/acm-terminal"]
+	path = site-lisp/acm-terminal
 	url = git@github.com:twlz0ne/acm-terminal.git
