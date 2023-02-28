@@ -5,21 +5,18 @@
   :commands org-pomodoro
   :after org)
 
+(use-package org-journal
+  :config
+  (setq org-journal-date-format "%Y-%m-%d %A"
+        org-journal-time-format ""
+        org-journal-time-prefix ""
+        org-journal-dir (expand-file-name "~/org-mode/journal")))
 
 (use-package org-super-agenda
   :after org
   :init
   (setq org-super-agenda-header-map (make-sparse-keymap))
   (define-key org-super-agenda-header-map (kbd "q") 'org-agenda-quit)
-  (setq org-super-agenda-groups
-        '((:name "Important"
-                 :priority "A")
-          (:name "Quick Picks"
-                 :effort< "0:30")
-          (:name "Next Items"
-                 :tag ("NEXT" "outbox"))
-          (:priority<= "B"
-                       :scheduled future)))
   (add-hook 'org-agenda-mode-hook
             'org-super-agenda-mode))
 

@@ -1037,29 +1037,6 @@ e.g. Sunday, September 17, 2000."
       (insert output-string))
     output-string))
 
-;;;###autoload
-(defun harumi/hotspots ()
-  (interactive)
-  (require 'consult)
-  (setq-local source '(("Calendar" . (lambda ()  (browse-url "https://www.google.com/calendar/render")))
-                       ("RSS" . elfeed)
-                       ("Blog" . browse-hugo-maybe)
-                       ("Search" . (lambda () (call-interactively #'engine/search-google)))
-                       ("Random Todo" . org-random-entry)
-                       ("lsp bridge" . my/enable-lsp-bridge)
-                       ("string edit" . separedit)
-                       ("Org Roam" . org-roam-find-file)
-                       ("Github" . (lambda() (helm-github-stars)))
-                       ("Prodigy" . (lambda() (prodigy)))
-
-                       ;;todo (calc-eval "(1+1)*3")
-                       ;; ("Calculator" . (lambda () (helm-calcul-expression)))
-                       ("Run current flie" . (lambda () (harumi/run-current-file)))
-                       ("Agenda" . (lambda () (org-agenda "" "a")))
-                       ("sicp" . (lambda() (browse-url "http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-4.html#%_toc_start")))))
-  (let* ((result (consult--read (mapcar 'car source) :prompt "harumi's hotpot ")))
-    (when result
-      (funcall (cdr (assoc result source))))))
 
 (defun kill-other-buffers ()
     "Kill all other buffers."

@@ -16,6 +16,7 @@
   :init
   (set-face-attribute 'default nil :height 180 :family "FiraCode Nerd Font")
   (load-theme 'doom-zenburn))
+
 (use-package valign
   :ensure t
   :hook ((markdown-mode org-mode) . valign-mode))

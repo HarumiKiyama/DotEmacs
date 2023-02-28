@@ -1,10 +1,5 @@
 ;;; init-window.el -*- lexical-binding: t no-byte-compile: t -*-
 
-
-(use-package window-numbering
-  :init
-  :hook (after-init . window-numbering-mode))
-
 (use-package winner
   :ensure nil
   :commands (winner-undo winner-redo)

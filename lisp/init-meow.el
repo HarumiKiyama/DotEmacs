@@ -1,4 +1,6 @@
 ;;; init-meow.el -*- lexical-binding: t no-byte-compile: t -*-
+:PROPERTIES:
+:END:
 (use-package undo-tree
   :init
   (global-undo-tree-mode 1)
@@ -28,15 +30,11 @@
   (meow-leader-define-key '("d" . one-key-menu-directory))
   (one-key-create-menu
    "ORG"
-   '((("c" . "Capture") . one-key-menu-org-capture)
-     (("d" . "Download") . one-key-menu-download)
+   '((("d" . "Download") . one-key-menu-download)
      (("p" . "Process") . org-gtd-process-inbox)
      (("P" . "Pomodoro") . org-pomodoro)
-     (("l" . "cliplink") . org-cliplink)
-     (("i" . "ID") . org-id-get-create)
-     (("t" . "Transclusion") . one-key-menu-transclusion))
+     (("l" . "cliplink") . org-cliplink))
    t)
-
   (meow-leader-define-key '("o" . one-key-menu-org))
 
   (one-key-create-menu
@@ -47,56 +45,6 @@
      (("s" . "screenshot") . org-download-screenshot))
    t)
 
-  (meow-leader-define-key '("l" . one-key-menu-language))
-
-  (one-key-create-menu
-   "ROAM"
-   '((("a" . "Alias") . one-key-menu-roam-alias)
-     (("c" . "Roam capture") . org-roam-capture)
-     (("d" . "Dailies") . one-key-menu-roam-dailies)
-     (("f" . "Node find") . org-roam-node-find)
-     (("i" . "Node insert") . org-roam-node-insert)
-     (("t" . "Tags") . one-key-menu-roam-tags)
-     (("r" . "Ref") . one-key-menu-roam-ref)
-     (("u" . "UI") . one-key-menu-roam-ui))
-   t)
-
-  (meow-leader-define-key '("r" . one-key-menu-roam))
-
-  (one-key-create-menu
-   "ROAM-ALIAS"
-   '((("a" . "Add") . org-roam-alias-add)
-     (("r" . "Remove") . org-roam-alias-remove))
-   t)
-
-  (one-key-create-menu
-   "ROAM-DAILIES"
-   '((("t" . "Today") . org-roam-dailies-find-today)
-     (("y" . "Yesterday") . org-roam-dailies-find-yesterday)
-     (("d" . "Directory") . org-roam-dailies-find-directory)
-     (("j" . "Date") . org-roam-dailies-goto-date))
-   t)
-
-  (one-key-create-menu
-   "ROAM-REF"
-   '((("a" . "Add") . org-roam-ref-add)
-     (("f" . "Find") . org-roam-ref-find)
-     (("r" . "Remove") . org-roam-ref-remove))
-   t)
-
-  (one-key-create-menu
-   "ROAM-TAGS"
-   '((("a" . "Add") . org-roam-tag-add)
-     (("c" . "Completion") . org-roam-tag-completions)
-     (("r" . "Remove") . org-roam-tag-remove))
-   t)
-
-  (one-key-create-menu
-   "ROAM-UI"
-   '((("o" . "Open") . org-roam-ui-open)
-     (("l" . "Local") . org-roam-ui-node-local)
-     (("z" . "Zome") . org-roam-ui-node-zoom)))
-
   (one-key-create-menu
    "WINDOWS"
    '((("d" . "Destroy") . kill-this-buffer)
@@ -104,6 +52,7 @@
      (("j" . "Down") . windmove-down)
      (("k" . "Up") . windmove-up)
      (("l" . "Right") . windmove-right)
+     (("a" . "ace") . ace-window)
      (("e" . "Email") . mu4e)
      (("c" . "Chat") . erc)
      (("r" . "RSS") . elfeed)
@@ -111,16 +60,19 @@
      (("s" . "scratch") . (lambda () (interactive) (switch-to-buffer "*scratch*")))
      (("u" . "Winner Undo") . winner-undo))
    t)
-  (meow-leader-define-key '("w" . one-key-menu-windows))
 
   (one-key-create-menu
-   "TOOLS"
-   '((("o" . "Outline") . consult-outline))
-   t)
-
-  (meow-leader-define-key '("t" . one-key-menu-tools))
-  (meow-leader-define-key '("R" . lsp-bridge-rename))
-  (meow-leader-define-key '("N" . lsp-bridge-diagnostic-jump-next))
+   "LSP"
+   '((("r" . "Rename") . lsp-bridge-rename)
+     (("n" . "Next") . lsp-bridge-diagnostic-jump-next)
+     (("p" . "Prev") . lsp-bridge-diagnostic-jump-prev)
+     (("l" . "List") . lsp-bridge-diagnostic-list)
+     (("a" . "Action") . lsp-bridge-code-action)
+     (("d" . "Def") . lsp-bridge-find-def)
+     )
+   )
+  (meow-leader-define-key '("l" . one-key-menu-lsp))
+  (meow-leader-define-key '("w" . one-key-menu-windows))
 
   ;; keybinds
   (define-key global-map [remap isearch-forward] 'consult-line)
@@ -142,7 +94,6 @@
    '("SPC" . set-mark-command)
    '("k" . "H-k")
    '("s" . persp-switch)
-   '("D" . lsp-bridge-find-def)
    '("TAB" . meow-last-buffer)
    ;; Use SPC (0-9) for digit arguments.
    '("1" . meow-digit-argument)
