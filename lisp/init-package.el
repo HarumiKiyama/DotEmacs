@@ -13,6 +13,7 @@
   "Set `package-selected-packages' to VALUE but don't save to `custom-file'."
   (when value
     (setq package-selected-packages value)))
+
 (advice-add 'package--save-selected-packages :override #'my-save-selected-packages)
 
 ;; Set ELPA packages

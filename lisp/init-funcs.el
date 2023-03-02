@@ -26,13 +26,6 @@ Same as `replace-string C-q C-m RET RET'."
     (while (search-forward "\r" nil :noerror)
       (replace-match ""))))
 
-;; File and buffer
-(defun revert-this-buffer ()
-  "Revert the current buffer."
-  (interactive)
-  (unless (minibuffer-window-active-p (selected-window))
-    (revert-buffer t t)
-    (message "Reverted this buffer")))
 
 (defun delete-this-file ()
   "Delete the current file, and kill the buffer."
@@ -57,70 +50,6 @@ Same as `replace-string C-q C-m RET RET'."
       (set-visited-file-name new-name)
       (rename-buffer new-name))))
 
-(defun browse-this-file ()
-  "Open the current file as a URL using `browse-url'."
-  (interactive)
-  (let ((file-name (buffer-file-name)))
-    (if (and (fboundp 'tramp-tramp-file-p)
-             (tramp-tramp-file-p file-name))
-        (error "Cannot open tramp file")
-      (browse-url (concat "file://" file-name)))))
-
-(defun copy-file-name ()
-  "Copy the current buffer file name to the clipboard."
-  (interactive)
-  (if-let ((filename (if (equal major-mode 'dired-mode)
-                         default-directory
-                       (buffer-file-name))))
-      (progn
-        (kill-new filename)
-        (message "Copied '%s'" filename))
-    (warn "Current buffer is not attached to a file!")))
-
-(defun copy-buffer-name ()
-  "Copy name of the current buffer."
-  (interactive)
-  (kill-new (buffer-name)))
-
-;; Browse URL
-(defun harumi-webkit-browse-url (url &optional pop-buffer new-session)
-  "Browse url with webkit and switch or pop to the buffer.
-POP-BUFFER specifies whether to pop to the buffer.
-NEW-SESSION specifies whether to create a new xwidget-webkit session."
-  (interactive (progn
-                 (require 'browse-url)
-                 (browse-url-interactive-arg "xwidget-webkit URL: ")))
-  (when (and (featurep 'xwidget-internal)
-             (fboundp 'xwidget-buffer)
-             (fboundp 'xwidget-webkit-current-session))
-    (xwidget-webkit-browse-url url new-session)
-    (let ((buf (xwidget-buffer (xwidget-webkit-current-session))))
-      (when (buffer-live-p buf)
-        (and (eq buf (current-buffer)) (quit-window))
-        (if pop-buffer
-            (pop-to-buffer buf)
-          (switch-to-buffer buf))))))
-
-
-
-
-;; Mode line
-(defun mode-line-height ()
-  "Get the height of the mode-line."
-  (- (elt (window-pixel-edges) 3)
-     (elt (window-inside-pixel-edges) 3)))
-
-
-;; Open custom file
-(defun open-custom-file()
-  "Open or create `custom-file'."
-  (interactive)
-  (unless (file-exists-p custom-file)
-    (if (file-exists-p harumi-custom-example-file)
-        (copy-file harumi-custom-example-file custom-file)
-      (user-error "The file `%s' doesn't exist" harumi-custom-example-file)))
-  (find-file custom-file)
-  (find-file-other-window harumi-custom-post-file))
 
 ;; Misc
 (defun create-scratch-buffer ()
@@ -156,11 +85,6 @@ NEW-SESSION specifies whether to create a new xwidget-webkit session."
         (async-byte-recompile-directory temp-dir)
       (byte-recompile-directory temp-dir 0 t))))
 
-(defun icons-displayable-p ()
-  "Return non-nil if `all-the-icons' is displayable."
-  (and harumi-icon
-       (display-graphic-p)
-       (require 'all-the-icons nil t)))
 
 (defun harumi-set-variable (variable value &optional no-save)
   "Set the VARIABLE to VALUE, and return VALUE.
@@ -1093,8 +1017,6 @@ earlier revisions.  Show up to LIMIT entries (non-nil means unlimited)."
        (vc-print-log-internal backend files working-revision
                               is-start-revision limit)))))
 
-(defun terminal-notifier (title msg)
-  (call-process "terminal-notifier" nil 0 nil "-group" "Emacs" "-title" title "-activate" "org.gnu.Emacs" "-message" msg))
 
 (defun disable-curly-bracket-electric-pair ()
   (setq-local electric-pair-inhibit-predicate
@@ -1104,8 +1026,7 @@ earlier revisions.  Show up to LIMIT entries (non-nil means unlimited)."
 (defun my/project-try-local (dir)
   "Determine if DIR is a non-Git project."
   (catch 'ret
-    (let ((pr-flags '((".project")
-                      )))
+    (let ((pr-flags '((".project"))))
       (dolist (current-level pr-flags)
         (dolist (f current-level)
           (when-let ((root (locate-dominating-file dir f)))
