@@ -27,39 +27,52 @@
 
 (with-eval-after-load 'org
   (progn
-    (setq org-directory "~/org-mode")
-    (setq org-startup-indented t
-          org-pretty-entities t
-          org-hide-emphasis-markers t
-          org-startup-with-inline-images t
-          org-image-actual-width '(300)
-          org-agenda-dir "~/org-mode"
-          deft-dir "~/org-mode"
-          org-todo-keywords '((sequence "TODO(t)" "START" "SUSPEND(p)" "|" "DONE(d!)" "ABORT(a!)"))
-          org-todo-keyword-faces '(("START" . (:inherit (bold org-scheduled-today)))
-                                   ("SUSPEND" . (:inherit (bold warning)))
-                                   ("ABORT" . (:inherit (bold error))))
-          org-clock-in-switch-to-state "START"
-          org-clock-out-switch-to-state "TODO"
-          org-clock-persist t
-          org-tag-alist '(("Routine" . ?r)
-                          ("Programming" . ?p)
-                          ("Reading" . ?R))
-          org-capture-templates '(("e" "Emacs" entry (file+headline "task.org" "Emacs Hacking") "** TODO %?")
-                                  ("a" "Algorithm" entry (file +create-algorithm-org-file) "* Description\n%?\n* Solution")
-                                  ("t" "Trivial" entry (file+headline "task.org" "Trivial") "** TODO %?")
-                                  ("b" "Blog" entry (file "blog.org") "* SUSPEND %?"))
-          org-agenda-files '("~/org-mode/task.org"
-                             "~/org-mode/notation.org"
-                             "~/org-mode/blog.org")
-          org-refile-targets '(("~/org-mode/task.org" :maxlevel . 1)
-                               ("~/org-mode/notes.org" :maxlevel . 1)
-                               ("~/org-mode/someday.org" :maxlevel . 1)
-                               ("~/org-mode/blog.org" :maxlevel . 1)
-                               (nil . (:maxlevel . 2)))
-          org-refile-use-outline-path 'file
-          org-archive-location "~/org-mode/archive.org::"
-          org-startup-truncated nil)
+    (setq
+     org-directory "~/org-mode"
+     org-startup-indented t
+     org-pretty-entities t
+     org-hide-emphasis-markers t
+     org-startup-with-inline-images t
+     org-image-actual-width '(300)
+     org-agenda-dir "~/org-mode"
+     deft-dir "~/org-mode"
+     org-todo-keywords '((sequence "TODO(t)" "START" "SUSPEND(p)" "|" "DONE(d!)" "ABORT(a!)"))
+     org-todo-keyword-faces '(("START" . (:inherit (bold org-scheduled-today)))
+                              ("SUSPEND" . (:inherit (bold warning)))
+                              ("ABORT" . (:inherit (bold error))))
+     org-clock-in-switch-to-state "START"
+     org-clock-out-switch-to-state "TODO"
+     org-clock-persist t
+     org-tag-alist '(("Routine" . ?r)
+                     ("Programming" . ?p)
+                     ("Reading" . ?R))
+     org-capture-templates '(("e" "Emacs" entry (file+headline "task.org" "Emacs Hacking") "** TODO %?")
+                             ("a" "Algorithm" entry (file +create-algorithm-org-file) "* Description\n%?\n* Solution")
+                             ("t" "Trivial" entry (file+headline "task.org" "Trivial") "** TODO %?")
+                             ("b" "Blog" entry (file "blog.org") "* SUSPEND %?"))
+     org-agenda-files '("~/org-mode/task.org"
+                        "~/org-mode/notation.org"
+                        "~/org-mode/blog.org")
+     org-refile-targets '(("~/org-mode/task.org" :maxlevel . 1)
+                          ("~/org-mode/notes.org" :maxlevel . 1)
+                          ("~/org-mode/someday.org" :maxlevel . 1)
+                          ("~/org-mode/blog.org" :maxlevel . 1)
+                          (nil . (:maxlevel . 2)))
+     org-refile-use-outline-path 'file
+     org-archive-location "~/org-mode/archive.org::"
+     org-startup-truncated nil)
+
+    ;; org babel config
+    (setq org-babel-append-languages '(("plantuml" . plantuml)
+                                       ("python" . python)))
+    (dolist (thing org-babel-append-languages)
+      (add-to-list 'org-src-lang-modes thing)
+      (org-babel-do-load-languages 'org-babel-load-languages
+                                   (append org-babel-load-languages
+                                           (list (cons (cdr thing) t)))))
+    (setq org-plantuml-exec-mode 'plantuml)
+
+
 
     ;; https://emacs-china.org/t/ox-hugo-auto-fill-mode-markdown/9547/4
     (defadvice org-hugo-paragraph (before org-hugo-paragraph-advice
