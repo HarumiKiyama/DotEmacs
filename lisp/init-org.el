@@ -6,6 +6,7 @@
   :after org)
 
 (use-package org-journal
+  :pin nongnu
   :config
   (setq org-journal-date-format "%Y-%m-%d %A"
         org-journal-time-format ""
