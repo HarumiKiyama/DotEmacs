@@ -18,11 +18,9 @@
   (load-theme 'doom-zenburn))
 
 (use-package valign
-  :ensure t
   :hook ((markdown-mode org-mode) . valign-mode))
 
 (use-package mood-line
-  :ensure t
   :hook (after-init . mood-line-mode))
 
 (use-package visual-fill-column
@@ -31,6 +29,7 @@
         visual-fill-column-center-text t))
 
 (use-package hl-todo
+  :defer
   :config
   (global-hl-todo-mode))
 

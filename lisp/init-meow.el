@@ -68,9 +68,7 @@
      (("p" . "Prev") . lsp-bridge-diagnostic-jump-prev)
      (("l" . "List") . lsp-bridge-diagnostic-list)
      (("a" . "Action") . lsp-bridge-code-action)
-     (("d" . "Def") . lsp-bridge-find-def)
-     )
-   )
+     (("d" . "Def") . lsp-bridge-find-def)))
   (meow-leader-define-key '("l" . one-key-menu-lsp))
   (meow-leader-define-key '("w" . one-key-menu-windows))
 
@@ -81,7 +79,9 @@
   (define-key global-map [remap yank-pop] 'consult-yank-pop)
   (define-key yas-minor-mode-map (kbd "TAB") nil)
   (define-key yas-minor-mode-map (kbd "<tab>") nil)
-  (define-key yas-minor-mode-map (kbd "M-'") 'yas-expand))
+  (define-key yas-minor-mode-map (kbd "M-'") 'yas-expand)
+  (define-key global-map (kbd "C-x (") 'meow-beacon-start)
+  (define-key global-map (kbd "C-x )") 'meow-beacon-apply-kmacro))
 (require 'meow)
 
 (defun meow-setup ()

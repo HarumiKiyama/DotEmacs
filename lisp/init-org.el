@@ -7,6 +7,9 @@
 
 (use-package org-journal
   :pin nongnu
+  :bind
+  (:map org-journal-mode-map
+        ("C-c C-c" . kill-buffer-and-window))
   :config
   (setq org-journal-date-format "%Y-%m-%d %A"
         org-journal-time-format ""
@@ -31,6 +34,7 @@
     (setq
      org-directory "~/org-mode"
      org-startup-indented t
+     org-use-speed-commands t
      org-pretty-entities t
      org-hide-emphasis-markers t
      org-startup-with-inline-images t
@@ -48,7 +52,6 @@
                      ("Programming" . ?p)
                      ("Reading" . ?R))
      org-capture-templates '(("e" "Emacs" entry (file+headline "task.org" "Emacs Hacking") "** TODO %?")
-                             ("a" "Algorithm" entry (file +create-algorithm-org-file) "* Description\n%?\n* Solution")
                              ("t" "Trivial" entry (file+headline "task.org" "Trivial") "** TODO %?")
                              ("b" "Blog" entry (file "blog.org") "* SUSPEND %?"))
      org-agenda-files '("~/org-mode/task.org"
@@ -56,13 +59,12 @@
                         "~/org-mode/blog.org")
      org-refile-targets '(("~/org-mode/task.org" :maxlevel . 1)
                           ("~/org-mode/notes.org" :maxlevel . 1)
-                          ("~/org-mode/someday.org" :maxlevel . 1)
+                          ("~/org-mode/someday.org" :maxlevel. 1)
                           ("~/org-mode/blog.org" :maxlevel . 1)
                           (nil . (:maxlevel . 2)))
      org-refile-use-outline-path 'file
      org-archive-location "~/org-mode/archive.org::"
      org-startup-truncated nil)
-
     ;; org babel config
     (setq org-babel-append-languages '(("plantuml" . plantuml)
                                        ("python" . python)))
@@ -72,8 +74,6 @@
                                    (append org-babel-load-languages
                                            (list (cons (cdr thing) t)))))
     (setq org-plantuml-exec-mode 'plantuml)
-
-
 
     ;; https://emacs-china.org/t/ox-hugo-auto-fill-mode-markdown/9547/4
     (defadvice org-hugo-paragraph (before org-hugo-paragraph-advice
