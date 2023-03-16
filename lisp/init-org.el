@@ -67,7 +67,8 @@
      org-startup-truncated nil)
     ;; org babel config
     (setq org-babel-append-languages '(("plantuml" . plantuml)
-                                       ("python" . python)))
+                                       ("python" . python)
+                                       ("rust" . rust)))
     (dolist (thing org-babel-append-languages)
       (add-to-list 'org-src-lang-modes thing)
       (org-babel-do-load-languages 'org-babel-load-languages
