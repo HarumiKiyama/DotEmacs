@@ -41,11 +41,11 @@
      org-image-actual-width '(300)
      org-agenda-dir "~/org-mode"
      deft-dir "~/org-mode"
-     org-todo-keywords '((sequence "TODO(t)" "START" "SUSPEND(p)" "|" "DONE(d!)" "ABORT(a!)"))
-     org-todo-keyword-faces '(("START" . (:inherit (bold org-scheduled-today)))
+     org-todo-keywords '((sequence "TODO(t)" "STARTED" "SUSPEND(p)" "|" "DONE(d!)" "ABORT(a!)"))
+     org-todo-keyword-faces '(("STARTED" . (:inherit (bold org-scheduled-today)))
                               ("SUSPEND" . (:inherit (bold warning)))
                               ("ABORT" . (:inherit (bold error))))
-     org-clock-in-switch-to-state "START"
+     org-clock-in-switch-to-state "STARTED"
      org-clock-out-switch-to-state "TODO"
      org-clock-persist t
      org-tag-alist '(("Routine" . ?r)
