@@ -28,4 +28,8 @@
 (use-package sudo-edit
   :ensure t)
 
+(use-package hl-todo
+  :config
+  (global-hl-todo-mode))
+
 (provide 'init-tools)

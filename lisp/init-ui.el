@@ -28,8 +28,7 @@
   (setq visual-fill-column-width 110
         visual-fill-column-center-text t))
 
-(use-package hl-todo
-  :config
-  (global-hl-todo-mode))
+
+
 
 (provide 'init-ui)
