@@ -26,31 +26,6 @@ Same as `replace-string C-q C-m RET RET'."
     (while (search-forward "\r" nil :noerror)
       (replace-match ""))))
 
-
-(defun delete-this-file ()
-  "Delete the current file, and kill the buffer."
-  (interactive)
-  (unless (buffer-file-name)
-    (error "No file is currently being edited"))
-  (when (yes-or-no-p (format "Really delete '%s'?"
-                             (file-name-nondirectory buffer-file-name)))
-    (delete-file (buffer-file-name))
-    (kill-this-buffer)))
-
-(defun rename-this-file (new-name)
-  "Renames both current buffer and file it's visiting to NEW-NAME."
-  (interactive "sNew name: ")
-  (let ((name (buffer-name))
-        (filename (buffer-file-name)))
-    (unless filename
-      (error "Buffer '%s' is not visiting a file!" name))
-    (progn
-      (when (file-exists-p filename)
-        (rename-file filename new-name 1))
-      (set-visited-file-name new-name)
-      (rename-buffer new-name))))
-
-
 ;; Misc
 (defun create-scratch-buffer ()
   "Create a scratch buffer."
@@ -965,7 +940,7 @@ earlier revisions.  Show up to LIMIT entries (non-nil means unlimited)."
             (message "File '%s' successfully renamed to '%s'"
                      name (file-name-nondirectory new-name)))))))
 
-(defun my/delete-file-and-buffer ()
+(defun harumi/delete-file-and-buffer ()
   "Kill the current buffer and delete the file it is visiting."
   (interactive)
   (let ((filename (buffer-file-name)))

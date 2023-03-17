@@ -68,9 +68,20 @@
      (("d" . "Search Directory") . color-rg-search-input)
      (("f" . "Search file") . color-rg-search-input-in-current-file)
      (("p" . "Search Project") . color-rg-search-input-in-project)))
+
+  (one-key-create-menu
+   "FILE"
+   '(
+     (("r" . "Rename File") . harumi/rename-file-and-buffer)
+     (("d" . "delete File") . harumi/delete-file-and-buffer)
+     (("D" . "Dos2Unix") . dos2unix)
+     (("U" . "Unix2Dos") . unix2dos)
+     (("M" . "DELETE^M") . delete-carrage-returns)))
   (meow-leader-define-key '("l" . one-key-menu-lsp))
   (meow-leader-define-key '("w" . one-key-menu-windows))
   (meow-leader-define-key '("r" . one-key-menu-rg))
+  (meow-leader-define-key '("f" . one-key-menu-file))
+
 
   ;; keybinds
   (define-key global-map [remap isearch-forward] 'consult-line)
