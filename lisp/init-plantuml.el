@@ -3,4 +3,5 @@
   :config
   (setq plantuml-default-exec-mode 'executable))
 
+
 (provide 'init-plantuml)

@@ -137,86 +137,6 @@ This issue has been addressed in 28."
        (setq ns-use-native-fullscreen nil)))
 
 
-
-;; Fonts
-(defun harumi-install-fonts ()
-  "Install necessary fonts."
-  (interactive)
-
-  (let* ((url-format "https://raw.githubusercontent.com/domtronn/all-the-icons.el/master/fonts/%s")
-         (url (concat harumi-homepage "/files/6135060/symbola.zip"))
-         (font-dest (cond
-                     ;; Default Linux install directories
-                     ((member system-type '(gnu gnu/linux gnu/kfreebsd))
-                      (concat (or (getenv "XDG_DATA_HOME")
-                                  (concat (getenv "HOME") "/.local/share"))
-                              "/fonts/"))
-                     ;; Default MacOS install directory
-                     ((eq system-type 'darwin)
-                      (concat (getenv "HOME") "/Library/Fonts/"))))
-         (known-dest? (stringp font-dest))
-         (font-dest (or font-dest (read-directory-name "Font installation directory: " "~/"))))
-
-    (unless (file-directory-p font-dest) (mkdir font-dest t))
-
-    ;; Download `all-the-fonts'
-    (when (bound-and-true-p all-the-icons-font-names)
-      (mapc (lambda (font)
-              (url-copy-file (format url-format font) (expand-file-name font font-dest) t))
-            all-the-icons-font-names))
-
-    ;; Download `Symbola'
-    ;; See https://dn-works.com/wp-content/uploads/2020/UFAS-Fonts/Symbola.zip
-    (let* ((temp-file (make-temp-file "symbola-" nil ".zip"))
-           (temp-dir (concat (file-name-directory temp-file) "/symbola/"))
-           (unzip-script (cond ((executable-find "unzip")
-                                (format "mkdir -p %s && unzip -qq %s -d %s"
-                                        temp-dir temp-file temp-dir))
-                               ((executable-find "powershell")
-                                (format "powershell -noprofile -noninteractive \
-  -nologo -ex bypass Expand-Archive -path '%s' -dest '%s'" temp-file temp-dir))
-                               (t (user-error "Unable to extract '%s' to '%s'! \
-  Please check unzip, powershell or extract manually." temp-file temp-dir)))))
-      (url-copy-file url temp-file t)
-      (when (file-exists-p temp-file)
-        (shell-command-to-string unzip-script)
-        (let* ((font-name "Symbola.otf")
-               (temp-font (expand-file-name font-name temp-dir)))
-          (if (file-exists-p temp-font)
-              (copy-file temp-font (expand-file-name font-name font-dest) t)
-            (message "Failed to download `Symbola'!")))))
-
-    (when known-dest?
-      (message "Fonts downloaded, updating font cache... <fc-cache -f -v> ")
-      (shell-command-to-string (format "fc-cache -f -v")))
-
-    (message "Successfully %s `all-the-icons' and `Symbola' fonts to `%s'!"
-             (if known-dest? "installed" "downloaded")
-             font-dest)))
-
-
-(defun harumi/insert-chrome-current-tab-url()
-  "Get the URL of the active tab of the first window"
-  (interactive)
-  (insert (harumi/retrieve-chrome-current-tab-url)))
-
-(defun harumi/retrieve-chrome-current-tab-url()
-  "Get the URL of the active tab of the first window"
-  (interactive)
-  (let ((result (do-applescript
-		 (concat
-		  "set frontmostApplication to path to frontmost application\n"
-		  "tell application \"Google Chrome\"\n"
-		  "	set theUrl to get URL of active tab of first window\n"
-		  "	set theResult to (get theUrl) \n"
-		  "end tell\n"
-		  "activate application (frontmostApplication as text)\n"
-		  "set links to {}\n"
-		  "copy theResult to the end of links\n"
-		  "return links as string\n"))))
-    (format "%s" (s-chop-suffix "\"" (s-chop-prefix "\"" result)))))
-
-
 (defun ora-ediff-files ()
   (interactive)
   (let ((files (dired-get-marked-files))
@@ -252,7 +172,6 @@ This issue has been addressed in 28."
         (indent-buffer)
         (message "Indent buffer.")))))
 
-;;http://emacsredux.com/blog/2013/03/26/smarter-open-line/
 (defun harumi/smart-open-line ()
   "Insert an empty line after the current line.
 Position the cursor at its beginning, according to the current mode."
@@ -436,42 +355,6 @@ Supports exporting consult-grep to wgrep, file to wdeired, and consult-location 
         (embark-dwim)))))
 
 
-
-(defun spacemacs/alternate-buffer (&optional window)
-  "Switch back and forth between current and last buffer in the
-current window.
-If `spacemacs-layouts-restrict-spc-tab' is `t' then this only switches between
-the current layouts buffers."
-  (interactive)
-  (cl-destructuring-bind (buf start pos)
-      (if (bound-and-true-p spacemacs-layouts-restrict-spc-tab)
-          (let ((buffer-list (persp-buffer-list))
-                (my-buffer (window-buffer window)))
-            ;; find buffer of the same persp in window
-            (seq-find (lambda (it) ;; predicate
-                        (and (not (eq (car it) my-buffer))
-                             (member (car it) buffer-list)))
-                      (window-prev-buffers)
-                      ;; default if found none
-                      (list nil nil nil)))
-        (or (cl-find (window-buffer window) (window-prev-buffers)
-                     :key #'car :test-not #'eq)
-            (list (other-buffer) nil nil)))
-    (if (not buf)
-        (message "Last buffer not found.")
-      (set-window-buffer-start-and-point window buf start pos))))
-
-(defun open-my-init-file()
-  (interactive)
-  (find-file (expand-file-name "init.el" user-emacs-directory )))
-
-(defun my-toggle-line-number ()
-  (interactive)
-  (if global-display-line-numbers-mode
-      (global-display-line-numbers-mode -1)
-    (progn
-      (global-display-line-numbers-mode 1)
-      (setq display-line-numbers 'relative))))
 
 (defun doom/escape (&optional interactive)
   "Run `doom-escape-hook'."
@@ -1146,10 +1029,6 @@ Puts point in the middle line as well as indent it by correct amount."
     (if (char-equal ?} char-at-point)
         (av/auto-indent-method)
       (newline-and-indent))))
-
-(defun harumi/run-current-file ()
-  (interactive)
-  (quickrun))
 
 (defun file-notify-rm-all-watches ()
   "Remove all existing file notification watches from Emacs."

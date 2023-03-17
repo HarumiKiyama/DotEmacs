@@ -12,8 +12,6 @@
 
 (use-package pyvenv)
 
-(use-package conda)
-
 (use-package py-isort
   :defer t
   :commands py-isort-buffer

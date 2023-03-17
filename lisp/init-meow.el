@@ -60,8 +60,17 @@
      (("a" . "Action") . lsp-bridge-code-action)
      (("R" . "reference") . lsp-bridge-find-references)
      (("d" . "Def") . lsp-bridge-find-def)))
+
+
+  (one-key-create-menu
+   "RG"
+   '(
+     (("d" . "Search Directory") . color-rg-search-input)
+     (("f" . "Search file") . color-rg-search-input-in-current-file)
+     (("p" . "Search Project") . color-rg-search-input-in-project)))
   (meow-leader-define-key '("l" . one-key-menu-lsp))
   (meow-leader-define-key '("w" . one-key-menu-windows))
+  (meow-leader-define-key '("r" . one-key-menu-rg))
 
   ;; keybinds
   (define-key global-map [remap isearch-forward] 'consult-line)

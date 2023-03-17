@@ -28,13 +28,19 @@
   (setq dired-recursive-deletes 'always)
   (setq dired-recursive-copies 'always))
 
-(use-package dired-x
-  :ensure nil
-  :demand t
-  :commands (dired-jump)
-  :config
+(with-eval-after-load 'dired
+  (require 'dired-x)
+  ;; Set dired-x global variables here.  For example:
+  ;; (setq dired-guess-shell-gnutar "gtar")
+  ;; (setq dired-x-hands-off-my-keys nil)
   (setq dired-omit-files
         (concat dired-omit-files "\\|^.DS_Store$\\|^.projectile$\\|\\.js\\.meta$\\|\\.meta$")))
+(add-hook 'dired-mode-hook
+          (lambda ()
+            ;; Set dired-x buffer-local variables here.  For example:
+            ;; (dired-omit-mode 1)
+            ))
+
 
 
 (use-package smartparens

@@ -29,7 +29,6 @@
         visual-fill-column-center-text t))
 
 (use-package hl-todo
-  :defer
   :config
   (global-hl-todo-mode))
 
