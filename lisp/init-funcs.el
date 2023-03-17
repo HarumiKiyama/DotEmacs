@@ -591,29 +591,6 @@ open and unsaved."
           (browse-url (concat "http://localhost:" hugo-service-port))))))
 
 ;;;###autoload
-(defun harumi/highlight-dwim ()
-  (interactive)
-  (if (use-region-p)
-      (progn
-        (highlight-frame-toggle)
-        (deactivate-mark))
-    (symbol-overlay-put)))
-
-;;;###autoload
-(defun my/search-project-for-symbol-at-point ()
-  (interactive)
-  (if (use-region-p)
-      (progn
-        (consult-ripgrep (project-root (project-current))
-                         (buffer-substring (region-beginning) (region-end))))))
-
-;;;###autoload
-(defun harumi/clearn-highlight ()
-  (interactive)
-  (clear-highlight-frame)
-  (symbol-overlay-remove-all))
-
-;;;###autoload
 (defun harumi/my-mc-mark-next-like-this ()
   (interactive)
   (if (region-active-p)
@@ -939,10 +916,6 @@ earlier revisions.  Show up to LIMIT entries (non-nil means unlimited)."
     (message "Create %s..." f)
     (make-empty-file f)))
 
-(defun my/project-info ()
-  (interactive)
-  (message "%s" (project-current t)))
-
 (defun my/makefile-targets (dir)
   "Find Makefile targets in dir. https://stackoverflow.com/a/58316463/2163429"
   (let* ((default-directory dir))
@@ -1004,13 +977,6 @@ earlier revisions.  Show up to LIMIT entries (non-nil means unlimited)."
           (message "Deleted file %s" filename)
           (kill-buffer))))))
 
-
-(defun my/imenu ()
-  (interactive)
-  (if (eq major-mode #'org-mode)
-      (call-interactively #'consult-org-heading)
-    (call-interactively #'consult-imenu)))
-
 (defun av/auto-indent-method ()
   "Automatically indent a method by adding two newlines.
 Puts point in the middle line as well as indent it by correct amount."
@@ -1037,19 +1003,6 @@ Puts point in the middle line as well as indent it by correct amount."
    (lambda (key _value)
      (file-notify-rm-watch key))
    file-notify-descriptors))
-
-
-(defun json-to-single-line (beg end)
-  "Collapse prettified json in region between BEG and END to a single line"
-  (interactive "r")
-  (if (use-region-p)
-      (save-excursion
-        (save-restriction
-          (narrow-to-region beg end)
-          (goto-char (point-min))
-          (while (re-search-forward "[[:space:]\n]+" nil t)
-            (replace-match " "))))
-    (print "This function operates on a region")))
 
 (provide 'init-funcs)
 

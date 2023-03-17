@@ -36,14 +36,6 @@
                               name)))
                     harumi-package-archives-alist)))
 
-(defcustom harumi-theme-alist
-  '((default . doom-dracula)
-    (pro     . doom-monokai-pro))
-  "List of themes mapped to internal themes."
-  :group 'harumi
-  :type '(alist :key-type (symbol :tag "Theme")
-                :value-type (symbol :tag "Internal theme")))
-
 (defvar blog-admin-dir ""
       "blog-admin files location")
 
