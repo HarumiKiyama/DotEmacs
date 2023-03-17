@@ -46,7 +46,6 @@
                               ("SUSPEND" . (:inherit (bold warning)))
                               ("ABORT" . (:inherit (bold error))))
      org-clock-in-switch-to-state "STARTED"
-     org-clock-out-switch-to-state "TODO"
      org-clock-persist t
      org-tag-alist '(("Routine" . ?r)
                      ("Programming" . ?p)
@@ -67,8 +66,7 @@
      org-startup-truncated nil)
     ;; org babel config
     (setq org-babel-append-languages '(("plantuml" . plantuml)
-                                       ("python" . python)
-                                       ("rust" . rust)))
+                                       ("python" . python)))
     (dolist (thing org-babel-append-languages)
       (add-to-list 'org-src-lang-modes thing)
       (org-babel-do-load-languages 'org-babel-load-languages
@@ -96,6 +94,7 @@ unwanted space when exporting org-mode to hugo markdown."
     ;; Below is needed to apply the modified `org-emphasis-regexp-components'
     ;; settings from above.
     (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)
+
     (setq org-agenda-log-mode-items '(clock closed state))
     (setq org-complete-tags-always-offer-all-agenda-tags t)
     (require 'org-compat)
@@ -107,7 +106,6 @@ unwanted space when exporting org-mode to hugo markdown."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     (setq org-agenda-start-day "+0d")
     ;; Change task state to STARTED when clocking in
-    (setq org-clock-in-switch-to-state "STARTED")
     ;; Save clock data and notes in the LOGBOOK drawer
     (setq org-clock-into-drawer t)
     ;; Removes clocked tasks with 0:00 duration

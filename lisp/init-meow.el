@@ -30,20 +30,11 @@
   (meow-leader-define-key '("d" . one-key-menu-directory))
   (one-key-create-menu
    "ORG"
-   '((("d" . "Download") . one-key-menu-download)
-     (("p" . "Process") . org-gtd-process-inbox)
-     (("P" . "Pomodoro") . org-pomodoro)
+   '((("p" . "Pomodoro") . org-pomodoro)
+     (("a" . "Agenda") . org-agenda-list)
      (("l" . "cliplink") . org-cliplink))
    t)
   (meow-leader-define-key '("o" . one-key-menu-org))
-
-  (one-key-create-menu
-   "DOWNLOAD"
-   '((("c" . "clipboard") . org-download-clipboard)
-     (("i" . "image") . org-download-image)
-     (("r" . "rename") . org-download-rename-at-point)
-     (("s" . "screenshot") . org-download-screenshot))
-   t)
 
   (one-key-create-menu
    "WINDOWS"
@@ -53,7 +44,6 @@
      (("k" . "Up") . windmove-up)
      (("l" . "Right") . windmove-right)
      (("a" . "ace") . ace-window)
-     (("e" . "Email") . mu4e)
      (("c" . "Chat") . erc)
      (("r" . "RSS") . elfeed)
      (("m" . "Message") . (lambda () (interactive) (switch-to-buffer "*Messages*")))
@@ -68,6 +58,7 @@
      (("p" . "Prev") . lsp-bridge-diagnostic-jump-prev)
      (("l" . "List") . lsp-bridge-diagnostic-list)
      (("a" . "Action") . lsp-bridge-code-action)
+     (("R" . "reference") . lsp-bridge-find-references)
      (("d" . "Def") . lsp-bridge-find-def)))
   (meow-leader-define-key '("l" . one-key-menu-lsp))
   (meow-leader-define-key '("w" . one-key-menu-windows))
@@ -76,12 +67,15 @@
   (define-key global-map [remap isearch-forward] 'consult-line)
   (define-key global-map [remap isearch-backward] 'blink-search)
   (define-key global-map [remap switch-to-buffer] 'consult-buffer)
+  (define-key global-map [remap goto-line] 'consult-goto-line)
+  (define-key global-map [remap goto-char] 'avy-goto-char)
   (define-key global-map [remap yank-pop] 'consult-yank-pop)
   (define-key yas-minor-mode-map (kbd "TAB") nil)
   (define-key yas-minor-mode-map (kbd "<tab>") nil)
   (define-key yas-minor-mode-map (kbd "M-'") 'yas-expand)
   (define-key global-map (kbd "C-x (") 'meow-beacon-start)
-  (define-key global-map (kbd "C-x )") 'meow-beacon-apply-kmacro))
+  (define-key global-map (kbd "C-x )") 'meow-beacon-end-and-apply-kmacro))
+
 (require 'meow)
 
 (defun meow-setup ()
