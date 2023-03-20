@@ -6,6 +6,7 @@
 ;; Personal information
 (setq user-full-name "Harumi Kiyama"
       user-mail-address "lucius0720@hotmail.com")
+
 (setq visible-bell nil
       ring-bell-function 'ignore)
 
@@ -44,14 +45,7 @@
   :ensure nil
   :hook (after-init . (lambda () (server-mode))))
 
-(use-package tree-sitter
-  :config
-  (global-tree-sitter-mode))
 
-(use-package tree-sitter-langs
-  :config
-  (tree-sitter-require 'rust)
-  (tree-sitter-require))
 
 ;; Encoding
 ;; UTF-8 as the default coding system
@@ -128,8 +122,6 @@
     :ensure nil
     :hook (after-init . global-so-long-mode)
     :config (setq so-long-threshold 4000))
-
-(use-package ssh-deploy)
 
 
 ;; Misc
