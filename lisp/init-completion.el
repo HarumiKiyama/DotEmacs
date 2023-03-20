@@ -20,6 +20,8 @@
   (define-key vertico-map [backspace] #'vertico-directory-delete-char)
   (define-key vertico-map (kbd "C-M-SPC") #'+vertico/embark-preview))
 
+
+
 (use-package consult
   :ensure t
   :defer t
@@ -30,7 +32,6 @@
               #'harumi/consult-line
               '((name . "wrapper")))
   :config
-  (global-set-key (kbd "M-y") 'consult-yank-pop)
   (setq ;; consult-project-root-function #'doom-project-root
    consult-narrow-key "<"
    consult-line-numbers-widen t
@@ -179,12 +180,6 @@
   :config
   (add-hook 'embark-collect-mode-hook #'consult-preview-at-point-mode))
 
-(use-package wgrep
-  :commands wgrep-change-to-wgrep-mode
-  :config (setq wgrep-auto-save-buffer t))
-
-(use-package dumb-jump
-  :ensure t)
 
 (with-eval-after-load 'xref
   (setq xref-search-program 'ripgrep)   ;project-find-regexp
