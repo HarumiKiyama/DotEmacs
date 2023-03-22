@@ -64,11 +64,6 @@
       lsp-bridge-python-lsp-server "pyright")
 (global-lsp-bridge-mode)
 
-
-
-
-
-
 ;; config meow
 (require 'init-meow)
 (add-hook 'after-init-hook 'meow-setup)
