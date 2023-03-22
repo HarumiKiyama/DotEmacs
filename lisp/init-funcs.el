@@ -321,14 +321,6 @@ Supports exporting consult-grep to wgrep, file to wdeired, and consult-location 
                            (embark-export)))
       (x (user-error "embark category %S doesn't support writable export" x)))))
 
-(defun +vertico/embark-preview ()
-  "Previews candidate in vertico buffer, unless it's a consult command"
-  (interactive)
-  (unless (bound-and-true-p consult--preview-function)
-    (save-selected-window
-      (let ((embark-quit-after-action nil))
-        (embark-dwim)))))
-
 
 
 (defun doom/escape (&optional interactive)

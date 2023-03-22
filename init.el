@@ -65,27 +65,8 @@
 (global-lsp-bridge-mode)
 
 
-(defun lsp-bridge-jump ()
-  (interactive)
-  (cond
-   ((eq major-mode 'emacs-lisp-mode)
-    (let ((symb (function-called-at-point)))
-      (when symb
-        (find-function symb))))
-   (lsp-bridge-mode
-    (lsp-bridge-find-def))
-   (t
-    (require 'dumb-jump)
-    (dumb-jump-go))))
 
-(defun lsp-bridge-jump-back ()
-  (interactive)
-  (cond
-   (lsp-bridge-mode
-    (lsp-bridge-find-def-return))
-   (t
-    (require 'dumb-jump)
-    (dumb-jump-back))))
+
 
 
 ;; config meow
@@ -95,7 +76,6 @@
 (require 'blink-search)
 ;; config color-rg
 (require 'color-rg)
-
 ;; config aweshell
 (require 'aweshell)
 

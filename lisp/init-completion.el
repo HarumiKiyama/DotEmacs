@@ -14,11 +14,8 @@
   ;; cleans ~/foo/bar/// to /, and ~/foo/bar/~/ to ~/.
   (add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
   (add-hook 'minibuffer-setup-hook #'vertico-repeat-save)
-  (define-key vertico-map (kbd "C-j") 'vertico-next)
   (define-key vertico-map (kbd "C-'") 'vertico-quick-jump)
-  (define-key vertico-map (kbd "C-k") 'vertico-previous)
-  (define-key vertico-map [backspace] #'vertico-directory-delete-char)
-  (define-key vertico-map (kbd "C-M-SPC") #'+vertico/embark-preview))
+  (define-key vertico-map [backspace] #'vertico-directory-delete-char))
 
 
 
@@ -38,14 +35,7 @@
    consult-async-min-input 2
    consult-async-refresh-delay 0.15
    consult-async-input-throttle 0.2
-   consult-async-input-debounce 0.1)
-  (consult-customize
-   consult-ripgrep consult-git-grep consult-grep
-   consult-bookmark consult-recent-file
-   :preview-key (kbd "C-SPC"))
-  (consult-customize
-   consult-theme
-   :preview-key (list (kbd "C-SPC") :debounce 0.5 'any)))
+   consult-async-input-debounce 0.1))
 
 (use-package orderless
   :demand t

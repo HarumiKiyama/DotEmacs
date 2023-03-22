@@ -1,10 +1,19 @@
 ;;; init-meow.el -*- lexical-binding: t no-byte-compile: t -*-
-:PROPERTIES:
-:END:
+
 (use-package undo-tree
   :init
   (global-undo-tree-mode 1)
   (setq undo-tree-auto-save-history nil))
+
+(defun lsp-bridge-jump ()
+  (interactive)
+  (cond
+   ((eq major-mode 'emacs-lisp-mode)
+    (let ((symb (function-called-at-point)))
+      (when symb
+        (find-function symb))))
+   (lsp-bridge-mode
+    (lsp-bridge-find-def))))
 
 
 (use-package meow
@@ -59,7 +68,7 @@
      (("l" . "List") . lsp-bridge-diagnostic-list)
      (("a" . "Action") . lsp-bridge-code-action)
      (("R" . "reference") . lsp-bridge-find-references)
-     (("d" . "Def") . lsp-bridge-find-def)))
+     (("d" . "Def") . lsp-bridge-jump)))
 
 
   (one-key-create-menu

@@ -8,11 +8,4 @@
   (lispy-define-key lispy-mode-map "e" 'eval-last-sexp)
   )
 
-
-
-(use-package macrostep
-  :ensure t)
-
-
-
 (provide 'init-lisp)
