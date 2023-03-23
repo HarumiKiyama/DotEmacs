@@ -41,7 +41,6 @@
   (setq which-key-side-window-location 'bottom))
 
 (use-package server
-  :ensure nil
   :hook (after-init . (lambda () (server-mode))))
 
 
@@ -57,13 +56,11 @@
 
 ;; History
 (use-package saveplace
-  :ensure nil
   :hook (after-init . save-place-mode)
   :init
   (setq save-place-file (expand-file-name ".cache/places" user-emacs-directory)))
 
 (use-package recentf
-  :ensure nil
   :bind (("C-x C-r" . recentf-open-files))
   :hook (after-init . recentf-mode)
   :init (setq recentf-max-saved-items 300
@@ -78,7 +75,6 @@
   (add-to-list 'recentf-filename-handlers #'abbreviate-file-name))
 
 (use-package savehist
-  :ensure nil
   :hook (after-init . savehist-mode)
   :init (setq enable-recursive-minibuffers t ; Allow commands in minibuffers
               history-length 1000
@@ -100,8 +96,8 @@
         line-number-mode nil
         ;; kill-whole-line t               ; Kill line including '\n'
         line-move-visual nil
-        track-eol t                     ; Keep cursor at end of lines. Require line-move-visual is nil.
-        set-mark-command-repeat-pop t)  ; Repeating C-SPC after popping mark pops it again
+        track-eol t ; Keep cursor at end of lines. Require line-move-visual is nil.
+        set-mark-command-repeat-pop t) ; Repeating C-SPC after popping mark pops it again
 
   ;; Visualize TAB, (HARD) SPACE, NEWLINE
   (setq-default show-trailing-whitespace nil) ; Don't show trailing whitespace by default
@@ -113,12 +109,10 @@
   )
 
 (use-package time
-  :ensure nil
   :init (setq display-time-24hr-format t
               display-time-day-and-date t))
 
 (use-package so-long
-    :ensure nil
     :hook (after-init . global-so-long-mode)
     :config (setq so-long-threshold 4000))
 

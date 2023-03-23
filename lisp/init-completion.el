@@ -2,7 +2,7 @@
 (require 'init-funcs)
 
 (use-package all-the-icons
-  :ensure t)
+  )
 
 (use-package vertico
   :hook (after-init . vertico-mode)
@@ -18,7 +18,7 @@
   (define-key vertico-map [backspace] #'vertico-directory-delete-char))
 
 (use-package consult
-  :ensure t
+
   :defer t
   :init
   (advice-add #'multi-occur :override #'consult-multi-occur)

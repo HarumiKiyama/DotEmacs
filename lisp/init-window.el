@@ -1,7 +1,6 @@
 ;;; init-window.el -*- lexical-binding: t no-byte-compile: t -*-
 
 (use-package winner
-  :ensure nil
   :commands (winner-undo winner-redo)
   :hook (after-init . winner-mode)
   :init (setq winner-boring-buffers '("*Completions*"

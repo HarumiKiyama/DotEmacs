@@ -1,7 +1,6 @@
 ;;; init-org.el -*- lexical-binding: t no-byte-compile: t -*-
 
 (use-package org-pomodoro
-  :ensure t
   :commands org-pomodoro
   :after org)
 
@@ -26,7 +25,6 @@
 
 
 (use-package org
-  :ensure t
   :pin gnu)
 
 (with-eval-after-load 'org

@@ -1,11 +1,8 @@
 ;;; init-lisp.el -*- lexical-binding: t no-byte-compile: t -*-
 
 (use-package lispy
-  :ensure t
   :hook (emacs-lisp-mode . lispy-mode)
-  :init
   :config
-  (lispy-define-key lispy-mode-map "e" 'eval-last-sexp)
-  )
+  (lispy-define-key lispy-mode-map "e" 'eval-last-sexp))
 
 (provide 'init-lisp)

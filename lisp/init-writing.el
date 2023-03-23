@@ -17,9 +17,7 @@
               (lambda (orig &rest args)
                 (shut-up (apply orig args)))))
 
-(use-package flyspell-correct
-  :ensure t
-  :init)
+(use-package flyspell-correct)
 
 (use-package ispell
   :ensure nil
@@ -27,21 +25,6 @@
   (dolist (hook '(text-mode-hook))
     (add-hook hook (lambda () (flyspell-mode 1))))
   (ispell-change-dictionary "american" t))
-
-
-(use-package olivetti
-  :init
-  (setq olivetti-body-width nil)
-  :config
-  (defun distraction-free ()
-    "Distraction-free writing environment"
-    (interactive)
-    (if (equal olivetti-mode nil)
-        (olivetti-mode t)
-      (progn
-        (olivetti-mode 0))))
-  :bind
-  (("<f9>" . distraction-free)))
 
 
 (use-package pangu-spacing

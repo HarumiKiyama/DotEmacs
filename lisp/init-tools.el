@@ -6,10 +6,10 @@
   (global-set-key (kbd "C-c y") 'youdao-dictionary-search-at-point+))
 
 (use-package uuidgen
-  :ensure t
+
   :commands (uuidgen))
 
 (use-package sudo-edit
-  :ensure t)
+  )
 
 (provide 'init-tools)

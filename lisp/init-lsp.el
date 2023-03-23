@@ -1,8 +1,10 @@
 (use-package yasnippet
   :config
   (yas-global-mode 1))
+
 (use-package yasnippet-snippets
   :pin nongnu)
+
 (use-package posframe)
 (use-package markdown-mode)
 (require 'lsp-bridge)
@@ -21,7 +23,5 @@
       lsp-bridge-python-lsp-server "pyright")
 
 (global-lsp-bridge-mode)
-
-
 
 (provide 'init-lsp)
