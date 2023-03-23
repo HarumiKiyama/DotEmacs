@@ -99,6 +99,8 @@
   (define-key global-map [remap goto-line] 'consult-goto-line)
   (define-key global-map [remap goto-char] 'avy-goto-char)
   (define-key global-map [remap yank-pop] 'consult-yank-pop)
+  (define-key global-map [remap bookmark-jump] 'consult-bookmark)
+  (define-key global-map [remap recentf-open-files] 'consult-recent-file)
   (define-key yas-minor-mode-map (kbd "TAB") nil)
   (define-key yas-minor-mode-map (kbd "<tab>") nil)
   (define-key yas-minor-mode-map (kbd "M-'") 'yas-expand)

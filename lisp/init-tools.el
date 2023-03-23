@@ -29,7 +29,9 @@
   :ensure t)
 
 (use-package hl-todo
+  :defer t
   :config
-  (add-hook 'after-init-hook 'global-hl-todo-mode))
+  (global-hl-todo-mode))
+
 
 (provide 'init-tools)

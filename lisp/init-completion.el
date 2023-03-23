@@ -131,23 +131,17 @@
   :bind
   (("C-." . embark-act)         ;; pick some comfortable binding
    ("C-;" . embark-dwim)        ;; good alternative: M-.
-   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+   ("C-h b" . embark-bindings)) ;; alternative for `describe-bindings'
   :init
   (setq which-key-use-C-h-commands nil
 	    ;; press C-h after a prefix key, it shows all the possible key bindings and let you choose what you want
 	    prefix-help-command #'embark-prefix-help-command)
-  (setq
-   embark-verbose-indicator-display-action
-   '((display-buffer-at-bottom)
-     (window-parameters (mode-line-format . none))
-     (window-height . fit-window-to-buffer)))
   (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
   :config
   (add-to-list 'display-buffer-alist
                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
                  nil
                  (window-parameters (mode-line-format . none)))))
-
 
 
 (use-package embark-consult
