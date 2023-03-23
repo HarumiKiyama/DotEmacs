@@ -192,5 +192,5 @@
    '("'" . repeat)
    '("<escape>" . ignore)))
 
-
+(add-hook 'after-init-hook 'meow-setup)
 (provide 'init-meow)

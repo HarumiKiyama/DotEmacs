@@ -30,6 +30,6 @@
 
 (use-package hl-todo
   :config
-  (global-hl-todo-mode))
+  (add-hook 'after-init-hook 'global-hl-todo-mode))
 
 (provide 'init-tools)

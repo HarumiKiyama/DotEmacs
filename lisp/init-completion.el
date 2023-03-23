@@ -17,8 +17,6 @@
   (define-key vertico-map (kbd "C-'") 'vertico-quick-jump)
   (define-key vertico-map [backspace] #'vertico-directory-delete-char))
 
-
-
 (use-package consult
   :ensure t
   :defer t
@@ -130,45 +128,33 @@
   :config)
 
 (use-package embark
-  :defer t
+  :bind
+  (("C-." . embark-act)         ;; pick some comfortable binding
+   ("C-;" . embark-dwim)        ;; good alternative: M-.
+   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
   :init
   (setq which-key-use-C-h-commands nil
-	;; press C-h after a prefix key, it shows all the possible key bindings and let you choose what you want
-	prefix-help-command #'embark-prefix-help-command)
+	    ;; press C-h after a prefix key, it shows all the possible key bindings and let you choose what you want
+	    prefix-help-command #'embark-prefix-help-command)
   (setq
    embark-verbose-indicator-display-action
    '((display-buffer-at-bottom)
      (window-parameters (mode-line-format . none))
      (window-height . fit-window-to-buffer)))
+  (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
+  :config
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
 
-  (define-key minibuffer-local-map (kbd "C-;") 'embark-act)
-  (define-key minibuffer-local-map (kbd "C-c C-;") 'embark-export)
-  (define-key minibuffer-local-map (kbd "C-c C-e") '+vertico/embark-export-write)
-  (with-eval-after-load 'popwin
-    (progn
-      (push '(occur-mode :position right :width 100) popwin:special-display-config)
-      (push '(grep-mode :position right :width 100) popwin:special-display-config)
-      (push '(special-mode :position right :width 100) popwin:special-display-config)))
-  (global-set-key (kbd "C-;") 'embark-act)
-  :config
-  (define-key minibuffer-local-map (kbd "C-'") #'embark-become)
-  ;; list all the keybindings in this buffer
-  (global-set-key (kbd "C-h B") 'embark-bindings)
-  ;; add the package! target finder before the file target finder,
-  ;; so we don't get a false positive match.
-  :config
-  (define-key embark-identifier-map "R" #'consult-ripgrep)
-  (define-key embark-identifier-map (kbd "C-s") #'consult-line)
-  (define-key embark-file-map (kbd "E") #'consult-directory-externally)
-  (define-key embark-file-map (kbd "U") #'consult-snv-unlock))
 
 
 (use-package embark-consult
-  :ensure t
   :after (embark consult)
-  :demand
-  :config
-  (add-hook 'embark-collect-mode-hook #'consult-preview-at-point-mode))
+  :demand t
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
 
 
 (with-eval-after-load 'xref
