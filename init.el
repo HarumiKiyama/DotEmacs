@@ -79,6 +79,10 @@
 ;; (require 'init-go)
 ;; (require 'init-idris)
 
+(use-package hl-todo
+  :config
+  (global-hl-todo-mode))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
 (put 'dired-find-alternate-file 'disabled nil)
