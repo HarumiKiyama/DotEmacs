@@ -43,7 +43,6 @@
   (require 'use-package))
 
 ;; Required by `use-package'
-(use-package diminish)
 (use-package bind-key)
 
 ;; Update GPG keyring for GNU ELPA
