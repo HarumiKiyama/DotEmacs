@@ -1,8 +1,7 @@
 ;;;;  -*- lexical-binding: t; -*-
 (require 'init-funcs)
 
-(use-package all-the-icons
-  )
+(use-package all-the-icons)
 
 (use-package vertico
   :hook (after-init . vertico-mode)
@@ -18,7 +17,6 @@
   (define-key vertico-map [backspace] #'vertico-directory-delete-char))
 
 (use-package consult
-
   :defer t
   :init
   (advice-add #'multi-occur :override #'consult-multi-occur)
@@ -123,14 +121,11 @@
 
 
 (use-package marginalia
-  :hook (after-init . marginalia-mode)
-  :init
-  :config)
+  :hook (after-init . marginalia-mode))
 
 (use-package embark
   :bind
-  (("C-." . embark-act)         ;; pick some comfortable binding
-   ("C-;" . embark-dwim)        ;; good alternative: M-.
+  (("C-;" . embark-dwim)         ;; pick some comfortable binding
    ("C-h b" . embark-bindings)) ;; alternative for `describe-bindings'
   :init
   (setq which-key-use-C-h-commands nil

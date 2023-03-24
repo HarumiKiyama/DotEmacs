@@ -50,7 +50,9 @@
                      ("Reading" . ?R))
      org-capture-templates '(("e" "Emacs" entry (file+headline "task.org" "Emacs Hacking") "** TODO %?")
                              ("t" "Trivial" entry (file+headline "task.org" "Trivial") "** TODO %?")
-                             ("b" "Blog" entry (file "blog.org") "* SUSPEND %?"))
+                             ("b" "Blog" entry (file "blog.org") "* SUSPEND %?")
+                             ("c" "Company" entry (file+headline "task.org" "tenbeger") "*** TODO %")
+                             )
      org-agenda-files '("~/org-mode/task.org"
                         "~/org-mode/notation.org"
                         "~/org-mode/blog.org")

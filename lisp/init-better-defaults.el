@@ -23,7 +23,6 @@
           ("\\.\\(?:mp3\\|flac\\)\\'" "open")
           ("\\.html?\\'" "open")
           ("\\.md\\'" "open")))
-
   ;; always delete and copy recursively
   (setq dired-recursive-deletes 'always)
   (setq dired-recursive-copies 'always))
@@ -35,13 +34,6 @@
   ;; (setq dired-x-hands-off-my-keys nil)
   (setq dired-omit-files
         (concat dired-omit-files "\\|^.DS_Store$\\|^.projectile$\\|\\.js\\.meta$\\|\\.meta$")))
-(add-hook 'dired-mode-hook
-          (lambda ()
-            ;; Set dired-x buffer-local variables here.  For example:
-            ;; (dired-omit-mode 1)
-            ))
-
-
 
 (use-package smartparens
   :init

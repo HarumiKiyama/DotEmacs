@@ -19,7 +19,7 @@
       acm-enable-quick-access t
       acm-backend-yas-match-by-trigger-keyword t
       lsp-bridge-code-action-enable-popup-menu nil
-      lsp-bridge-python-multi-lsp-server nil
+      lsp-bridge-python-multi-lsp-server "pyright_ruff"
       lsp-bridge-python-lsp-server "pyright")
 
 (global-lsp-bridge-mode)

@@ -40,6 +40,7 @@
   (one-key-create-menu
    "ORG"
    '((("p" . "Pomodoro") . org-pomodoro)
+     (("c" . "Capture") . org-capture)
      (("a" . "Agenda") . org-agenda-list)
      (("l" . "cliplink") . org-cliplink))
    t)
