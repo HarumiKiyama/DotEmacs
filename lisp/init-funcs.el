@@ -45,22 +45,6 @@ Same as `replace-string C-q C-m RET RET'."
   (interactive)
   (save-buffer-as-utf8 'gbk))
 
-(defun recompile-elpa ()
-  "Recompile packages in elpa directory. Useful if you switch Emacs versions."
-  (interactive)
-  (if (fboundp 'async-byte-recompile-directory)
-      (async-byte-recompile-directory package-user-dir)
-    (byte-recompile-directory package-user-dir 0 t)))
-
-(defun recompile-site-lisp ()
-  "Recompile packages in site-lisp directory."
-  (interactive)
-  (let ((temp-dir (locate-user-emacs-file "site-lisp")))
-    (if (fboundp 'async-byte-recompile-directory)
-        (async-byte-recompile-directory temp-dir)
-      (byte-recompile-directory temp-dir 0 t))))
-
-
 (defun harumi-set-variable (variable value &optional no-save)
   "Set the VARIABLE to VALUE, and return VALUE.
 
@@ -101,37 +85,6 @@ Save to `custom-file' if NO-SAVE is nil."
 (defalias 'harumi-set-package-archives #'set-package-archives)
 
 
-;; WORKAROUND: fix blank screen issue on macOS.
-(defun fix-fullscreen-cocoa ()
-  "Address blank screen issue with child-frame in fullscreen.
-This issue has been addressed in 28."
-  (and sys/mac-cocoa-p
-       emacs/>=26p
-       (not emacs/>=28p)
-       (bound-and-true-p ns-use-native-fullscreen)
-       (setq ns-use-native-fullscreen nil)))
-
-
-(defun ora-ediff-files ()
-  (interactive)
-  (let ((files (dired-get-marked-files))
-        (wnd (current-window-configuration)))
-    (if (<= (length files) 2)
-        (let ((file1 (car files))
-              (file2 (if (cdr files)
-                         (cadr files)
-                       (read-file-name
-                        "file: "
-                        (dired-dwim-target-directory)))))
-          (if (file-newer-than-file-p file1 file2)
-              (ediff-files file2 file1)
-            (ediff-files file1 file2))
-          (add-hook 'ediff-after-quit-hook-internal
-                    (lambda ()
-                      (setq ediff-after-quit-hook-internal nil)
-                      (set-window-configuration wnd))))
-      (error "no more than 2 files should be marked"))))
-
 (defun indent-buffer()
   (interactive)
   (indent-region (point-min) (point-max)))
@@ -167,7 +120,6 @@ Position the cursor at its beginning, according to the current mode."
          (t
           (rename-file filename new-name t)
           (set-visited-file-name new-name t t)))))))
-
 
 (defun occur-dwim ()
   "Call `occur' with a sane default."
@@ -220,73 +172,6 @@ Position the cursor at its beginning, according to the current mode."
         cmd)
       (mapconcat #'expand-file-name file-list "\" \"")))))
 
-(defun dired-open-term ()
-  "Open an `ansi-term' that corresponds to current directory."
-  (interactive)
-  (let* ((current-dir (dired-current-directory))
-         (buffer (if (get-buffer "*zshell*")
-                     (switch-to-buffer "*zshell*")
-                   (ansi-term "/bin/zsh" "zshell")))
-         (proc (get-buffer-process buffer)))
-    (term-send-string
-     proc
-     (if (file-remote-p current-dir)
-         (let ((v (tramp-dissect-file-name current-dir t)))
-           (format "ssh %s@%s\n"
-                   (aref v 1) (aref v 2)))
-       (format "cd '%s'\n" current-dir)))))
-
-(defun dired-copy-file-here (file)
-  (interactive "fCopy file: ")
-  (copy-file file default-directory))
-
-(defun my-dired-find-file ()
-  "Open buffer in another window"
-  (interactive)
-  (let ((filename (dired-get-filename nil t)))
-    (if (car (file-attributes filename))
-        (dired-find-alternate-file)
-      (dired-find-file-other-window))))
-
-(defun harumi/dired-do-command (command)
-  "Run COMMAND on marked files. Any files not already open will be opened.
-After this command has been run, any buffers it's modified will remain
-open and unsaved."
-  (interactive "CRun on marked files M-x ")
-  (save-window-excursion
-    (mapc (lambda (filename)
-            (find-file filename)
-            (call-interactively command))
-          (dired-get-marked-files))))
-
-(defun harumi/dired-up-directory()
-  "goto up directory and resue buffer"
-  (interactive)
-  (find-alternate-file ".."))
-
-(defun harumi/insert-space-after-point ()
-  (interactive)
-  (save-excursion (insert " ")))
-
-
-(defmacro dakra-define-up/downcase-dwim (case)
-  (let ((func (intern (concat "dakra-" case "-dwim")))
-        (doc (format "Like `%s-dwim' but %s from beginning when no region is active." case case))
-        (case-region (intern (concat case "-region")))
-        (case-word (intern (concat case "-word"))))
-    `(defun ,func (arg)
-       ,doc
-       (interactive "*p")
-       (save-excursion
-         (if (use-region-p)
-             (,case-region (region-beginning) (region-end))
-           (beginning-of-thing 'symbol)
-           (,case-word arg))))))
-
-(dakra-define-up/downcase-dwim "upcase")
-(dakra-define-up/downcase-dwim "downcase")
-(dakra-define-up/downcase-dwim "capitalize")
-
 
 (defun harumi/consult-line (consult-line-function &rest rest)
   "Advising function around `CONSULT-LINE-FUNCTION'.
@@ -298,9 +183,9 @@ parameters."
   (interactive)
   (if (use-region-p)
       (apply consult-line-function
-        (buffer-substring (region-beginning) (region-end)) rest)
-      (apply consult-line-function
-             rest)))
+             (buffer-substring (region-beginning) (region-end)) rest)
+    (apply consult-line-function
+           rest)))
 
 (defun doom/escape (&optional interactive)
   "Run `doom-escape-hook'."
@@ -446,23 +331,6 @@ Position the cursor at its beginning, according to the current mode."
       (mapconcat #'expand-file-name file-list "\" \"")))))
 
 ;;;###autoload
-(defun dired-open-term ()
-  "Open an `ansi-term' that corresponds to current directory."
-  (interactive)
-  (let* ((current-dir (dired-current-directory))
-         (buffer (if (get-buffer "*zshell*")
-                     (switch-to-buffer "*zshell*")
-                   (ansi-term "/bin/zsh" "zshell")))
-         (proc (get-buffer-process buffer)))
-    (term-send-string
-     proc
-     (if (file-remote-p current-dir)
-         (let ((v (tramp-dissect-file-name current-dir t)))
-           (format "ssh %s@%s\n"
-                   (aref v 1) (aref v 2)))
-       (format "cd '%s'\n" current-dir)))))
-
-;;;###autoload
 (defun dired-copy-file-here (file)
   (interactive "fCopy file: ")
   (copy-file file default-directory))
@@ -552,41 +420,6 @@ open and unsaved."
   (sp-forward-slurp-sexp))
 
 ;;;###autoload
-(defun my-erc-hook (match-type nick message)
-  "Shows a growl notification, when user's nick was mentioned. If the buffer is currently not visible, makes it sticky."
-  (unless (posix-string-match "^\\** *Users on #" message)
-    (harumi/growl-notification
-     (concat "ERC: : " (buffer-name (current-buffer)))
-     message
-     t
-     )))
-
-;; "http://xuchunyang.me/Opening-iTerm-From-an-Emacs-Buffer/"
-;;;###autoload
-(defun harumi/iterm-shell-command (command &optional prefix)
-  "cd to `default-directory' then run COMMAND in iTerm.
-With PREFIX, cd to project root."
-  (interactive (list (read-shell-command
-                      "iTerm Shell Command: ")
-                     current-prefix-arg))
-  (let* ((dir (if prefix (harumi/git-project-root)
-                default-directory))
-         ;; if COMMAND is empty, just change directory
-         (cmd (format "cd %s ;%s" dir command)))
-    (do-applescript
-     (format
-      "
-  tell application \"iTerm2\"
-       activate
-       set _session to current session of current window
-       tell _session
-            set command to get the clipboard
-            write text \"%s\"
-       end tell
-  end tell
-  " cmd))))
-
-;;;###autoload
 (defun harumi/git-project-root ()
   "Return the project root for current buffer."
   (let ((directory default-directory))
@@ -605,20 +438,6 @@ With PREFIX, cd to project root."
 e.g. Sunday, September 17, 2000."
   (interactive)                 ; permit invocation in minibuffer
   (insert (format-time-string "%Y-%m-%d %H:%M:%S" (current-time))))
-
-;; https://github.com/syohex/emacs-browser-refresh/blob/master/browser-refresh.el
-;;;###autoload
-(defun harumi/browser-refresh--chrome-applescript ()
-  (interactive)
-  (do-applescript
-   (format
-    "
-  tell application \"Google Chrome\"
-    set winref to a reference to (first window whose title does not start with \"Developer Tools - \")
-    set winref's index to 1
-    reload active tab of winref
-  end tell
-" )))
 
 
 (defun my-open-current-directory ()
@@ -645,9 +464,6 @@ e.g. Sunday, September 17, 2000."
                     (_ "xdg-open"))
                   nil 0 nil
                   (file-name-directory (expand-file-name file)))))
-
-;; (shell-command-to-string (encode-coding-string (replace-regexp-in-string "/" "\\\\" (format "explorer.exe %s" (file-name-directory "F:\\workspace\\Configuration\\Mobile\\Live\\全版本_3.0\\Puffer"))) 'gbk))
-;; (shell-command-to-string (encode-coding-string (replace-regexp-in-string "/" "\\\\" (format "explorer.exe %s" (file-name-directory file))) 'gbk))
 
 
 (defun harumi/directory-parent (directory)
@@ -717,8 +533,6 @@ e.g. Sunday, September 17, 2000."
                 next-headline
               nil)) ; a stuck project, has subtasks but no next task
         next-headline))))
-
-
 
 
 (defun harumi/org-summary-todo (n-done n-not-done)
