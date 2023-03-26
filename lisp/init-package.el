@@ -20,9 +20,9 @@
 (set-package-archives harumi-package-archives nil nil t)
 
 ;; Initialize packages
-(unless (bound-and-true-p package--initialized) ; To avoid warnings in 27
-  (setq package-enable-at-startup nil)          ; To prevent initializing twice
-  (package-initialize))
+(package-initialize)
+(setq package-enable-at-startup nil)          ; To prevent initializing twice
+
 
 (assq-delete-all 'org package--builtins)
 (assq-delete-all 'org package--builtin-versions)
@@ -47,20 +47,6 @@
 
 ;; Update GPG keyring for GNU ELPA
 (use-package gnu-elpa-keyring-update)
-
-;; add quelpa support
-(use-package quelpa)
-
-(unless (package-installed-p 'quelpa-use-package)
-  (quelpa
-   '(quelpa-use-package
-     :fetcher git
-     :url "https://github.com/quelpa/quelpa-use-package.git")))
-
-(use-package quelpa-use-package
-  :init
-  (setq quelpa-use-package-inhibit-loading-quelpa t)
-  :demand t)
 
 (provide 'init-package)
 
