@@ -41,8 +41,7 @@
    "ORG"
    '((("p" . "Pomodoro") . org-pomodoro)
      (("c" . "Capture") . org-capture)
-     (("a" . "Agenda") . org-agenda-list)
-     (("l" . "cliplink") . org-cliplink))
+     (("a" . "Agenda") . org-agenda-list))
    t)
   (meow-leader-define-key '("o" . one-key-menu-org))
 
@@ -113,9 +112,7 @@
 (defun meow-setup ()
   (meow-leader-define-key
    ;; SPC j/k will run the original command in MOTION state.
-   '("j" . "H-j")
    '("SPC" . set-mark-command)
-   '("k" . "H-k")
    '("s" . persp-switch)
    '("TAB" . meow-last-buffer)
    ;; Use SPC (0-9) for digit arguments.
@@ -129,7 +126,6 @@
    '("8" . meow-digit-argument)
    '("9" . meow-digit-argument)
    '("0" . meow-digit-argument)
-   '("/" . meow-keypad-describe-key)
    '("?" . meow-cheatsheet))
   (meow-normal-define-key
    '("RET" . embark-act)
