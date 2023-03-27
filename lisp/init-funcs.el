@@ -208,9 +208,6 @@ parameters."
   (eldoc-add-command 'doom/escape))
 
 
-
-;; https://emacs-china.org/t/advice/7566
-;;;###autoload
 (defun function-advices (function)
   "Return FUNCTION's advices."
   (let ((flist (indirect-function function)) advices)
@@ -252,7 +249,6 @@ parameters."
 
 
 ;; http://emacs.stackexchange.com/questions/13970/fixing-double-capitals-as-i-type
-;;;###autoload
 (defun dcaps-to-scaps ()
   "Convert word in DOuble CApitals to Single Capitals."
   (interactive)
@@ -266,7 +262,6 @@ parameters."
               (capitalize-word 1)))))
 
 ;;http://emacsredux.com/blog/2013/03/26/smarter-open-line/
-;;;###autoload
 (defun harumi/smart-open-line ()
   "Insert an empty line after the current line.
 Position the cursor at its beginning, according to the current mode."
@@ -275,7 +270,6 @@ Position the cursor at its beginning, according to the current mode."
   (newline-and-indent))
 
 
-;;;###autoload
 (defun occur-dwim ()
   "Call `occur' with a sane default."
   (interactive)
@@ -290,13 +284,11 @@ Position the cursor at its beginning, according to the current mode."
   (deactivate-mark)
   (call-interactively 'occur))
 
-;;;###autoload
 (defun occur-non-ascii ()
   "Find any non-ascii characters in the current buffer."
   (interactive)
   (occur "[^[:ascii:]]"))
 
-;;;###autoload
 (defun dired-get-size ()
   (interactive)
   (let ((files (dired-get-marked-files)))
@@ -308,7 +300,6 @@ Position the cursor at its beginning, according to the current mode."
          (re-search-backward "\\(^[ 0-9.,]+[A-Za-z]+\\).*total$")
          (match-string 1))))))
 
-;;;###autoload
 (defun dired-start-process (cmd &optional file-list)
   (interactive
    (let ((files (dired-get-marked-files
@@ -330,12 +321,10 @@ Position the cursor at its beginning, according to the current mode."
         cmd)
       (mapconcat #'expand-file-name file-list "\" \"")))))
 
-;;;###autoload
 (defun dired-copy-file-here (file)
   (interactive "fCopy file: ")
   (copy-file file default-directory))
 
-;;;###autoload
 (defun my-dired-find-file ()
   "Open buffer in another window"
   (interactive)
@@ -344,7 +333,6 @@ Position the cursor at its beginning, according to the current mode."
         (dired-find-alternate-file)
       (dired-find-file-other-window))))
 
-;;;###autoload
 (defun harumi/dired-do-command (command)
   "Run COMMAND on marked files. Any files not already open will be opened.
 After this command has been run, any buffers it's modified will remain
@@ -356,18 +344,15 @@ open and unsaved."
             (call-interactively command))
           (dired-get-marked-files))))
 
-;;;###autoload
 (defun harumi/dired-up-directory()
   "goto up directory and resue buffer"
   (interactive)
   (find-alternate-file ".."))
 
-;;;###autoload
 (defun harumi/insert-space-after-point ()
   (interactive)
   (save-excursion (insert " ")))
 
-;;;###autoload
 (defun ora-ediff-files ()
       (interactive)
       (let ((files (dired-get-marked-files))
@@ -388,13 +373,11 @@ open and unsaved."
                           (set-window-configuration wnd))))
           (error "no more than 2 files should be marked"))))
 
-;;;###autoload
 (defun ffap-hexl-mode ()
   (interactive)
   (let ((ffap-file-finder 'hexl-find-file))
     (call-interactively 'ffap)))
 
-;;;###autoload
 (defun browse-hugo-maybe ()
   (interactive)
   (let ((hugo-service-name "Hugo Server")
@@ -404,7 +387,6 @@ open and unsaved."
           (message "Hugo detected, launching browser...")
           (browse-url (concat "http://localhost:" hugo-service-port))))))
 
-;;;###autoload
 (defun harumi/my-mc-mark-next-like-this ()
   (interactive)
   (if (region-active-p)
@@ -412,27 +394,23 @@ open and unsaved."
     (er/expand-region 1)))
 
 
-;;;###autoload
 (defun wrap-sexp-with-new-round-parens ()
   (interactive)
   (insert "()")
   (backward-char)
   (sp-forward-slurp-sexp))
 
-;;;###autoload
 (defun harumi/git-project-root ()
   "Return the project root for current buffer."
   (let ((directory default-directory))
     (locate-dominating-file directory ".git")))
 
 ;; insert date and time
-;;;###autoload
 (defun harumi/now ()
   "Insert string for the current time formatted like '2:34 PM'."
   (interactive)                 ; permit invocation in minibuffer
   (insert (format-time-string "%H:%M:%S" (current-time))))
 
-;;;###autoload
 (defun harumi/today ()
   "Insert string for today's date nicely formatted in American style,
 e.g. Sunday, September 17, 2000."
