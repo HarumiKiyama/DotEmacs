@@ -10,13 +10,6 @@
               :internal-border-width 10)))
 
 
-(use-package ispell-minor-mode
-  :ensure nil
-  :config
-  (advice-add 'ispell-lookup-words :around
-              (lambda (orig &rest args)
-                (shut-up (apply orig args)))))
-
 (use-package flyspell-correct)
 
 (use-package ispell

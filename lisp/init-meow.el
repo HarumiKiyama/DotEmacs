@@ -17,7 +17,7 @@
 
 (use-package one-key
   :straight (:host github
-                   :repo "manateelazycat/lsp-bridge"
+                   :repo "manateelazycat/one-key"
                    :files ("*" (:exclude ".git")))
   :custom
   (one-key-popup-window t))
