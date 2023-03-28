@@ -50,7 +50,7 @@
 (when (fboundp 'set-charset-priority)
   (set-charset-priority 'unicode))
 
-(set-language-environment 'chinese-gbk)
+;; (set-language-environment 'chinese-gbk)
 (prefer-coding-system 'utf-8-auto)
 (set-file-name-coding-system 'utf-8)
 
@@ -61,6 +61,7 @@
   (setq save-place-file (expand-file-name ".cache/places" user-emacs-directory)))
 
 (use-package recentf
+  :ensure nil
   :bind (("C-x C-r" . recentf-open-files))
   :hook (after-init . recentf-mode)
   :init (setq recentf-max-saved-items 300
@@ -75,6 +76,7 @@
   (add-to-list 'recentf-filename-handlers #'abbreviate-file-name))
 
 (use-package savehist
+  :ensure nil
   :hook (after-init . savehist-mode)
   :init (setq enable-recursive-minibuffers t ; Allow commands in minibuffers
               history-length 1000
@@ -109,6 +111,7 @@
   )
 
 (use-package time
+  :ensure nil
   :init (setq display-time-24hr-format t
               display-time-day-and-date t))
 

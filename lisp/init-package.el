@@ -16,6 +16,7 @@
 
 (advice-add 'package--save-selected-packages :override #'my-save-selected-packages)
 
+
 ;; Set ELPA packages
 (set-package-archives harumi-package-archives nil nil t)
 
@@ -32,18 +33,28 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-;; Should set before loading `use-package'
-(eval-and-compile
-  (setq use-package-always-ensure t)
-  (setq use-package-always-defer t)
-  (setq use-package-expand-minimally t)
-  (setq use-package-enable-imenu-support t))
+;; Setup `straight`
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 6))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
 
-(eval-when-compile
-  (require 'use-package))
+(setq use-package-always-ensure t
+      use-package-enable-imenu-support t
+      use-package-expand-minimally t)
+(require 'use-package)
 
 ;; Required by `use-package'
 (use-package bind-key)
+
 
 ;; Update GPG keyring for GNU ELPA
 (use-package gnu-elpa-keyring-update)

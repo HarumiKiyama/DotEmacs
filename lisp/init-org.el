@@ -4,6 +4,8 @@
   :commands org-pomodoro
   :after org)
 
+(use-package denote)
+
 (use-package org-journal
   :pin nongnu
   :bind
@@ -25,9 +27,8 @@
 
 
 (use-package org
-  :pin gnu)
-
-(with-eval-after-load 'org
+  :pin gnu
+  :config
   (progn
     (setq
      org-directory "~/org-mode"
@@ -51,8 +52,7 @@
      org-capture-templates '(("e" "Emacs" entry (file+headline "task.org" "Emacs Hacking") "** TODO %?")
                              ("t" "Trivial" entry (file+headline "task.org" "Trivial") "** TODO %?")
                              ("b" "Blog" entry (file "blog.org") "* SUSPEND %?")
-                             ("c" "Company" entry (file+headline "task.org" "tenbeger") "*** TODO %")
-                             )
+                             ("c" "Company" entry (file+headline "task.org" "tenbeger") "*** TODO %"))
      org-agenda-files '("~/org-mode/task.org"
                         "~/org-mode/notation.org"
                         "~/org-mode/blog.org")
@@ -195,10 +195,13 @@ unwanted space when exporting org-mode to hugo markdown."
     ;;http://www.howardism.org/Technical/Emacs/journaling-org.html
     ))
 
+
+
 (use-package org-contrib
   :pin nongnu
   :init
   :after org
   (require 'org-checklist))
+
 
 (provide 'init-org)

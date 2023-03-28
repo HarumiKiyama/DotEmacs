@@ -44,12 +44,6 @@
 (require 'init-lsp)
 ;; config meow
 (require 'init-meow)
-;; config blink-search
-(require 'blink-search)
-;; config color-rg
-(require 'color-rg)
-;; config aweshell
-(require 'aweshell)
 
 ;; core
 (require 'init-basic)

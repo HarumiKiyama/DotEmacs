@@ -8,26 +8,6 @@
   url = git@github.com:manateelazycat/one-key.git
   branch = main
 
-[submodule "site-lisp/blink-search"]
-  path = site-lisp/blink-search
-  url = git@github.com:manateelazycat/blink-search.git
-  branch = master
-
-
-[submodule "lsp-bridge"]
-  path = site-lisp/lsp-bridge
-  url = https://github.com/manateelazycat/lsp-bridge.git
-  branch = master
-
-[submodule "site-lisp/aweshell"]
-  path = site-lisp/aweshell
-  url = git@github.com:manateelazycat/aweshell.git
-  branch = master
-  
-[submodule "site-lisp/color-rg"]
-  path = site-lisp/color-rg
-  url = git@github.com:manateelazycat/color-rg.git
-  branch = master
 [submodule "site-lisp/acm-terminal"]
 	path = site-lisp/acm-terminal
 	url = git@github.com:twlz0ne/acm-terminal.git
