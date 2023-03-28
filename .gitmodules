@@ -3,11 +3,6 @@
   url = https://github.com/idris-community/idris2-mode.git
   branch = main
 
-[submodule "site-lisp/one-key"]
-  path = site-lisp/one-key
-  url = git@github.com:manateelazycat/one-key.git
-  branch = main
-
 [submodule "site-lisp/acm-terminal"]
 	path = site-lisp/acm-terminal
 	url = git@github.com:twlz0ne/acm-terminal.git

@@ -15,8 +15,16 @@
    (lsp-bridge-mode
     (lsp-bridge-find-def))))
 
+(use-package one-key
+  :straight (:host github
+                   :repo "manateelazycat/lsp-bridge"
+                   :files ("*" (:exclude ".git")))
+  :custom
+  (one-key-popup-window t))
+
 
 (use-package meow
+  :after one-key
   :custom
   (meow-use-clipboard t)
   (meow-goto-line-function 'avy-goto-line)
@@ -28,8 +36,6 @@
   (add-to-list 'meow-mode-state-list '(calibredb-search-mode . motion))
   (add-to-list 'meow-mode-state-list '(Info-mode-hook . motion))
 
-  (require 'one-key)
-  (setq one-key-popup-window nil)
   (one-key-create-menu
    "DIRECTORY"
    '((("d" . "Downloads") . (lambda () (interactive) (dired "~/Downloads/")))
