@@ -4,7 +4,11 @@
   :commands org-pomodoro
   :after org)
 
-(use-package denote)
+(use-package denote
+  :custom
+  (denote-directory (expand-file-name "~/org-mode/notes")))
+
+
 
 (use-package org-journal
   :pin nongnu
