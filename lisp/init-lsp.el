@@ -29,15 +29,21 @@
                                  company))))
 
 
-(use-package blink-search
-  :straight (:host github
-                   :repo "manateelazycat/blink-search"
-                   :files ("*" (:exclude ".git"))))
-
 (use-package color-rg
   :straight (:host github
                    :repo "manateelazycat/color-rg"
                    :files ("*" (:exclude ".git"))))
+
+(use-package blink-search
+  :straight (:host github
+                   :repo "manateelazycat/blink-search"
+                   :files ("*" (:exclude ".git")))
+  :config
+
+  (setq blink-search-search-backends '("Common Directory" "Find File" "IMenu")
+        blink-search-common-directory '(("HOME" "~/")
+                                        ("CONFIG" "~/.emacs.d/lisp")
+                                        ("PROJECT" "~/projects"))))
 
 (use-package aweshell
   :straight (:host github

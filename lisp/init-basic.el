@@ -43,7 +43,26 @@
 (use-package server
   :hook (after-init . (lambda () (server-mode))))
 
-
+(use-package keyfreq
+  :straight
+  (:host github
+         :repo "dacap/keyfreq"
+         :files ("*" (:exclude ".git")))
+  :hook
+  (after-init . (lambda nil
+                  (keyfreq-mode 1)
+                  (keyfreq-autosave-mode 1)))
+  :custom
+  (keyfreq-excluded-commands
+   '(self-insert-command
+     forward-char
+     next-line
+     previous-line
+     meow-prev
+     meow-next
+     backward-char
+     previous-line
+     next-line)))
 
 ;; Encoding
 ;; UTF-8 as the default coding system
