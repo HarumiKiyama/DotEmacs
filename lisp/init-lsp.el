@@ -42,7 +42,8 @@
 
   (setq blink-search-search-backends '("Common Directory" "Find File" "IMenu")
         blink-search-common-directory '(("HOME" "~/")
-                                        ("CONFIG" "~/.emacs.d/lisp")
+                                        ("EMACS PACKAGE" "~/.emacs.d/lisp")
+                                        ("EMACS" "~/.emacs.d")
                                         ("PROJECT" "~/projects"))))
 
 (use-package aweshell

@@ -92,6 +92,16 @@
      (("D" . "Dos2Unix") . dos2unix)
      (("U" . "Unix2Dos") . unix2dos)
      (("M" . "DELETE^M") . delete-carrage-returns)))
+
+  (one-key-create-menu
+   "CONSULT"
+   '(
+     (("b" . "Bookmark") . consult-bookmark)
+     (("t" . "Theme") . consult-theme)
+     (("p" . "Project") . consult-project-buffer)
+     ))
+
+  (meow-leader-define-key '("C" . one-key-menu-consult))
   (meow-leader-define-key '("l" . one-key-menu-lsp))
   (meow-leader-define-key '("w" . one-key-menu-windows))
   (meow-leader-define-key '("r" . one-key-menu-rg))
@@ -117,7 +127,6 @@
 
 (defun meow-setup ()
   (meow-leader-define-key
-   ;; SPC j/k will run the original command in MOTION state.
    '("SPC" . set-mark-command)
    '("s" . persp-switch)
    '("TAB" . meow-last-buffer)
