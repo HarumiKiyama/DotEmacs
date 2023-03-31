@@ -52,8 +52,8 @@
   (after-init . (lambda nil
                   (keyfreq-mode 1)
                   (keyfreq-autosave-mode 1)))
-  :custom
-  (keyfreq-excluded-commands
+  :config
+  (setq keyfreq-excluded-commands
    '(self-insert-command
      forward-char
      next-line

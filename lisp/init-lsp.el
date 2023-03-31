@@ -6,7 +6,9 @@
   :pin nongnu)
 
 (use-package posframe)
-(use-package markdown-mode)
+(use-package markdown-mode
+  :config
+  (setq markdown-fontify-code-blocks-natively t))
 
 (use-package lsp-bridge
   :after (posframe markdown-mode)
@@ -42,18 +44,13 @@
 
   (setq blink-search-search-backends '("Common Directory" "Find File" "IMenu")
         blink-search-common-directory '(("HOME" "~/")
-                                        ("EMACS PACKAGE" "~/.emacs.d/lisp")
-                                        ("EMACS" "~/.emacs.d")
-                                        ("PROJECT" "~/projects"))))
+                                        ("ELISP" "~/.emacs.d/lisp/")
+                                        ("EMACS" "~/.emacs.d/")
+                                        ("PROJECT" "~/projects/"))))
 
 (use-package aweshell
   :straight (:host github
                    :repo "manateelazycat/aweshell"
-                   :files ("*" (:exclude ".git"))))
-
-(use-package nova
-  :straight (:host github
-                   :repo "manateelazycat/nova"
                    :files ("*" (:exclude ".git"))))
 
 

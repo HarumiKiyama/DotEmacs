@@ -29,6 +29,8 @@
           "Output\\*$" "\\*Pp Eval Output\\*$"
           "\\*Compile-Log\\*"
           "\\*Completions\\*"
+          "\\*frequencies\\*"
+          "\\*One-Key\\*"
           "\\*Warnings\\*"
           "\\*Flymake diagnostics.*\\*"
           "\\*Async Shell Command\\*"
@@ -55,9 +57,9 @@
           youdao-dictionary-mode osx-dictionary-mode fanyi-mode
 
           "^\\*eshell.*\\*.*$" eshell-mode
-          "^\\*shell.*\\*.*$"  shell-mode
+          "^\\*shell.*\\*.*$" shell-mode
           "^\\*terminal.*\\*.*$" term-mode
-          "^\\*vterm.*\\*.*$"  vterm-mode
+          "^\\*vterm.*\\*.*$" vterm-mode
 
           "\\*DAP Templates\\*$" dap-server-log-mode
           "\\*ELP Profiling Restuls\\*" profiler-report-mode
@@ -72,7 +74,6 @@
           "\\*vc-.*\\*$"
           "^\\*elfeed-entry\\*$"
           "^\\*macro expansion\\**"
-
           "\\*Agenda Commands\\*" "\\*Org Select\\*" "\\*Capture\\*" "^CAPTURE-.*\\.org*"
           "\\*Gofmt Errors\\*$" "\\*Go Test\\*$" godoc-mode
           "\\*docker-containers\\*" "\\*docker-images\\*" "\\*docker-networks\\*" "\\*docker-volumes\\*"

@@ -6,12 +6,6 @@
   :bind (:map python-mode-map
               ("C-c =" . nil)))
 
-(require 'python-mode)
-
-(use-package pytest)
-
-(use-package pyvenv)
-
 (use-package py-isort
   :defer t
   :commands py-isort-buffer

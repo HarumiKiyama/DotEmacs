@@ -54,10 +54,8 @@
   (one-key-create-menu
    "WINDOWS"
    '((("d" . "Destroy") . kill-this-buffer)
-     (("h" . "Left") . windmove-left)
-     (("j" . "Down") . windmove-down)
-     (("k" . "Up") . windmove-up)
-     (("l" . "Right") . windmove-right)
+     (("-" . "Split below") . split-window-below)
+     (("/" . "Split right") . split-window-right)
      (("a" . "ace") . ace-window)
      (("c" . "Chat") . erc)
      (("r" . "RSS") . elfeed)
