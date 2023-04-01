@@ -72,11 +72,9 @@
 ;; (require 'init-go)
 ;; (require 'init-idris)
 
-(use-package hl-todo
-  :custom
-  (hl-todo-include-modes '(python-mode prog-mode text-mode emacs-lisp-mode))
-  :config
-  (global-hl-todo-mode))
+;; eaf
+(require 'init-eaf)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here

@@ -138,6 +138,12 @@
     :hook (after-init . global-so-long-mode)
     :config (setq so-long-threshold 4000))
 
+(use-package hl-todo
+  :custom
+  (hl-todo-include-modes '(python-mode prog-mode text-mode emacs-lisp-mode))
+  :config
+  (global-hl-todo-mode))
+
 
 ;; Misc
 (fset 'yes-or-no-p 'y-or-n-p)
