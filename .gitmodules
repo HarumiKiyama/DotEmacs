@@ -6,3 +6,6 @@
 [submodule "site-lisp/acm-terminal"]
 	path = site-lisp/acm-terminal
 	url = git@github.com:twlz0ne/acm-terminal.git
+[submodule "site-lisp/emacs-application-framework"]
+	path = site-lisp/emacs-application-framework
+	url = git@github.com:emacs-eaf/emacs-application-framework.git
