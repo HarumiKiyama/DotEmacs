@@ -30,26 +30,44 @@
   (meow-goto-line-function 'avy-goto-line)
   :config
   (meow-global-mode)
-  (add-to-list 'meow-mode-state-list '(elfeed-show-mode . normal))
+  (add-to-list 'meow-mode-state-list '(elfeed-show-mode . motion))
   (add-to-list 'meow-mode-state-list '(elfeed-summary-mode . motion))
   (add-to-list 'meow-mode-state-list '(helpful-mode . normal))
   (add-to-list 'meow-mode-state-list '(calibredb-search-mode . motion))
   (add-to-list 'meow-mode-state-list '(Info-mode-hook . motion))
 
+  ;; keybinds
+  (define-key global-map [remap isearch-forward] 'consult-line)
+  (define-key global-map [remap isearch-backward] 'blink-search)
+  (define-key global-map [remap switch-to-buffer] 'consult-buffer)
+  (define-key global-map [remap goto-line] 'consult-goto-line)
+  (define-key global-map [remap goto-char] 'avy-goto-char)
+  (define-key global-map [remap yank-pop] 'consult-yank-pop)
+  (define-key global-map [remap bookmark-jump] 'consult-bookmark)
+  (define-key global-map [remap recentf-open-files] 'consult-recent-file)
+  (define-key yas-minor-mode-map (kbd "TAB") nil)
+  (define-key yas-minor-mode-map (kbd "<tab>") nil)
+  (define-key yas-minor-mode-map (kbd "M-'") 'yas-expand)
+  (define-key global-map (kbd "C-x (") 'meow-beacon-start)
+  (define-key global-map (kbd "C-x )") 'meow-beacon-end-and-apply-kmacro)
+  )
+
+(require 'meow)
+
+(defun meow-setup ()
   (one-key-create-menu
    "DIRECTORY"
    '((("d" . "Downloads") . (lambda () (interactive) (dired "~/Downloads/")))
      (("i" . "Init") . (lambda () (interactive) (dired "~/.emacs.d/lisp/")))
      (("b" . "Books") . (lambda () (interactive) (dired "~/Desktop/books"))))
    t)
-  (meow-leader-define-key '("d" . one-key-menu-directory))
+
   (one-key-create-menu
    "ORG"
    '((("p" . "Pomodoro") . org-pomodoro)
      (("c" . "Capture") . org-capture)
      (("a" . "Agenda") . org-agenda-list))
    t)
-  (meow-leader-define-key '("o" . one-key-menu-org))
 
   (one-key-create-menu
    "WINDOWS"
@@ -74,14 +92,6 @@
      (("R" . "reference") . lsp-bridge-find-references)
      (("d" . "Def") . lsp-bridge-jump)))
 
-
-  (one-key-create-menu
-   "RG"
-   '(
-     (("d" . "Search Directory") . color-rg-search-input)
-     (("f" . "Search file") . color-rg-search-input-in-current-file)
-     (("p" . "Search Project") . color-rg-search-input-in-project)))
-
   (one-key-create-menu
    "FILE"
    '(
@@ -92,41 +102,27 @@
      (("M" . "DELETE^M") . delete-carrage-returns)))
 
   (one-key-create-menu
-   "CONSULT"
+   "SEARCH"
    '(
      (("b" . "Bookmark") . consult-bookmark)
      (("t" . "Theme") . consult-theme)
-     (("p" . "Project") . consult-project-buffer)
+     (("P" . "Project") . consult-project-buffer)
+     (("c" . "Char") . avy-goto-char)
+     (("l" . "Line") . consult-goto-line)
+     (("d" . "Search Directory") . color-rg-search-input)
+     (("f" . "Search file") . color-rg-search-input-in-current-file)
+     (("p" . "Search Project") . color-rg-search-input-in-project)
      ))
 
-  (meow-leader-define-key '("C" . one-key-menu-consult))
-  (meow-leader-define-key '("l" . one-key-menu-lsp))
-  (meow-leader-define-key '("w" . one-key-menu-windows))
-  (meow-leader-define-key '("r" . one-key-menu-rg))
-  (meow-leader-define-key '("f" . one-key-menu-file))
-
-
-  ;; keybinds
-  (define-key global-map [remap isearch-forward] 'consult-line)
-  (define-key global-map [remap isearch-backward] 'blink-search)
-  (define-key global-map [remap switch-to-buffer] 'consult-buffer)
-  (define-key global-map [remap goto-line] 'consult-goto-line)
-  (define-key global-map [remap goto-char] 'avy-goto-char)
-  (define-key global-map [remap yank-pop] 'consult-yank-pop)
-  (define-key global-map [remap bookmark-jump] 'consult-bookmark)
-  (define-key global-map [remap recentf-open-files] 'consult-recent-file)
-  (define-key yas-minor-mode-map (kbd "TAB") nil)
-  (define-key yas-minor-mode-map (kbd "<tab>") nil)
-  (define-key yas-minor-mode-map (kbd "M-'") 'yas-expand)
-  (define-key global-map (kbd "C-x (") 'meow-beacon-start)
-  (define-key global-map (kbd "C-x )") 'meow-beacon-end-and-apply-kmacro))
-
-(require 'meow)
-
-(defun meow-setup ()
   (meow-leader-define-key
+   '("Z" . one-key-menu-goto)
+   '("f" . one-key-menu-file)
+   '("w" . one-key-menu-windows)
+   '("d" . one-key-menu-directory)
+   '("l" . one-key-menu-lsp)
+   '("o" . one-key-menu-org)
    '("SPC" . set-mark-command)
-   '("s" . persp-switch)
+   '("s" . one-key-menu-search)
    '("TAB" . meow-last-buffer)
    ;; Use SPC (0-9) for digit arguments.
    '("1" . meow-digit-argument)
@@ -185,6 +181,7 @@
    '("o" . meow-block)
    '("O" . meow-to-block)
    '("p" . meow-yank)
+   '("P" . persp-switch)
    '("q" . meow-quit)
    '("Q" . meow-goto-line)
    '("r" . meow-replace)
@@ -202,8 +199,16 @@
    '("y" . meow-save)
    '("Y" . meow-sync-grab)
    '("z" . meow-pop-selection)
+   '("Z" . one-key-menu-goto)
    '("'" . repeat)
    '("<escape>" . ignore)))
 
 (add-hook 'after-init-hook 'meow-setup)
+
+
+
+
+
+
+
 (provide 'init-meow)
