@@ -1,8 +1,0 @@
-[submodule "idris2-mode"]
-  path = site-lisp/idris2-mode
-  url = https://github.com/idris-community/idris2-mode.git
-  branch = main
-
-[submodule "site-lisp/acm-terminal"]
-	path = site-lisp/acm-terminal
-	url = git@github.com:twlz0ne/acm-terminal.git
