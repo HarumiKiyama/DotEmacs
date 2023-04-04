@@ -26,7 +26,7 @@
   (lsp-bridge-code-action-enable-popup-menu nil)
   (lsp-bridge-python-multi-lsp-server "pyright_ruff")
   (lsp-bridge-python-lsp-server "pyright")
-  (lsp-bridge-python-command "/usr/local/bin/python3"))
+  (lsp-bridge-python-command "python3"))
 
 
 (use-package color-rg

@@ -72,9 +72,6 @@
 ;; (require 'init-go)
 ;; (require 'init-idris)
 
-;; eaf
-(require 'init-eaf)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here

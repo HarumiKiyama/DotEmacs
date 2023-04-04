@@ -63,6 +63,12 @@
    t)
 
   (one-key-create-menu
+   "PAREN"
+   '((("c" . "Change paren") . sp-rewrap-sexp)
+     (("d" . "Delete paren") . sp-unwrap-sexp))
+   t)
+
+  (one-key-create-menu
    "ORG"
    '((("p" . "Pomodoro") . org-pomodoro)
      (("c" . "Capture") . org-capture)
@@ -115,7 +121,7 @@
      ))
 
   (meow-leader-define-key
-   '("Z" . one-key-menu-goto)
+   '("Z" . one-key-menu-search)
    '("f" . one-key-menu-file)
    '("w" . one-key-menu-windows)
    '("d" . one-key-menu-directory)
@@ -199,7 +205,7 @@
    '("y" . meow-save)
    '("Y" . meow-sync-grab)
    '("z" . meow-pop-selection)
-   '("Z" . one-key-menu-goto)
+   '("Z" . one-key-menu-search)
    '("'" . repeat)
    '("<escape>" . ignore)))
 
