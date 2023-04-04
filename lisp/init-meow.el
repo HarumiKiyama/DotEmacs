@@ -56,13 +56,6 @@
 
 (defun meow-setup ()
   (one-key-create-menu
-   "DIRECTORY"
-   '((("d" . "Downloads") . (lambda () (interactive) (dired "~/Downloads/")))
-     (("i" . "Init") . (lambda () (interactive) (dired "~/.emacs.d/lisp/")))
-     (("b" . "Books") . (lambda () (interactive) (dired "~/Desktop/books"))))
-   t)
-
-  (one-key-create-menu
    "PAREN"
    '((("c" . "Change paren") . sp-rewrap-sexp)
      (("d" . "Delete paren") . sp-unwrap-sexp))
@@ -121,12 +114,11 @@
      ))
 
   (meow-leader-define-key
-   '("Z" . one-key-menu-search)
    '("f" . one-key-menu-file)
    '("w" . one-key-menu-windows)
-   '("d" . one-key-menu-directory)
    '("l" . one-key-menu-lsp)
    '("o" . one-key-menu-org)
+   '("p" . one-key-menu-paren)
    '("SPC" . set-mark-command)
    '("s" . one-key-menu-search)
    '("TAB" . meow-last-buffer)
