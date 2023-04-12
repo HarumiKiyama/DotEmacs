@@ -55,12 +55,11 @@
           ivy-occur-mode ivy-occur-grep-mode
           process-menu-mode list-environment-mode cargo-process-mode
           youdao-dictionary-mode osx-dictionary-mode fanyi-mode
-
           "^\\*eshell.*\\*.*$" eshell-mode
           "^\\*shell.*\\*.*$" shell-mode
           "^\\*terminal.*\\*.*$" term-mode
           "^\\*vterm.*\\*.*$" vterm-mode
-
+          "^\\*eat.*\\*.*$" eat-mode
           "\\*DAP Templates\\*$" dap-server-log-mode
           "\\*ELP Profiling Restuls\\*" profiler-report-mode
           "\\*Flycheck errors\\*$" " \\*Flycheck checker\\*$"
@@ -80,13 +79,10 @@
           "\\*prolog\\*" inferior-python-mode inf-ruby-mode swift-repl-mode
           "\\*rustfmt\\*$" rustic-compilation-mode rustic-cargo-clippy-mode
           rustic-cargo-outdated-mode rustic-cargo-test-moed))
-
-
   (setq popper-echo-dispatch-actions t)
   (setq popper-group-function nil)
   :config
   (popper-echo-mode 1)
-
   (with-no-warnings
     (defun my-popper-fit-window-height (win)
       "Determine the height of popup window WIN by fitting it to the buffer's content."
