@@ -135,7 +135,6 @@
    '("0" . meow-digit-argument)
    '("?" . meow-cheatsheet))
   (meow-normal-define-key
-   '("RET" . embark-act)
    '("0" . meow-expand-0)
    '("9" . meow-expand-9)
    '("8" . meow-expand-8)
