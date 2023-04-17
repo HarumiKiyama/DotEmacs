@@ -38,7 +38,6 @@
      org-directory "~/org-mode"
      org-startup-indented t
      org-use-speed-commands t
-     org-pretty-entities t
      org-hide-emphasis-markers t
      org-startup-with-inline-images t
      org-image-actual-width '(300)

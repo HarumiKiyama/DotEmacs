@@ -7,6 +7,7 @@
 
 
 (use-package posframe)
+
 (use-package markdown-mode
   :config
   (setq markdown-fontify-code-blocks-natively t))
@@ -26,6 +27,8 @@
   (lsp-bridge-code-action-enable-popup-menu nil)
   (lsp-bridge-python-multi-lsp-server "pyright_ruff")
   (lsp-bridge-python-lsp-server "pyright")
+  ;; (lsp-bridge-python-lsp-server "jedi")
+  (lsp-bridge-python-multi-lsp-server nil)
   (lsp-bridge-python-command "python3"))
 
 

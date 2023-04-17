@@ -1,8 +1,7 @@
 (use-package python-mode
   :config
   (setq py-shell-name "ipython"
-        python-shell-interpreter "ipython"
-        )
+        python-shell-interpreter "ipython")
   :bind (:map python-mode-map
               ("C-c =" . nil)))
 

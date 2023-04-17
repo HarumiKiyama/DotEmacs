@@ -28,6 +28,7 @@
   :custom
   (meow-use-clipboard t)
   (meow-goto-line-function 'avy-goto-line)
+  (meow-expand-hint-remove-delay 5.0)
   :config
   (meow-global-mode)
   (add-to-list 'meow-mode-state-list '(elfeed-show-mode . motion))
