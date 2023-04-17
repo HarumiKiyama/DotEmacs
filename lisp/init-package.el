@@ -46,6 +46,7 @@
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
+(setq straight-vc-git-default-protocol 'ssh)
 
 (setq use-package-always-ensure t
       use-package-enable-imenu-support t
