@@ -117,8 +117,8 @@
         ;; kill-whole-line t               ; Kill line including '\n'
         line-move-visual nil
         track-eol t ; Keep cursor at end of lines. Require line-move-visual is nil.
+        show-trailing-whitespace t 
         set-mark-command-repeat-pop t) ; Repeating C-SPC after popping mark pops it again
-
   ;; Visualize TAB, (HARD) SPACE, NEWLINE
   (setq-default show-trailing-whitespace nil) ; Don't show trailing whitespace by default
   )
