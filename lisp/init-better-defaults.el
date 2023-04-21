@@ -5,11 +5,14 @@
 (use-package dired
   :ensure nil
   :config
-  (setq dired-recursive-deletes 'always)
-  (setq delete-by-moving-to-trash t)
-  (setq dired-dwim-target t)
-  (setq dired-listing-switches
-        "-alh")
+  (setq dired-recursive-deletes 'always
+        delete-by-moving-to-trash t
+        dired-dwim-target t
+        dired-kill-when-opening-new-dired-buffer t
+        dired-listing-switches "-alh"
+        dired-recursive-deletes 'always
+        dired-recursive-copies 'always)
+
   (setq dired-guess-shell-alist-user
         '(("\\.pdf\\'" "open")
           ("\\.docx\\'" "open")
@@ -22,18 +25,15 @@
            "open")
           ("\\.\\(?:mp3\\|flac\\)\\'" "open")
           ("\\.html?\\'" "open")
-          ("\\.md\\'" "open")))
-  ;; always delete and copy recursively
-  (setq dired-recursive-deletes 'always)
-  (setq dired-recursive-copies 'always))
+          ("\\.md\\'" "open"))))
 
-(with-eval-after-load 'dired
-  (require 'dired-x)
-  ;; Set dired-x global variables here.  For example:
-  ;; (setq dired-guess-shell-gnutar "gtar")
-  ;; (setq dired-x-hands-off-my-keys nil)
+(use-package dired-x
+  :ensure nil
+  :after dired
+  :config
   (setq dired-omit-files
         (concat dired-omit-files "\\|^.DS_Store$\\|^.projectile$\\|\\.js\\.meta$\\|\\.meta$")))
+
 
 (use-package smartparens
   :init
@@ -50,6 +50,8 @@
   :init
   (global-hungry-delete-mode))
 
-(global-auto-revert-mode t)
+(use-package autorevert
+  :ensure nil
+  :hoot (after-init . global-auto-revert-mode))
 
 (provide 'init-better-defaults)

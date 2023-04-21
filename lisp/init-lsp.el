@@ -24,12 +24,8 @@
   (acm-markdown-render-font-height 80)
   (acm-enable-quick-access t)
   (acm-backend-yas-match-by-trigger-keyword t)
-  ;; (lsp-bridge-enable-log t)
   (lsp-bridge-code-action-enable-popup-menu nil)
   (lsp-bridge-python-multi-lsp-server "pyright_ruff")
-  ;; (lsp-bridge-python-lsp-server "pyright")
-  ;; (lsp-bridge-python-lsp-server "jedi")
-  ;; (lsp-bridge-python-multi-lsp-server nil)
   (lsp-bridge-python-command "python3"))
 
 
@@ -49,12 +45,6 @@
                                         ("ELISP" "~/.emacs.d/lisp/")
                                         ("EMACS" "~/.emacs.d/")
                                         ("PROJECT" "~/projects/"))))
-
-
-(use-package aweshell
-  :straight (:host github
-                   :repo "manateelazycat/aweshell"
-                   :files ("*" (:exclude ".git"))))
 
 
 (use-package eat

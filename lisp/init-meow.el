@@ -186,6 +186,7 @@
    '("R" . meow-swap-grab)
    '("s" . meow-kill)
    '("t" . meow-till)
+   '("T" . eat)
    '("u" . meow-undo)
    '("U" . meow-page-up)
    '("e" . meow-mark-word)
@@ -202,11 +203,6 @@
    '("<escape>" . ignore)))
 
 (add-hook 'after-init-hook 'meow-setup)
-
-
-
-
-
 
 
 (provide 'init-meow)

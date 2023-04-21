@@ -117,7 +117,7 @@
         ;; kill-whole-line t               ; Kill line including '\n'
         line-move-visual nil
         track-eol t ; Keep cursor at end of lines. Require line-move-visual is nil.
-        show-trailing-whitespace t 
+        show-trailing-whitespace t
         set-mark-command-repeat-pop t) ; Repeating C-SPC after popping mark pops it again
   ;; Visualize TAB, (HARD) SPACE, NEWLINE
   (setq-default show-trailing-whitespace nil) ; Don't show trailing whitespace by default
@@ -129,12 +129,17 @@
               display-time-day-and-date t))
 
 (use-package so-long
-    :hook (after-init . global-so-long-mode)
-    :config (setq so-long-threshold 4000))
+  :ensure nil
+  :hook (after-init . global-so-long-mode)
+  :config (setq so-long-threshold 4000))
 
 (use-package hl-todo
   :custom
-  (hl-todo-include-modes '(python-mode prog-mode text-mode emacs-lisp-mode))
+  (hl-todo-include-modes '(python-mode
+                           prog-mode
+                           text-mode
+                           emacs-lisp-mode
+                           rust-mode))
   :config
   (global-hl-todo-mode))
 
