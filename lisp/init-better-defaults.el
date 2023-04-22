@@ -52,6 +52,6 @@
 
 (use-package autorevert
   :ensure nil
-  :hoot (after-init . global-auto-revert-mode))
+  :hook (after-init . global-auto-revert-mode))
 
 (provide 'init-better-defaults)
