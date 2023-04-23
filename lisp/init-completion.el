@@ -16,6 +16,12 @@
   (define-key vertico-map (kbd "C-'") 'vertico-quick-jump)
   (define-key vertico-map [backspace] #'vertico-directory-delete-char))
 
+(use-package vertico-quick
+  :ensure nil
+  :after vertico
+  :bind (:map vertico-map
+              ("C-;" . vertico-quick-jump)))
+
 (use-package consult
   :defer t
   :init
