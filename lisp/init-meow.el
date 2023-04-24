@@ -61,7 +61,7 @@
    '((("c" . "Change paren") . sp-rewrap-sexp)
      (("d" . "Delete paren") . sp-unwrap-sexp))
    t)
-
+  
   (one-key-create-menu
    "ORG"
    '((("p" . "Pomodoro") . org-pomodoro)
@@ -167,8 +167,9 @@
    '("h" . meow-left)
    '("H" . meow-left-expand)
    '("i" . meow-insert)
+   '("I" . consult-imenu)
    '("j" . meow-next)
-   '("J" . meow-next-expand)
+   '("J" . meow-next-expand)            
    '("k" . meow-prev)
    '("K" . meow-prev-expand)
    '("l" . meow-right)
