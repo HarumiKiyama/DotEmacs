@@ -15,6 +15,7 @@
   :bind
   (:map org-journal-mode-map
         ("C-c C-c" . kill-buffer-and-window))
+  :hook (org-journal-mode . refill-mode)
   :config
   (setq org-journal-date-format "%Y-%m-%d %A"
         org-journal-time-format ""
