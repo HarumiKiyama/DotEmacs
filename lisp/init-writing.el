@@ -12,6 +12,7 @@
 
 (use-package flyspell-correct)
 
+
 (use-package ispell
   :ensure nil
   :init
@@ -19,14 +20,16 @@
     (add-hook hook (lambda () (flyspell-mode 1))))
   (ispell-change-dictionary "american" t))
 
+(defun pangu-real-space-hook ()
+  (setq-local pangu-spacing-real-insert-separtor t))
 
 (use-package pangu-spacing
   :defer t
-  :init (progn (global-pangu-spacing-mode 1)
-               ;; Always insert `real' space in org-mode.
-               (add-hook 'org-mode-hook
-                         (lambda ()
-                           (setq-local pangu-spacing-real-insert-separtor t)))))
+  ;; Always insert `real' space in org-mode.
+  :hook ((org-mode . pangu-spacing-real-insert-separtor)
+         (org-journal-mode . pangu-spacing-real-insert-separtor))
+  :init
+  (global-pangu-spacing-mode 1))
 
 (use-package atomic-chrome
   :config

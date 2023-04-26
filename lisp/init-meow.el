@@ -66,6 +66,7 @@
    "ORG"
    '((("p" . "Pomodoro") . org-pomodoro)
      (("c" . "Capture") . org-capture)
+     (("d" . "Diary") . org-journal-new-entry)
      (("a" . "Agenda") . org-agenda-list))
    t)
 
