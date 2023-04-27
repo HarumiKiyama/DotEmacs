@@ -23,38 +23,6 @@
   (one-key-popup-window t))
 
 
-(use-package meow
-  :after one-key
-  :custom
-  (meow-use-clipboard t)
-  (meow-goto-line-function 'avy-goto-line)
-  (meow-expand-hint-remove-delay 5.0)
-  :config
-  (meow-global-mode)
-  (add-to-list 'meow-mode-state-list '(elfeed-show-mode . motion))
-  (add-to-list 'meow-mode-state-list '(elfeed-summary-mode . motion))
-  (add-to-list 'meow-mode-state-list '(helpful-mode . normal))
-  (add-to-list 'meow-mode-state-list '(calibredb-search-mode . motion))
-  (add-to-list 'meow-mode-state-list '(Info-mode-hook . motion))
-
-  ;; keybinds
-  (define-key global-map [remap isearch-forward] 'consult-line)
-  (define-key global-map [remap isearch-backward] 'blink-search)
-  (define-key global-map [remap switch-to-buffer] 'consult-buffer)
-  (define-key global-map [remap goto-line] 'consult-goto-line)
-  (define-key global-map [remap goto-char] 'avy-goto-char)
-  (define-key global-map [remap yank-pop] 'consult-yank-pop)
-  (define-key global-map [remap bookmark-jump] 'consult-bookmark)
-  (define-key global-map [remap recentf-open-files] 'consult-recent-file)
-  (define-key yas-minor-mode-map (kbd "TAB") nil)
-  (define-key yas-minor-mode-map (kbd "<tab>") nil)
-  (define-key yas-minor-mode-map (kbd "M-'") 'yas-expand)
-  (define-key global-map (kbd "C-x (") 'meow-beacon-start)
-  (define-key global-map (kbd "C-x )") 'meow-beacon-end-and-apply-kmacro)
-  )
-
-(require 'meow)
-
 (defun meow-setup ()
   (one-key-create-menu
    "PAREN"
@@ -204,7 +172,36 @@
    '("'" . repeat)
    '("<escape>" . ignore)))
 
-(add-hook 'after-init-hook 'meow-setup)
+(use-package meow
+  :after one-key
+  :custom
+  (meow-use-clipboard t)
+  (meow-goto-line-function 'avy-goto-line)
+  (meow-expand-hint-remove-delay 5.0)
+  :init
+  (meow-global-mode)
+  (meow-setup)
+  (add-to-list 'meow-mode-state-list '(elfeed-show-mode . motion))
+  (add-to-list 'meow-mode-state-list '(elfeed-summary-mode . motion))
+  (add-to-list 'meow-mode-state-list '(helpful-mode . normal))
+  (add-to-list 'meow-mode-state-list '(blink-search-mode . motion))
+  (add-to-list 'meow-mode-state-list '(calibredb-search-mode . motion))
+  (add-to-list 'meow-mode-state-list '(Info-mode-hook . motion))
 
+  ;; keybinds
+  (define-key global-map [remap isearch-forward] 'consult-line)
+  (define-key global-map [remap isearch-backward] 'blink-search)
+  (define-key global-map [remap switch-to-buffer] 'consult-buffer)
+  (define-key global-map [remap goto-line] 'consult-goto-line)
+  (define-key global-map [remap goto-char] 'avy-goto-char)
+  (define-key global-map [remap yank-pop] 'consult-yank-pop)
+  (define-key global-map [remap bookmark-jump] 'consult-bookmark)
+  (define-key global-map [remap recentf-open-files] 'consult-recent-file)
+  (define-key yas-minor-mode-map (kbd "TAB") nil)
+  (define-key yas-minor-mode-map (kbd "<tab>") nil)
+  (define-key yas-minor-mode-map (kbd "M-'") 'yas-expand)
+  (define-key global-map (kbd "C-x (") 'meow-beacon-start)
+  (define-key global-map (kbd "C-x )") 'meow-beacon-end-and-apply-kmacro)
+  )
 
 (provide 'init-meow)
