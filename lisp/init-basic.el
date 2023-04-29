@@ -144,6 +144,8 @@
   (global-hl-todo-mode))
 
 
+(use-package quickrun)
+
 ;; Misc
 (fset 'yes-or-no-p 'y-or-n-p)
 
