@@ -63,25 +63,23 @@
 
   (one-key-create-menu
    "FILE"
-   '(
-     (("r" . "Rename File") . harumi/rename-file-and-buffer)
+   '((("r" . "Rename File") . harumi/rename-file-and-buffer)
      (("d" . "delete File") . harumi/delete-file-and-buffer)
-     (("D" . "Dos2Unix") . dos2unix)
+     (("u" . "Dos2Unix") . dos2unix)
      (("U" . "Unix2Dos") . unix2dos)
+     (("R" . "run script") . quickrun)
      (("M" . "DELETE^M") . delete-carrage-returns)))
 
   (one-key-create-menu
    "SEARCH"
-   '(
-     (("b" . "Bookmark") . consult-bookmark)
+   '((("b" . "Bookmark") . consult-bookmark)
      (("t" . "Theme") . consult-theme)
      (("P" . "Project") . consult-project-buffer)
      (("c" . "Char") . avy-goto-char)
      (("l" . "Line") . consult-goto-line)
      (("d" . "Search Directory") . color-rg-search-input)
      (("f" . "Search file") . color-rg-search-input-in-current-file)
-     (("p" . "Search Project") . color-rg-search-input-in-project)
-     ))
+     (("p" . "Search Project") . color-rg-search-input-in-project)))
 
   (meow-leader-define-key
    '("f" . one-key-menu-file)
@@ -104,6 +102,7 @@
    '("9" . meow-digit-argument)
    '("0" . meow-digit-argument)
    '("?" . meow-cheatsheet))
+  
   (meow-normal-define-key
    '("0" . meow-expand-0)
    '("9" . meow-expand-9)
@@ -201,7 +200,6 @@
   (define-key yas-minor-mode-map (kbd "<tab>") nil)
   (define-key yas-minor-mode-map (kbd "M-'") 'yas-expand)
   (define-key global-map (kbd "C-x (") 'meow-beacon-start)
-  (define-key global-map (kbd "C-x )") 'meow-beacon-end-and-apply-kmacro)
-  )
+  (define-key global-map (kbd "C-x )") 'meow-beacon-end-and-apply-kmacro))
 
 (provide 'init-meow)
