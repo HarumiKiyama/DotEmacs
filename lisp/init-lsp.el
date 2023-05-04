@@ -13,6 +13,7 @@
   (setq markdown-fontify-code-blocks-natively t))
 
 
+
 (use-package lsp-bridge
   :after (posframe markdown-mode)
   :straight (:host github

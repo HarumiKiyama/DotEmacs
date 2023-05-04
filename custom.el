@@ -15,6 +15,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(markdown-code-face ((t (:extend t :background "#191a1b" :height 200))))
  '(meow-grab ((t (:inherit secondary-selection))))
  '(meow-insert-indicator ((t nil)))
  '(meow-keypad-indicator ((t nil)))
