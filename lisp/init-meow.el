@@ -184,9 +184,9 @@
   (add-to-list 'meow-mode-state-list '(elfeed-summary-mode . motion))
   (add-to-list 'meow-mode-state-list '(helpful-mode . normal))
   (add-to-list 'meow-mode-state-list '(blink-search-mode . motion))
+  (add-to-list 'meow-mode-state-list '(color-rg-mode . motion))
   (add-to-list 'meow-mode-state-list '(calibredb-search-mode . motion))
   (add-to-list 'meow-mode-state-list '(Info-mode-hook . motion))
-
   ;; keybinds
   (define-key global-map [remap isearch-forward] 'consult-line)
   (define-key global-map [remap isearch-backward] 'blink-search)
