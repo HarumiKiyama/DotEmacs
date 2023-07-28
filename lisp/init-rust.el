@@ -19,6 +19,8 @@
            (cargo-process--enable-rust-backtrace t)
            ))
 
+(use-package cargo-mode)
+
 (use-package rust-playground
   :defer t
   :custom (rust-playground-run-command "cargo run --color never")
