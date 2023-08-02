@@ -43,11 +43,10 @@
    '((("d" . "Destroy") . kill-this-buffer)
      (("-" . "Split below") . split-window-below)
      (("/" . "Split right") . split-window-right)
-     (("a" . "ace") . ace-window)
      (("c" . "Chat") . erc)
      (("r" . "RSS") . elfeed)
      (("m" . "Message") . (lambda () (interactive) (switch-to-buffer "*Messages*")))
-     (("s" . "scratch") . (lambda () (interactive) (switch-to-buffer "*scratch*")))
+     (("s" . "scratch") . scratch-buffer)
      (("u" . "Winner Undo") . winner-undo))
    t)
 
@@ -63,7 +62,7 @@
 
   (one-key-create-menu
    "FILE"
-   '((("r" . "Rename File") . harumi/rename-file-and-buffer)
+   '((("r" . "Rename File") . rename-visited-file)
      (("d" . "delete File") . harumi/delete-file-and-buffer)
      (("u" . "Dos2Unix") . dos2unix)
      (("U" . "Unix2Dos") . unix2dos)
@@ -196,6 +195,9 @@
   (define-key global-map [remap yank-pop] 'consult-yank-pop)
   (define-key global-map [remap bookmark-jump] 'consult-bookmark)
   (define-key global-map [remap recentf-open-files] 'consult-recent-file)
+  (define-key global-map [remap other-window] 'ace-window)
+
+  
   (define-key yas-minor-mode-map (kbd "TAB") nil)
   (define-key yas-minor-mode-map (kbd "<tab>") nil)
   (define-key yas-minor-mode-map (kbd "M-'") 'yas-expand)

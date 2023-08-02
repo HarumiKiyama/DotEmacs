@@ -28,11 +28,6 @@
 (assq-delete-all 'org package--builtins)
 (assq-delete-all 'org package--builtin-versions)
 
-;; Setup `use-package'
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
 ;; Setup `straight`
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -51,6 +46,7 @@
 (setq use-package-always-ensure t
       use-package-enable-imenu-support t
       use-package-expand-minimally t)
+
 (require 'use-package)
 
 ;; Required by `use-package'

@@ -26,12 +26,6 @@ Same as `replace-string C-q C-m RET RET'."
     (while (search-forward "\r" nil :noerror)
       (replace-match ""))))
 
-;; Misc
-(defun create-scratch-buffer ()
-  "Create a scratch buffer."
-  (interactive)
-  (switch-to-buffer (get-buffer-create "*scratch*"))
-  (lisp-interaction-mode))
 
 (defun save-buffer-as-utf8 (coding-system)
   "Revert a buffer with `CODING-SYSTEM' and save as UTF-8."
@@ -107,19 +101,6 @@ Position the cursor at its beginning, according to the current mode."
   (move-end-of-line nil)
   (newline-and-indent))
 
-
-(defun harumi/rename-file-and-buffer ()
-  "Rename the current buffer and file it is visiting."
-  (interactive)
-  (let ((filename (buffer-file-name)))
-    (if (not (and filename (file-exists-p filename)))
-        (message "Buffer is not visiting a file!")
-      (let ((new-name (read-file-name "New name: " filename)))
-        (cond
-         ((vc-backend filename) (vc-rename-file filename new-name))
-         (t
-          (rename-file filename new-name t)
-          (set-visited-file-name new-name t t)))))))
 
 (defun occur-dwim ()
   "Call `occur' with a sane default."
@@ -576,9 +557,7 @@ e.g. Sunday, September 17, 2000."
   (interactive (list (read-from-minibuffer "" (format-time-string "%Y-%m-%d %H:%M:%S" (current-time)))))
   (message (kill-new (format-time-string "%s" (seconds-to-time (org-time-string-to-time date))))))
 
-(defun switch-to-scratch-buffer ()
-  (interactive)
-  (switch-to-buffer (startup--get-buffer-create-scratch)))
+
 
 (defun vc-print-log-internal (backend files working-revision
                                       &optional is-start-revision limit)
@@ -685,23 +664,6 @@ earlier revisions.  Show up to LIMIT entries (non-nil means unlimited)."
         ;; This would override `fill-column' if it's an integer.
         (emacs-lisp-docstring-fill-column t))
     (fill-paragraph nil region)))
-
- (defun my/rename-current-buffer-file ()
-    "Renames current buffer and file it is visiting."
-    (interactive)
-    (let ((name (buffer-name))
-          (filename (buffer-file-name)))
-      (if (not (and filename (file-exists-p filename)))
-          (error "Buffer '%s' is not visiting a file!" name)
-        (let ((new-name (read-file-name "New name: " filename)))
-          (if (get-buffer new-name)
-              (error "A buffer named '%s' already exists!" new-name)
-            (rename-file filename new-name 1)
-            (rename-buffer new-name)
-            (set-visited-file-name new-name)
-            (set-buffer-modified-p nil)
-            (message "File '%s' successfully renamed to '%s'"
-                     name (file-name-nondirectory new-name)))))))
 
 (defun harumi/delete-file-and-buffer ()
   "Kill the current buffer and delete the file it is visiting."
