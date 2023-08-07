@@ -2,8 +2,6 @@
 
 
 (require 'cl-lib)
-(when (not (version< emacs-version "29.0"))
-  (setq package-native-compile nil))
 
 ;; speed up startup
 (setq auto-mode-case-fold nil)

@@ -6,6 +6,6 @@
   (setq magit-refs-show-commit-count 'all
         magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1))
 
-(use-package git-timemachine)
+;; (use-package git-timemachine)
 
 (provide 'init-git)
