@@ -10,30 +10,31 @@
 (setq visible-bell nil
       ring-bell-function 'ignore)
 
+;; garbage collector magic hack
+(use-package gcmh
+  :init
+  (setq gcmh-idle-delay 5
+	    gcmh-high-cons-threshold 16777216) ; 16mb
+  (gcmh-mode 1))
+
+
 (with-no-warnings
-  ;; Key Modifiers
+  ;; key modifiers
   (setq ns-function-modifier 'hyper)
   (cond
    (sys/mac-port-p
     (setq mac-option-modifier 'meta
-          mac-command-modifier 'super)))
-  ;; Optimization
-  ;; read more at a time (was 4K)
+	  mac-command-modifier 'super)))
+  ;; optimization
+  ;; read more at a time (was 4k)
   (unless sys/macp
     (setq command-line-ns-option-alist nil))
   (unless sys/linuxp
     (setq command-line-x-option-alist nil))
-  ;; Increase how much is read from processes in a single chunk (default is 4kb)
+  ;; increase how much is read from processes in a single chunk (default is 4kb)
   (setq read-process-output-max (* 1024 1024)) ; 64kb
-  ;; Don't ping things that look like domain names.
-  (setq ffap-machine-p-known 'reject)
-
-  ;; Garbage Collector Magic Hack
-  (use-package gcmh
-    :init
-    (setq gcmh-idle-delay 5
-	      gcmh-high-cons-threshold 16777216) ; 16MB
-    (gcmh-mode 1)))
+  ;; don't ping things that look like domain names.
+  (setq ffap-machine-p-known 'reject))
 
 (use-package which-key
   :hook (after-init . which-key-mode)
@@ -41,7 +42,7 @@
   (setq which-key-side-window-location 'bottom))
 
 (use-package server
-  :hook (after-init . (lambda () (server-mode))))
+  :hook (after-init . server-mode))
 
 (use-package keyfreq
   :straight
@@ -64,16 +65,16 @@
      previous-line
      next-line)))
 
-;; Encoding
-;; UTF-8 as the default coding system
+;; encoding
+;; utf-8 as the default coding system
 (when (fboundp 'set-charset-priority)
   (set-charset-priority 'unicode))
 
-;; (set-language-environment 'chinese-gbk)
-(prefer-coding-system 'utf-8-auto)
+
+(prefer-coding-system 'utf-8)
 (set-file-name-coding-system 'utf-8)
 
-;; History
+;; history
 (use-package saveplace
   :hook (after-init . save-place-mode)
   :init
@@ -85,9 +86,9 @@
   :hook (after-init . recentf-mode)
   :init (setq recentf-max-saved-items 300
               recentf-exclude
-              '("\\.?cache" ".cask" "url" "COMMIT_EDITMSG\\'" "bookmarks"
+              '("\\.?cache" ".cask" "url" "commit_editmsg\\'" "bookmarks"
                 "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
-                "\\.?ido\\.last$" "\\.revive$" "/G?TAGS$" "/.elfeed/"
+                "\\.?ido\\.last$" "\\.revive$" "/g?tags$" "/.elfeed/"
                 "^/tmp/" "^/var/folders/.+$" "^/ssh:" "/persp-confs/"
                 (lambda (file) (file-in-directory-p file package-user-dir))))
   :config
@@ -97,7 +98,7 @@
 (use-package savehist
   :ensure nil
   :hook (after-init . savehist-mode)
-  :init (setq enable-recursive-minibuffers t ; Allow commands in minibuffers
+  :init (setq enable-recursive-minibuffers t ; allow commands in minibuffers
               history-length 1000
               savehist-file (expand-file-name ".cache/history" user-emacs-directory)
               savehist-additional-variables '(mark-ring
@@ -114,13 +115,13 @@
   :init
   (setq column-number-mode nil
         line-number-mode nil
-        ;; kill-whole-line t               ; Kill line including '\n'
+        ;; kill-whole-line t               ; kill line including '\n'
         line-move-visual nil
-        track-eol t ; Keep cursor at end of lines. Require line-move-visual is nil.
+        track-eol t ; keep cursor at end of lines. require line-move-visual is nil.
         show-trailing-whitespace t
-        set-mark-command-repeat-pop t) ; Repeating C-SPC after popping mark pops it again
-  ;; Visualize TAB, (HARD) SPACE, NEWLINE
-  (setq-default show-trailing-whitespace nil) ; Don't show trailing whitespace by default
+        set-mark-command-repeat-pop t) ; repeating c-spc after popping mark pops it again
+  ;; visualize tab, (hard) space, newline
+  (setq-default show-trailing-whitespace nil) ; don't show trailing whitespace by default
   )
 
 (use-package time
@@ -146,20 +147,20 @@
 
 (use-package quickrun)
 
-;; Misc
+;; misc
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (setq-default major-mode 'text-mode
               fill-column 80
               tab-width 4
-              indent-tabs-mode nil)     ; Permanently indent with spaces, never with TABs
+              indent-tabs-mode nil)     ; permanently indent with spaces, never with tabs
 
-(setq inhibit-compacting-font-caches t  ; Don’t compact font caches during GC.
-      delete-by-moving-to-trash t       ; Deleting files go to OS's trash folder
-      make-backup-files nil             ; Forbide to make backup files
-      auto-save-default nil             ; Disable auto save
+(setq inhibit-compacting-font-caches t  ; don’t compact font caches during gc.
+      delete-by-moving-to-trash t       ; deleting files go to os's trash folder
+      make-backup-files nil             ; forbide to make backup files
+      auto-save-default nil             ; disable auto save
 
-      uniquify-buffer-name-style 'post-forward-angle-brackets ; Show path if names are same
+      uniquify-buffer-name-style 'post-forward-angle-brackets ; show path if names are same
       adaptive-fill-regexp "[ t]+|[ t]*([0-9]+.|*+)[ t]*"
       adaptive-fill-first-line-regexp "^* *$"
       sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
@@ -169,7 +170,6 @@
 (setq-default split-width-threshold (* 2 (window-width)))
 (setq recenter-positions '(top middle bottom)
       wdired-allow-to-change-permissions t)
-(setq project-find-functions '(my/project-try-local project-try-vc))
 (setq create-lockfiles nil)
 (show-paren-mode t)
 (provide 'init-basic)

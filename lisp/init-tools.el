@@ -6,7 +6,6 @@
   (global-set-key (kbd "C-c y") 'youdao-dictionary-search-at-point+))
 
 (use-package uuidgen
-
   :commands (uuidgen))
 
 (use-package sudo-edit
