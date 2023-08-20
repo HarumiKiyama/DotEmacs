@@ -16,9 +16,8 @@
     (lsp-bridge-find-def))))
 
 (use-package one-key
-  :straight (:host github
-                   :repo "manateelazycat/one-key"
-                   :files ("*" (:exclude ".git")))
+  :vc (:fetcher github
+                :repo "manateelazycat/one-key")
   :custom
   (one-key-popup-window t))
 

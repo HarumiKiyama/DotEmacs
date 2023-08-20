@@ -45,10 +45,9 @@
   :hook (after-init . server-mode))
 
 (use-package keyfreq
-  :straight
-  (:host github
-         :repo "dacap/keyfreq"
-         :files ("*" (:exclude ".git")))
+  :vc
+  (:fetcher github
+            :repo "dacap/keyfreq")
   :hook
   (after-init . (lambda nil
                   (keyfreq-mode 1)
