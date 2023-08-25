@@ -2,9 +2,7 @@
   :config
   (yas-global-mode 1))
 
-(use-package yasnippet-snippets
-  :pin nongnu)
-
+(use-package yasnippet-snippets)
 
 (use-package posframe)
 

@@ -95,12 +95,10 @@
 (package-vc-use-package-set-keyword)
 
 
-
 (setq use-package-always-ensure t
       use-package-enable-imenu-support t
       use-package-expand-minimally t)
 
-(require 'use-package)
 
 ;; Required by `use-package'
 (use-package bind-key)
