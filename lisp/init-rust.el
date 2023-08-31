@@ -3,7 +3,7 @@
 (use-package rust-mode
   :config
   (setq rust-format-on-save nil)
-  (define-key rust-mode-map (kbd "RET") 'av/auto-indent-method-maybe))
+  )
 
 
 (use-package cargo

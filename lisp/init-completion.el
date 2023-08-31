@@ -31,7 +31,7 @@
               #'harumi/consult-line
               '((name . "wrapper")))
   :config
-  (setq ;; consult-project-root-function #'doom-project-root
+  (setq 
    consult-narrow-key "<"
    consult-line-numbers-widen t
    consult-async-min-input 2

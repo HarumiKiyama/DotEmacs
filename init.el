@@ -65,8 +65,10 @@
 ;; languages
 (require 'init-lisp)
 (require 'init-rust)
-(require 'init-coq)
 (require 'init-python)
+(require 'init-cpp)
+
+;; (require 'init-coq)
 ;; (require 'init-go)
 ;; (require 'init-idris)
 
