@@ -21,6 +21,9 @@
   :custom
   (one-key-popup-window t))
 
+(use-package fingertip
+  :vc (:fetcher github
+                :repo "manateelazycat/fingertip"))
 
 (defun meow-setup ()
   (one-key-create-menu
