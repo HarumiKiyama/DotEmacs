@@ -42,8 +42,9 @@
           "\\*Finder\\*"
           "\\*Kill Ring\\*"
           "\\*Embark Export:.*\\*"
-          bookmark-bmenu-mode
+          "\\*lsp-bridge-ref\\*"
           lsp-bridge-ref-mode
+          bookmark-bmenu-mode
           comint-mode
           compilation-mode
           help-mode helpful-mode
@@ -78,7 +79,8 @@
           "\\*docker-containers\\*" "\\*docker-images\\*" "\\*docker-networks\\*" "\\*docker-volumes\\*"
           "\\*prolog\\*" inferior-python-mode inf-ruby-mode swift-repl-mode
           "\\*rustfmt\\*$" rustic-compilation-mode rustic-cargo-clippy-mode
-          rustic-cargo-outdated-mode rustic-cargo-test-moed))
+          rustic-cargo-outdated-mode rustic-cargo-test-moed)
+        )
   (setq popper-echo-dispatch-actions t)
   (setq popper-group-function nil)
   :config
