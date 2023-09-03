@@ -57,9 +57,22 @@
 ;; config tree-sitter
 (use-package treesit
   :ensure nil
-  :config
+  :preface
+  (dolist (mapping '((python-mode . python-ts-mode)
+                     (css-mode . css-ts-mode)
+                     (typescript-mode . tsx-ts-mode)
+                     (json-mode . json-ts-mode)
+                     (js-mode . js-ts-mode)
+                     (css-mode . css-ts-mode)
+                     (yaml-mode . yaml-ts-mode)
+                     (rust-mode . rust-ts-mode)
+                     (c++-mode . c++-ts-mode)
+                     (c-mode . c-ts-mode)))
+    (add-to-list 'major-mode-remap-alist mapping))
   (setq treesit-language-source-alist
         '((bash "https://github.com/tree-sitter/tree-sitter-bash")
+          (rust "https://github.com/tree-sitter/tree-sitter-rust")
+          (cpp "https://github.com/tree-sitter/tree-sitter-cpp")
           (cmake "https://github.com/uyha/tree-sitter-cmake")
           (css "https://github.com/tree-sitter/tree-sitter-css")
           (elisp "https://github.com/Wilfred/tree-sitter-elisp")
@@ -74,16 +87,7 @@
           (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
           (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
           (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
-  
-  (setq major-mode-remap-alist
-        '((yaml-mode . yaml-ts-mode)
-          (bash-mode . bash-ts-mode)
-          (sh-mode . bash-ts-mode)
-          (js2-mode . js-ts-mode)
-          (typescript-mode . typescript-ts-mode)
-          (json-mode . json-ts-mode)
-          (css-mode . css-ts-mode)
-          (python-mode . python-ts-mode))))
+  )
 
 
 

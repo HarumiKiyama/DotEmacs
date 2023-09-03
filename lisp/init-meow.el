@@ -21,9 +21,63 @@
   :custom
   (one-key-popup-window t))
 
-(use-package fingertip
+
+(use-package combobulate
   :vc (:fetcher github
-                :repo "manateelazycat/fingertip"))
+                :repo "mickeynp/combobulate")
+  :preface
+  ;; You can customize Combobulate's key prefix here.
+  ;; Note that you may have to restart Emacs for this to take effect!
+  (setq combobulate-key-prefix "C-c o")
+  
+  )
+
+
+(defun meow-ts--get-defun-at-point ()
+  (let ((node (treesit-defun-at-point)))
+    ;; TODO abort when node is not the right node
+    `(,(treesit-node-start node) . ,(treesit-node-end node))
+    ))
+
+;; TODO add more "meow-things" for treesit objects. Also, only add certain things for different languages with potentially different things.
+;; Also, replace the whole thing table when in prog-mode
+;; (setq meow-char-thing-table (remove '(?f . 'ts-fun) meow-char-thing-table))
+;; TODO be able to "unregister" things (like string)
+
+;; TODO meow next / previous defun (just like words) - also make an expandable defun too!
+(defun meow-ts-next-defun (n)
+  "Select to the end of the next Nth function(tree-sitter).
+A non-expandable, function selection will be created."
+  (interactive "p")
+  (unless (equal 'fun (cdr (meow--selection-type)))
+    (meow--cancel-selection))
+  (let* ((expand (equal '(expand . fun) (meow--selection-type)))
+         (_ (when expand (meow--direction-forward)))
+         (type (if expand '(expand . fun) '(select . fun)))
+         (m (or (save-mark-and-excursion
+		          (treesit-end-of-defun n)
+		          (when (treesit-beginning-of-defun)
+		            (point)))
+		        (point)))
+         (p (save-mark-and-excursion
+              (when (treesit-end-of-defun n)
+                (point)))))
+    (when p
+      (thread-first
+        (meow--make-selection type m p expand)
+        (meow--select))
+      ;; this requires modifying `meow--select-expandable-p' - to include the "fun" seletion type as expandable
+      (meow--maybe-highlight-num-positions '(meow-ts--backward-defun-1 . meow-ts--forward-defun-1))
+      )))
+
+(defun meow-ts--forward-defun-1 ()
+  (when (treesit-end-of-defun 1)
+    (point)))
+
+(defun meow-ts--backward-defun-1 ()
+  (when (treesit-beginning-of-defun 1)
+    (point)))
+
 
 (defun meow-setup ()
   (one-key-create-menu
@@ -57,6 +111,7 @@
    '((("r" . "Rename") . lsp-bridge-rename)
      (("n" . "Next") . lsp-bridge-diagnostic-jump-next)
      (("p" . "Prev") . lsp-bridge-diagnostic-jump-prev)
+     (("s" . "Select") . lsp-bridge-peek)
      (("l" . "List") . lsp-bridge-diagnostic-list)
      (("a" . "Action") . lsp-bridge-code-action)
      (("R" . "reference") . lsp-bridge-find-references)
@@ -183,13 +238,12 @@
   (meow-setup)
   (add-to-list 'meow-mode-state-list '(elfeed-show-mode . motion))
   (add-to-list 'meow-mode-state-list '(elfeed-summary-mode . motion))
-  (add-to-list 'meow-mode-state-list '(helpful-mode . normal))
+  (add-to-list 'meow-mode-state-list '(helpful-mode . motion))
   (add-to-list 'meow-mode-state-list '(blink-search-mode . motion))
   (add-to-list 'meow-mode-state-list '(color-rg-mode . motion))
   (add-to-list 'meow-mode-state-list '(lsp-bridge-ref-mode . motion))
-
   (add-to-list 'meow-mode-state-list '(Info-mode-hook . motion))
-  
+
   ;; keybinds
   (define-key global-map [remap isearch-forward] 'consult-line)
   (define-key global-map [remap isearch-backward] 'blink-search)
@@ -201,11 +255,13 @@
   (define-key global-map [remap recentf-open-files] 'consult-recent-file)
   (define-key global-map [remap other-window] 'ace-window)
 
-  
+
   (define-key yas-minor-mode-map (kbd "TAB") nil)
   (define-key yas-minor-mode-map (kbd "<tab>") nil)
   (define-key yas-minor-mode-map (kbd "M-'") 'yas-expand)
   (define-key global-map (kbd "C-x (") 'meow-beacon-start)
-  (define-key global-map (kbd "C-x )") 'meow-beacon-end-and-apply-kmacro))
+  (define-key global-map (kbd "C-x )") 'meow-beacon-end-and-apply-kmacro)
+  (meow-thing-register 'ts-fun #'meow-ts--get-defun-at-point #'meow-ts--get-defun-at-point)
+  (add-to-list 'meow-char-thing-table '(?f . ts-fun)))
 
 (provide 'init-meow)

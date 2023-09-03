@@ -31,6 +31,7 @@
 ;; Setup `package-vc`
 (require 'cl-lib)
 (require 'use-package-core)
+(require 'use-package)
 
 (cl-defun slot/vc-install (&key (fetcher "github") repo name rev backend)
   (let* ((url (format "https://www.%s.com/%s" fetcher repo))
