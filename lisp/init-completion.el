@@ -1,7 +1,6 @@
 ;;;;  -*- lexical-binding: t; -*-
 (require 'init-funcs)
 
-(use-package all-the-icons)
 
 (use-package vertico
   :hook (after-init . vertico-mode)
