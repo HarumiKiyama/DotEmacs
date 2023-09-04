@@ -7,7 +7,7 @@
 
 
 (use-package cargo
-  :hook (rust-mode . cargo-minor-mode)
+  :hook (rust-ts-mode . cargo-minor-mode)
   :config
   (defun my/cargo-test-current ()
     (interactive)

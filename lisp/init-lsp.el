@@ -11,7 +11,6 @@
   (setq markdown-fontify-code-blocks-natively t))
 
 
-
 (use-package lsp-bridge
   :vc (:fetcher "github"
                 :repo "manateelazycat/lsp-bridge")
@@ -51,7 +50,6 @@
 (use-package eat
   :vc (:fetcher "codeberg"
              :repo "akib/emacs-eat"))
-
 
 
 ;; config tree-sitter
