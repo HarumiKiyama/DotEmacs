@@ -1,6 +1,6 @@
 auto-save-list
 .cask
-elpa
+elpa/*
 anaconda-mode
 company-statistics-cache.el
 .cache/
@@ -31,3 +31,4 @@ blink-search.db
 /blink-search/
 /lsp-bridge/
 /tree-sitter/
+!/elpa/.dir-locals.el

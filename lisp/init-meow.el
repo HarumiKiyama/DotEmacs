@@ -26,23 +26,17 @@
 (use-package combobulate
   :vc (:fetcher github
                 :repo "mickeynp/combobulate")
-  :preface
-  ;; You can customize Combobulate's key prefix here.
-  ;; Note that you may have to restart Emacs for this to take effect!
-  (setq combobulate-key-prefix "C-c o")
-  
   )
 
 
 (defun meow-ts--get-defun-at-point ()
   (let ((node (treesit-defun-at-point)))
-    ;; TODO abort when node is not the right node
     `(,(treesit-node-start node) . ,(treesit-node-end node))
     ))
 
-
 ;; TODO meow next / previous defun (just like words) - also make an expandable defun too!
 
+;; TODO meow next / previous defun (just like words) - also make an expandable defun too!
 (defun meow-ts-next-defun (n)
   "Select to the end of the next Nth function(tree-sitter).
 A non-expandable, function selection will be created."
@@ -58,32 +52,41 @@ A non-expandable, function selection will be created."
 		            (point)))
 		        (point)))
          (p (save-mark-and-excursion
-              (when (treesit-end-of-defun n)
-                (point)))))
+              (treesit-end-of-defun n)
+              (point)
+              )))
     (when p
       (thread-first
         (meow--make-selection type m p expand)
         (meow--select))
       ;; this requires modifying `meow--select-expandable-p' - to include the "fun" seletion type as expandable
-      (meow--maybe-highlight-num-positions '(meow-ts--backward-defun-1 . meow-ts--forward-defun-1))
       )))
 
+
 (defun meow-ts--forward-defun-1 ()
-  (when (treesit-end-of-defun 1)
-    (point)))
+  (treesit-end-of-defun 1)
+  (point))
 
 (defun meow-ts--backward-defun-1 ()
-  (when (treesit-beginning-of-defun 1)
-    (point)))
+  (treesit-beginning-of-defun 1)
+  (point))
+
 
 (defun meow-next-defun (n)
   (interactive "p")
-  (if (and (treesit-available-p) (string-suffix-p "ts-mode" (symbol-name major-mode)))
+  (if (and (featurep 'treesit) (treesit-available-p) (treesit-parser-list))
       (meow-ts-next-defun n)
     (meow-block n)))
 
 
 (defun meow-setup ()
+
+  (defun meow--select-expandable-p ()
+    (when (meow-normal-mode-p)
+      (when-let ((sel (meow--selection-type)))
+        (let ((type (cdr sel)))
+          (member type '(word line block find till fun))))))
+  
   (one-key-create-menu
    "PAREN"
    '((("c" . "Change paren") . sp-rewrap-sexp)
