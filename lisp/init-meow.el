@@ -80,7 +80,6 @@ A non-expandable, function selection will be created."
 
 
 (defun meow-setup ()
-
   (defun meow--select-expandable-p ()
     (when (meow-normal-mode-p)
       (when-let ((sel (meow--selection-type)))
@@ -253,22 +252,25 @@ A non-expandable, function selection will be created."
   (add-to-list 'meow-mode-state-list '(Info-mode-hook . motion))
 
   ;; keybinds
-  (define-key global-map [remap isearch-forward] 'consult-line)
-  (define-key global-map [remap isearch-backward] 'blink-search)
-  (define-key global-map [remap switch-to-buffer] 'consult-buffer)
-  (define-key global-map [remap goto-line] 'consult-goto-line)
-  (define-key global-map [remap goto-char] 'avy-goto-char)
-  (define-key global-map [remap yank-pop] 'consult-yank-pop)
-  (define-key global-map [remap bookmark-jump] 'consult-bookmark)
-  (define-key global-map [remap recentf-open-files] 'consult-recent-file)
-  (define-key global-map [remap other-window] 'ace-window)
+  (keymap-substitute global-map 'isearch-forward 'consult-line)
+  (keymap-substitute global-map 'isearch-backward 'blink-search)
+  (keymap-substitute global-map 'Info-search 'consult-info)
+  (keymap-substitute global-map 'switch-to-buffer 'consult-buffer)
+  (keymap-substitute global-map 'goto-line 'consult-goto-line)
+  (keymap-substitute global-map 'goto-char 'avy-goto-char)
+  (keymap-substitute global-map 'yank-pop 'consult-yank-pop)
+  (keymap-substitute global-map 'bookmark-jump 'consult-bookmark)
+  (keymap-substitute global-map 'recentf-open-files 'consult-recent-file)
+  (keymap-substitute global-map 'other-window 'ace-window)
+  
+  (keymap-global-set "C-x (" 'meow-beacon-start)
+  (keymap-global-set "C-x )" 'meow-beacon-end-and-apply-kmacro)
 
+  
+  (keymap-unset yas-minor-mode-map "TAB")
+  (keymap-unset yas-minor-mode-map "<tab>")
+  (keymap-set yas-minor-mode-map "M-'" 'yas-expand)
 
-  (define-key yas-minor-mode-map (kbd "TAB") nil)
-  (define-key yas-minor-mode-map (kbd "<tab>") nil)
-  (define-key yas-minor-mode-map (kbd "M-'") 'yas-expand)
-  (define-key global-map (kbd "C-x (") 'meow-beacon-start)
-  (define-key global-map (kbd "C-x )") 'meow-beacon-end-and-apply-kmacro)
 
   ;; register thing
   (meow-thing-register 'ts-fun #'meow-ts--get-defun-at-point #'meow-ts--get-defun-at-point)

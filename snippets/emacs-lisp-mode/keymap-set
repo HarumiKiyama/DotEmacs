@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# contributor: Xah Lee (XahLee.org)
+# name: keymap-set
+# key: keymap-set
+# key: ks
+# --
+(keymap-set ${1:mode}-map "${2:key}" $0)

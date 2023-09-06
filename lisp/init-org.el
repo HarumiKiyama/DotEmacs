@@ -41,7 +41,7 @@ unwanted space when exporting org-mode to hugo markdown."
   :after org
   :init
   (setq org-super-agenda-header-map (make-sparse-keymap))
-  (define-key org-super-agenda-header-map (kbd "q") 'org-agenda-quit)
+  (keymap-set org-super-agenda-header-map "q" 'org-agenda-quit)
   (add-hook 'org-agenda-mode-hook
             'org-super-agenda-mode))
 
@@ -192,11 +192,11 @@ unwanted space when exporting org-mode to hugo markdown."
     ;; https://github.com/hlissner/doom-emacs/blob/develop/docs/getting_started.org#configuring-doom
     (require 'ox-md nil t)
     ;; C-n for the next org agenda item
-    (define-key org-agenda-mode-map (kbd "C-p") 'org-agenda-previous-item)
+    (keymap-set org-agenda-mode-map  "C-p" 'org-agenda-previous-item)
 
 
     (with-eval-after-load 'org-agenda
-      (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro)
+      (keymap-set org-agenda-mode-map  "P" 'org-pomodoro)
       ;; 默认显示节假日
       (setq org-agenda-include-diary t))
     ;;http://www.howardism.org/Technical/Emacs/journaling-org.html

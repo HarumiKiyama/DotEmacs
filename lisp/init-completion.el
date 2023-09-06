@@ -8,12 +8,11 @@
   (setq vertico-resize nil
         vertico-count 17
         vertico-cycle t)
-  ;; Cleans up path when moving directories with shadowed paths syntax, e.g.
-  ;; cleans ~/foo/bar/// to /, and ~/foo/bar/~/ to ~/.
-  (add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
-  (add-hook 'minibuffer-setup-hook #'vertico-repeat-save)
-  (define-key vertico-map (kbd "C-'") 'vertico-quick-jump)
-  (define-key vertico-map [backspace] #'vertico-directory-delete-char))
+  (add-hook 'rfn-eshadow-update-overlay-hook 'vertico-directory-tidy)
+  (add-hook 'minibuffer-setup-hook 'vertico-repeat-save)
+  
+  (keymap-set vertico-map  "C-'" 'vertico-quick-jump)
+  (keymap-set vertico-map "<backspace>" 'vertico-directory-delete-char) )
 
 (use-package vertico-quick
   :ensure nil
@@ -84,7 +83,7 @@
   ;; Define orderless style with initialism by default
   (orderless-define-completion-style +orderless-with-initialism
     (orderless-matching-styles '(orderless-initialism orderless-literal orderless-regexp)))
-
+  
   ;; You may want to combine the `orderless` style with `substring` and/or `basic`.
   ;; There are many details to consider, but the following configurations all work well.
   ;; Personally I (@minad) use option 3 currently. Also note that you may want to configure
@@ -111,10 +110,10 @@
   ;;
   (setq completion-styles '(orderless basic)
         completion-category-defaults nil
-        ;;; Enable partial-completion for files.
-        ;;; Either give orderless precedence or partial-completion.
-        ;;; Note that completion-category-overrides is not really an override,
-        ;;; but rather prepended to the default completion-styles.
+;;; Enable partial-completion for files.
+;;; Either give orderless precedence or partial-completion.
+;;; Note that completion-category-overrides is not really an override,
+;;; but rather prepended to the default completion-styles.
         ;; completion-category-overrides '((file (styles orderless partial-completion))) ;; orderless is tried first
         completion-category-overrides '((file (styles partial-completion)) ;; partial-completion is tried first
                                         ;; enable initialism by default for symbols
@@ -129,12 +128,74 @@
   :hook (after-init . marginalia-mode))
 
 
+
+(use-package embark
+  :bind (("C-." . embark-act)
+         ("M-." . embark-dwim)
+         ([remap describe-bindings] . embark-bindings))
+  :init
+  ;; Optionally replace the key help with a completing-read interface
+  (setq prefix-help-command #'embark-prefix-help-command)
+  :config
+  ;; Hide the mode line of the Embark live/completions buffers
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none))))
+  :config
+  (with-eval-after-load 'which-key
+    (defun embark-which-key-indicator ()
+      "An embark indicator that displays keymaps using which-key.
+The which-key help message will show the type and value of the
+current target followed by an ellipsis if there are further
+targets."
+      (lambda (&optional keymap targets prefix)
+        (if (null keymap)
+            (which-key--hide-popup-ignore-command)
+          (which-key--show-keymap
+           (if (eq (plist-get (car targets) :type) 'embark-become)
+               "Become"
+             (format "Act on %s '%s'%s"
+                     (plist-get (car targets) :type)
+                     (embark--truncate-target (plist-get (car targets) :target))
+                     (if (cdr targets) "…" "")))
+           (if prefix
+               (pcase (lookup-key keymap prefix 'accept-default)
+                 ((and (pred keymapp) km) km)
+                 (_ (key-binding prefix 'accept-default)))
+             keymap)
+           nil nil t (lambda (binding)
+                       (not (string-suffix-p "-argument" (cdr binding))))))))
+
+    (setq embark-indicators
+          '(embark-which-key-indicator
+            embark-highlight-indicator
+            embark-isearch-highlight-indicator))
+
+    (defun embark-hide-which-key-indicator (fn &rest args)
+      "Hide the which-key indicator immediately when using the completing-read prompter."
+      (which-key--hide-popup-ignore-command)
+      (let ((embark-indicators
+             (remq #'embark-which-key-indicator embark-indicators)))
+        (apply fn args)))
+
+    (advice-add #'embark-completing-read-prompter
+                :around #'embark-hide-which-key-indicator)))
+
+(use-package embark-consult
+  :bind (:map minibuffer-mode-map
+         ("C-c C-o" . embark-export))
+  :hook (embark-collect-mode . consult-preview-at-point-mode))
+
+
 (with-eval-after-load 'xref
   (setq xref-search-program 'ripgrep)   ;project-find-regexp
   (when (functionp 'xref-show-definitions-completing-read)
     (setq xref-show-definitions-function #'xref-show-definitions-completing-read)
     (setq xref-show-xrefs-function #'xref-show-definitions-completing-read)))
+
 (setq acm-candidate-match-function 'orderless-flex)
+
 
 
 (provide 'init-completion)

@@ -43,8 +43,7 @@
   (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
   (sp-local-pair 'emacs-lisp-mode "`" nil :actions nil)
   (sp-local-pair 'rust-mode "'" nil :actions nil)
-  (sp-local-pair 'lisp-interaction-mode "'" nil :actions nil)
-  )
+  (sp-local-pair 'lisp-interaction-mode "'" nil :actions nil))
 
 (use-package hungry-delete
   :init
