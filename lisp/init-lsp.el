@@ -88,5 +88,10 @@
   )
 
 
+(use-package realgud)
+
+(use-package realgud-ipdb)
+
+(use-package realgud-lldb)
 
 (provide 'init-lsp)

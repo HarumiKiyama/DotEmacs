@@ -19,9 +19,9 @@
   :defines popper-echo-dispatch-actions
   :commands popper-group-by-directory
   :bind (:map popper-mode-map
-              ("s-`" . popper-toggle-latest)
+              ("s-a" . popper-toggle-latest)
               ("s-o"   . popper-cycle)
-              ("M-`" . popper-toggle-type))
+              ("s-d" . popper-toggle-type))
   :hook (emacs-startup . popper-mode)
   :init
   (setq popper-reference-buffers
@@ -67,7 +67,7 @@
           "\\*Paradox Report\\*$" "\\*package update results\\*$" "\\*Package-Lint\\*$"
           "\\*[Wo]*Man.*\\*$"
           "\\*ert\\*$" overseer-buffer-mode
-          "\\*gud-debug\\*$"
+          "\\*gud"
           "\\*lsp-help\\*$" "\\*lsp session\\*$"
           "\\*quickrun\\*$"
           "\\*tldr\\*$"
@@ -79,7 +79,7 @@
           "\\*docker-containers\\*" "\\*docker-images\\*" "\\*docker-networks\\*" "\\*docker-volumes\\*"
           "\\*prolog\\*" inferior-python-mode inf-ruby-mode swift-repl-mode
           "\\*rustfmt\\*$" rustic-compilation-mode rustic-cargo-clippy-mode
-          rustic-cargo-outdated-mode rustic-cargo-test-moed)
+          rustic-cargo-outdated-mode rustic-cargo-test-mode)
         )
   (setq popper-echo-dispatch-actions t)
   (setq popper-group-function nil)

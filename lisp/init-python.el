@@ -10,4 +10,5 @@
   :bind (:map python-ts-mode-map
               ("C-c = =" . blacken-buffer)))
 
+
 (provide 'init-python)
