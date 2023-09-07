@@ -11,9 +11,9 @@
 (use-package sudo-edit)
 
 (use-package calibredb
-  :custom
-  ((calibredb-root-dir "~/Calibre Library/")
-   (calibredb-db-dir (expend-file-name "metadata.db" calibredb-root-dir))))
+  :config
+  (setq calibredb-root-dir "~/Calibre Library/"
+        calibredb-db-dir (expand-file-name "metadata.db" calibredb-root-dir)))
 
 (use-package pdf-tools)
 
