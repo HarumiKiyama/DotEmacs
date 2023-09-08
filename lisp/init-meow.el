@@ -23,7 +23,6 @@
   (one-key-popup-window t))
 
 
-
 (use-package combobulate
   :vc (:fetcher github
                 :repo "mickeynp/combobulate")
@@ -153,6 +152,7 @@ A non-expandable, function selection will be created."
    "TAB"
    '((("d" . "delete") . tab-close)
      (("D" . "delete other") . tab-close-other)
+     (("s" . "tab switch") . tab-switch)
      (("g" . "group") . tab-group)
      (("n" . "new") . tab-new)
      (("l" . "left") . tab-next)
@@ -261,9 +261,7 @@ A non-expandable, function selection will be created."
   :init
   (meow-global-mode)
   (meow-setup)
-  (setq custom-mode-state-list '(
-
-                                 (elfeed-show-mode . motion)
+  (setq custom-mode-state-list '((elfeed-show-mode . motion)
                                  (elfeed-summary-mode . motion)
                                  (helpful-mode . motion)
                                  (blink-search-mode . motion)
@@ -273,23 +271,23 @@ A non-expandable, function selection will be created."
                                  (calibredb-show-mode-hook . motion)
                                  (calibredb-search-mode-hook . motion)))
   (setq meow-mode-state-list (-concat meow-mode-state-list custom-mode-state-list))
-  
+
   ;; keybinds
   (keymap-substitute global-map 'isearch-forward 'consult-line)
   (keymap-substitute global-map 'isearch-backward 'blink-search)
   (keymap-substitute global-map 'Info-search 'consult-info)
-  (keymap-substitute global-map 'switch-to-buffer 'consult-buffer)
+  (keymap-substitute global-map 'switch-to-buffer 'bufler-switch-buffer)
   (keymap-substitute global-map 'goto-line 'consult-goto-line)
   (keymap-substitute global-map 'goto-char 'avy-goto-char)
   (keymap-substitute global-map 'yank-pop 'consult-yank-pop)
   (keymap-substitute global-map 'bookmark-jump 'consult-bookmark)
   (keymap-substitute global-map 'recentf-open-files 'consult-recent-file)
   (keymap-substitute global-map 'other-window 'ace-window)
-  
+
   (keymap-global-set "C-x (" 'meow-beacon-start)
   (keymap-global-set "C-x )" 'meow-beacon-end-and-apply-kmacro)
 
-  
+
   (keymap-unset yas-minor-mode-map "TAB")
   (keymap-unset yas-minor-mode-map "<tab>")
   (keymap-set yas-minor-mode-map "M-'" 'yas-expand)
@@ -297,8 +295,6 @@ A non-expandable, function selection will be created."
 
   ;; register thing
   (meow-thing-register 'ts-fun #'meow-ts--get-defun-at-point #'meow-ts--get-defun-at-point)
-  (add-to-list 'meow-char-thing-table '(?f . ts-fun))
-  
-  )
+  (add-to-list 'meow-char-thing-table '(?f . ts-fun)))
 
 (provide 'init-meow)
