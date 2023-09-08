@@ -41,6 +41,7 @@
           "\\*Embark Actions\\*"
           "\\*Finder\\*"
           "\\*Kill Ring\\*"
+          "\\*Bufler\\*"
           "\\*Embark Export:.*\\*"
           "\\*lsp-bridge-ref\\*"
           lsp-bridge-ref-mode

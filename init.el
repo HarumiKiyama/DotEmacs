@@ -52,6 +52,7 @@
 (require 'init-ui)
 (require 'init-window)
 (require 'init-better-defaults)
+(require 'init-workspaces)
 
 ;; tools
 (require 'init-org)
@@ -60,8 +61,7 @@
 (require 'init-irc)
 (require 'init-completion)
 
-;; frameworks
-(require 'init-persp)
+
 ;; languages
 (require 'init-lisp)
 (require 'init-rust)

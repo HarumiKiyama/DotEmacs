@@ -1,4 +1,5 @@
 ;;; init-meow.el -*- lexical-binding: t no-byte-compile: t -*-
+(require 'dash)
 
 (use-package undo-tree
   :init
@@ -79,6 +80,7 @@ A non-expandable, function selection will be created."
     (meow-block n)))
 
 
+
 (defun meow-setup ()
   (defun meow--select-expandable-p ()
     (when (meow-normal-mode-p)
@@ -135,7 +137,7 @@ A non-expandable, function selection will be created."
   (one-key-create-menu
    "SEARCH"
    '((("b" . "Bookmark") . consult-bookmark)
-     (("t" . "Theme") . consult-theme)
+     (("t" . "tab") . tab-switch)
      (("P" . "Project") . consult-project-buffer)
      (("c" . "Char") . avy-goto-char)
      (("l" . "Line") . consult-goto-line)
@@ -143,13 +145,28 @@ A non-expandable, function selection will be created."
      (("f" . "Search file") . color-rg-search-input-in-current-file)
      (("p" . "Search Project") . color-rg-search-input-in-project)))
 
+  (one-key-create-menu
+   "TOOL"
+   '((("e" . "elfeed") . elfeed)
+     (("c" . "calibre") . calibredb)))
+  (one-key-create-menu
+   "TAB"
+   '((("d" . "delete") . tab-close)
+     (("D" . "delete other") . tab-close-other)
+     (("g" . "group") . tab-group)
+     (("n" . "new") . tab-new)
+     (("l" . "left") . tab-next)
+     (("h" . "right") . tab-previous)))
+  
   (meow-leader-define-key
    '("f" . one-key-menu-file)
    '("w" . one-key-menu-windows)
    '("l" . one-key-menu-lsp)
    '("o" . one-key-menu-org)
+   '("t" . one-key-menu-tab)
+   '("T" . one-key-menu-tool)
    '("p" . one-key-menu-paren)
-   '("SPC" . set-mark-command)
+   '("m" . set-mark-command)
    '("s" . one-key-menu-search)
    '("TAB" . meow-last-buffer)
    ;; Use SPC (0-9) for digit arguments.
@@ -212,7 +229,6 @@ A non-expandable, function selection will be created."
    '("o" . meow-next-defun)
    '("O" . meow-to-block)
    '("p" . meow-yank)
-   '("P" . persp-switch)
    '("q" . meow-quit)
    '("Q" . meow-goto-line)
    '("r" . meow-replace)
@@ -220,7 +236,7 @@ A non-expandable, function selection will be created."
    '("s" . meow-kill)
    '("S" . eat)
    '("t" . meow-till)
-   '("T" . tab-switch)
+   '("T" . find-file-other-tab)
    '("u" . meow-undo)
    '("U" . meow-page-up)
    '("e" . meow-mark-word)
@@ -245,14 +261,19 @@ A non-expandable, function selection will be created."
   :init
   (meow-global-mode)
   (meow-setup)
-  (add-to-list 'meow-mode-state-list '(elfeed-show-mode . motion))
-  (add-to-list 'meow-mode-state-list '(elfeed-summary-mode . motion))
-  (add-to-list 'meow-mode-state-list '(helpful-mode . motion))
-  (add-to-list 'meow-mode-state-list '(blink-search-mode . motion))
-  (add-to-list 'meow-mode-state-list '(color-rg-mode . motion))
-  (add-to-list 'meow-mode-state-list '(lsp-bridge-ref-mode . motion))
-  (add-to-list 'meow-mode-state-list '(Info-mode-hook . motion))
+  (setq custom-mode-state-list '(
 
+                                 (elfeed-show-mode . motion)
+                                 (elfeed-summary-mode . motion)
+                                 (helpful-mode . motion)
+                                 (blink-search-mode . motion)
+                                 (color-rg-mode . motion)
+                                 (lsp-bridge-ref-mode . motion)
+                                 (Info-mode-hook . motion)
+                                 (calibredb-show-mode-hook . motion)
+                                 (calibredb-search-mode-hook . motion)))
+  (setq meow-mode-state-list (-concat meow-mode-state-list custom-mode-state-list))
+  
   ;; keybinds
   (keymap-substitute global-map 'isearch-forward 'consult-line)
   (keymap-substitute global-map 'isearch-backward 'blink-search)
