@@ -31,6 +31,8 @@
 (advice-add #'package-initialize :after #'add-subdirs-to-load-path)
 (update-load-path)
 
+(menu-bar-mode -1)
+
 ;; packages
 (require 'init-package)
 
