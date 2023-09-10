@@ -32,3 +32,5 @@ blink-search.db
 /lsp-bridge/
 /tree-sitter/
 !/elpa/.dir-locals.el
+
+/tabsession.el
