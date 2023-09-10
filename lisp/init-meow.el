@@ -227,7 +227,7 @@ A non-expandable, function selection will be created."
    '("N" . meow-open-above)
    ;; '("o" . meow-block)
    '("o" . meow-next-defun)
-   '("O" . meow-to-block)
+   '("O" . tabspaces-open-or-create-project-and-workspace)
    '("p" . meow-yank)
    '("P" . tabspaces-switch-or-create-workspace)
    '("q" . meow-quit)
@@ -285,6 +285,8 @@ A non-expandable, function selection will be created."
   (keymap-substitute global-map 'bookmark-jump 'consult-bookmark)
   (keymap-substitute global-map 'recentf-open-files 'consult-recent-file)
   (keymap-substitute global-map 'other-window 'ace-window)
+
+  (keymap-global-set "C-x f" 'consult-project-buffer)
 
   (keymap-global-set "C-x (" 'meow-beacon-start)
   (keymap-global-set "C-x )" 'meow-beacon-end-and-apply-kmacro)

@@ -21,7 +21,6 @@
               ("C-;" . vertico-quick-jump)))
 
 (use-package consult
-  :defer t
   :init
   (advice-add #'multi-occur :override #'consult-multi-occur)
   (advice-add #'consult-line
