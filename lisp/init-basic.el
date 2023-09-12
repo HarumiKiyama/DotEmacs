@@ -44,26 +44,6 @@
 (use-package server
   :hook (after-init . server-mode))
 
-(use-package keyfreq
-  :vc
-  (:fetcher github
-            :repo "dacap/keyfreq")
-  :hook
-  (after-init . (lambda nil
-                  (keyfreq-mode 1)
-                  (keyfreq-autosave-mode 1)))
-  :config
-  (setq keyfreq-excluded-commands
-   '(self-insert-command
-     forward-char
-     next-line
-     previous-line
-     meow-prev
-     meow-next
-     backward-char
-     previous-line
-     next-line)))
-
 ;; encoding
 ;; utf-8 as the default coding system
 (when (fboundp 'set-charset-priority)

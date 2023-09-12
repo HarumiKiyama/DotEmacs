@@ -9,10 +9,6 @@
               :foreground-color "#dcdccc"
               :internal-border-width 10)))
 
-
-(use-package flyspell-correct)
-
-
 (use-package ispell
   :ensure nil
   :init

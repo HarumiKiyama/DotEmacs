@@ -28,6 +28,7 @@
               #'harumi/consult-line
               '((name . "wrapper")))
   :config
+  (add-to-list 'consult-buffer-sources 'consult--source-project-buffer)
   (setq 
    consult-narrow-key "<"
    consult-line-numbers-widen t
@@ -125,7 +126,6 @@
 
 (use-package marginalia
   :hook (after-init . marginalia-mode))
-
 
 
 (use-package embark

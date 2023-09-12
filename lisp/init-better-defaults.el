@@ -45,12 +45,4 @@
   (sp-local-pair 'rust-mode "'" nil :actions nil)
   (sp-local-pair 'lisp-interaction-mode "'" nil :actions nil))
 
-(use-package hungry-delete
-  :init
-  (global-hungry-delete-mode))
-
-(use-package autorevert
-  :ensure nil
-  :hook (after-init . global-auto-revert-mode))
-
 (provide 'init-better-defaults)

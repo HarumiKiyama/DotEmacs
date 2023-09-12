@@ -286,7 +286,7 @@ A non-expandable, function selection will be created."
   (keymap-substitute global-map 'recentf-open-files 'consult-recent-file)
   (keymap-substitute global-map 'other-window 'ace-window)
 
-  (keymap-global-set "C-x f" 'consult-project-buffer)
+  (keymap-global-set "C-x f" 'switch-to-buffer)
 
   (keymap-global-set "C-x (" 'meow-beacon-start)
   (keymap-global-set "C-x )" 'meow-beacon-end-and-apply-kmacro)

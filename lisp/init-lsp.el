@@ -71,6 +71,7 @@
         '((bash "https://github.com/tree-sitter/tree-sitter-bash")
           (rust "https://github.com/tree-sitter/tree-sitter-rust")
           (cpp "https://github.com/tree-sitter/tree-sitter-cpp")
+          (c "https://github.com/tree-sitter/tree-sitter-c")
           (cmake "https://github.com/uyha/tree-sitter-cmake")
           (css "https://github.com/tree-sitter/tree-sitter-css")
           (elisp "https://github.com/Wilfred/tree-sitter-elisp")

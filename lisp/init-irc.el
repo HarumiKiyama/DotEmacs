@@ -34,6 +34,4 @@
   (erc-update-mode-line))
 
 
-
-
 (provide 'init-irc)

@@ -9,7 +9,7 @@
   :custom
   (tabspaces-use-filtered-buffers-as-default t)
   (tabspaces-default-tab "Default")
-  
+
   (tabspaces-include-buffers '("*scratch*"))
   ;; sessions
   (tabspaces-session t)
@@ -29,7 +29,8 @@
                              :sort 'visibility
                              :as #'buffer-name)))
     "Set workspace buffer list for consult-buffer.")
-  (add-to-list 'consult-buffer-sources 'consult--source-workspace) )
+  ;; (add-to-list 'consult-buffer-sources 'consult--source-workspace)
+  )
 
 (use-package ibuffer-vc
   :config

@@ -1,6 +1,5 @@
 
 (use-package proof-general
-
   :init
   (setq proof-three-window-mode-policy 'hybrid
         proof-script-fly-past-comments t

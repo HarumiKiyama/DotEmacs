@@ -14,7 +14,7 @@
 (use-package doom-themes
   :init
   (set-face-attribute 'default nil :height 180 :family "FiraCode Nerd Font")
-  (load-theme 'doom-dracula))
+  (load-theme 'doom-material-dark))
 
 (use-package valign
   :hook ((markdown-mode org-mode) . valign-mode))
@@ -26,8 +26,5 @@
   :init
   (setq visual-fill-column-width 110
         visual-fill-column-center-text t))
-
-
-
 
 (provide 'init-ui)
