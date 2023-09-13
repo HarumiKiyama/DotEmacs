@@ -84,8 +84,7 @@
           (toml "https://github.com/tree-sitter/tree-sitter-toml")
           (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
           (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-          (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
-  )
+          (yaml "https://github.com/ikatyang/tree-sitter-yaml"))))
 
 
 (use-package realgud)

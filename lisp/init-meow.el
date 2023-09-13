@@ -254,7 +254,7 @@ A non-expandable, function selection will be created."
    '("<escape>" . ignore)))
 
 (use-package meow
-  :after one-key
+  :after (one-key recentf consult)
   :custom
   (meow-use-clipboard t)
   (meow-goto-line-function 'avy-goto-line)
@@ -283,14 +283,12 @@ A non-expandable, function selection will be created."
   (keymap-substitute global-map 'goto-char 'avy-goto-char)
   (keymap-substitute global-map 'yank-pop 'consult-yank-pop)
   (keymap-substitute global-map 'bookmark-jump 'consult-bookmark)
-  (keymap-substitute global-map 'recentf-open-files 'consult-recent-file)
   (keymap-substitute global-map 'other-window 'ace-window)
+  (keymap-substitute global-map 'recentf-open-files 'consult-recent-file)
 
-  (keymap-global-set "C-x f" 'switch-to-buffer)
-
+  (keymap-global-set "C-x f" 'consult-project-buffer)
   (keymap-global-set "C-x (" 'meow-start-kmacro-or-insert-counter)
   (keymap-global-set "C-x )" 'meow-end-or-call-kmacro)
-
 
   (keymap-unset yas-minor-mode-map "TAB")
   (keymap-unset yas-minor-mode-map "<tab>")
