@@ -288,14 +288,13 @@ A non-expandable, function selection will be created."
 
   (keymap-global-set "C-x f" 'switch-to-buffer)
 
-  (keymap-global-set "C-x (" 'meow-beacon-start)
-  (keymap-global-set "C-x )" 'meow-beacon-end-and-apply-kmacro)
+  (keymap-global-set "C-x (" 'meow-start-kmacro-or-insert-counter)
+  (keymap-global-set "C-x )" 'meow-end-or-call-kmacro)
 
 
   (keymap-unset yas-minor-mode-map "TAB")
   (keymap-unset yas-minor-mode-map "<tab>")
   (keymap-set yas-minor-mode-map "M-'" 'yas-expand)
-
 
   ;; register thing
   (meow-thing-register 'ts-fun #'meow-ts--get-defun-at-point #'meow-ts--get-defun-at-point)

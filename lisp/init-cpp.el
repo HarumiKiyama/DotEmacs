@@ -1,5 +1,3 @@
-(use-package cmake-mode)
-
 (use-package cc-mode
   :ensure nil
   :config
