@@ -29,7 +29,6 @@
                              :sort 'visibility
                              :as #'buffer-name)))
     "Set workspace buffer list for consult-buffer.")
-  ;; (add-to-list 'consult-buffer-sources 'consult--source-workspace)
   )
 
 (use-package ibuffer-vc

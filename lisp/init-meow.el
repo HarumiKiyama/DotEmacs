@@ -225,7 +225,6 @@ A non-expandable, function selection will be created."
    '("m" . meow-line)
    '("n" . meow-open-below)
    '("N" . meow-open-above)
-   ;; '("o" . meow-block)
    '("o" . meow-next-defun)
    '("O" . tabspaces-open-or-create-project-and-workspace)
    '("p" . meow-yank)
