@@ -148,7 +148,7 @@ A non-expandable, function selection will be created."
    "TOOL"
    '((("e" . "elfeed") . elfeed)
      (("c" . "calibre") . calibredb)
-     (("s" . "smerge") . smerge-mode)
+     (("s" . "smerge") . hydra-smerge/body)
      ))
   (one-key-create-menu
    "TAB"
