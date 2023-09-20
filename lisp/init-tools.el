@@ -14,4 +14,54 @@
 
 (use-package pdf-tools)
 
+
+(use-package elfeed
+  :defer t)
+
+(use-package elfeed-org
+  :defer t
+  :config
+  (setq rmh-elfeed-org-files (list "~/org-mode/elfeed.org"))
+  (elfeed-org))
+
+(use-package gnus
+  :after bbdb
+  :ensure nil
+  :config
+  ;; Send email through SMTP
+(setq message-send-mail-function 'smtpmail-send-it
+      smtpmail-default-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-service 587
+      smtpmail-local-domain "homepc")
+
+(setq gnus-select-method '(nntp "news.gwene.org")) ;; Read feeds/atom through gwene
+
+;; @see http://gnus.org/manual/gnus_397.html
+(add-to-list 'gnus-secondary-select-methods
+             '(nnimap "tbamc"
+                      (nnimap-address "imap.exmail.qq.com")
+                      (nnimap-server-port 993)
+                      (nnimap-stream ssl)
+                      (nnmail-expiry-target "nnimap+tbamc:[tbamc]/Trash")
+                      (nnmail-expiry-wait 90)))
+
+;; OPTIONAL, the setup for Microsoft Hotmail
+(add-to-list 'gnus-secondary-select-methods
+             '(nnimap "hotmail"
+                      (nnimap-address "outlook.office365.com")
+                      (nnimap-server-port 993)
+                      (nnimap-stream ssl)
+                      (nnmail-expiry-wait 90)))
+
+  (setq gnus-parameters
+        '(("company"
+           (posting-style
+            (address "wanglc@tbamc.com")
+            ("X-Message-SMTP-Method" "smtp smtp.exmail.qq.com 465")))
+          ("personal"
+           (posting-style
+            (address "lucius0720@hotmail.com")
+            ("X-Message-SMTP-Method" "smtp smtp-mail.outlook.com 587"))))))
+
+
 (provide 'init-tools)

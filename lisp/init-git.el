@@ -10,6 +10,7 @@
 
 (use-package smerge-mode
   :ensure nil
+  :hook (smerge-mode . smerge-hydra/body)
   :config
   (defhydra smerge-hydra
     (:color pink :hint nil :post (smerge-auto-leave))
@@ -44,9 +45,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
             (bury-buffer))
      "Save and bury buffer" :color blue)
     ("q" nil "cancel" :color blue))
-  :hook (magit-diff-visit-file . (lambda ()
-                                   (when smerge-mode
-                                     (smerge-hydra/body)))))
+  )
 
 
 

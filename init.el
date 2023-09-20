@@ -47,7 +47,6 @@
 
 ;; core
 (require 'init-basic)
-(require 'init-tools)
 (require 'init-writing)
 
 ;; uis
@@ -57,9 +56,9 @@
 (require 'init-workspaces)
 
 ;; tools
+(require 'init-tools)
 (require 'init-org)
 (require 'init-git)
-(require 'init-elfeed)
 (require 'init-irc)
 (require 'init-completion)
 

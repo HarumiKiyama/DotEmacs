@@ -147,7 +147,9 @@ A non-expandable, function selection will be created."
   (one-key-create-menu
    "TOOL"
    '((("e" . "elfeed") . elfeed)
-     (("c" . "calibre") . calibredb)))
+     (("c" . "calibre") . calibredb)
+     (("s" . "smerge") . smerge-mode)
+     ))
   (one-key-create-menu
    "TAB"
    '((("d" . "delete") . tab-close)
@@ -264,8 +266,9 @@ A non-expandable, function selection will be created."
   (setq custom-mode-state-list '((elfeed-show-mode . motion)
                                  (elfeed-summary-mode . motion)
                                  (helpful-mode . motion)
-                                 (blink-search-mode . motion)
-                                 (color-rg-mode . motion)
+                                 (smerge-mode . motion)
+                                 (blink-search-mode . insert)
+                                 (color-rg-mode . insert)
                                  (lsp-bridge-ref-mode . motion)
                                  (Info-mode-hook . motion)
                                  (calibredb-show-mode-hook . motion)

@@ -19,9 +19,8 @@
   :defines popper-echo-dispatch-actions
   :commands popper-group-by-directory
   :bind (:map popper-mode-map
-              ("s-a" . popper-toggle-latest)
-              ("s-o"   . popper-cycle)
-              ("s-d" . popper-toggle-type))
+              ("s-a" . popper-toggle)
+              ("s-o" . popper-cycle))
   :hook (emacs-startup . popper-mode)
   :init
   (setq popper-reference-buffers
