@@ -41,6 +41,8 @@
   :init
   (setq which-key-side-window-location 'bottom))
 
+(use-package major-mode-hydra)
+
 (use-package server
   :hook (after-init . server-mode))
 
