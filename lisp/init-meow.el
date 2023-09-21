@@ -301,6 +301,8 @@ A non-expandable, function selection will be created."
   (keymap-global-set "C-x f" 'consult-project-buffer)
   (keymap-global-set "C-x (" 'meow-start-kmacro-or-insert-counter)
   (keymap-global-set "C-x )" 'meow-end-or-call-kmacro)
+  (keymap-global-set "C-o" 'major-mode-hydra)
+
 
   (keymap-unset yas-minor-mode-map "TAB")
   (keymap-unset yas-minor-mode-map "<tab>")

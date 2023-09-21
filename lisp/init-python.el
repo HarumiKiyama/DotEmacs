@@ -1,13 +1,17 @@
 (use-package py-isort
-  :defer t
   :commands py-isort-buffer
   :bind (:map python-ts-mode-map
               ("C-c = i" . py-isort-buffer)))
 
 (use-package blacken
-  :defer t
-  :commands blacken-buffer
-  :bind (:map python-ts-mode-map
-              ("C-c = =" . blacken-buffer)))
+  :commands blacken-buffer)
+
+
+(major-mode-hydra-define python-ts-mode (:color blue :hint nil :quit-key "q")
+  ("FORMAT"
+   (("b" blacken-buffer "buffer")
+    ("i" py-isort-buffer "import"))))
+
+
 
 (provide 'init-python)

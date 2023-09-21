@@ -20,7 +20,7 @@
   (lsp-bridge-signature-function 'eldoc-message)
   (acm-markdown-render-font-height 80)
   (acm-enable-quick-access t)
-  (acm-enable-codeium t)
+  (acm-enable-codeium nil)
   (acm-enable-tabnine nil)
   (acm-backend-yas-match-by-trigger-keyword t)
   (lsp-bridge-code-action-enable-popup-menu nil)
