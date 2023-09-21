@@ -16,17 +16,10 @@
    (lsp-bridge-mode
     (lsp-bridge-find-def))))
 
-(use-package one-key
-  :vc (:fetcher github
-                :repo "manateelazycat/one-key")
-  :custom
-  (one-key-popup-window t))
-
 
 (use-package combobulate
   :vc (:fetcher github
-                :repo "mickeynp/combobulate")
-  )
+                :repo "mickeynp/combobulate"))
 
 
 (defun meow-ts--get-defun-at-point ()
@@ -78,98 +71,115 @@ A non-expandable, function selection will be created."
       (meow-ts-next-defun n)
     (meow-block n)))
 
+(require 'pretty-hydra)
 
+
+(pretty-hydra-define leader-org-hydra
+  (:hint nil :color blue :quit-key "q" :title "ORG")
+  ("GTD"
+   (("a" org-agenda-list "agenda")
+    ("p" org-pomodoro "pomodoro"))
+   "NOTE"
+   (
+    ("c" org-capture "capture")
+    ("d" org-journal-new-entry "diary"))))
+
+(pretty-hydra-define leader-paren-hydra (:hint nil :color blue :quit-key "q" :title "PAREN")
+  ("EDIT"
+   (("c" sp-rewrap-sexp "change")
+    ("d" sp-unwrap-sexp "delete"))
+   "NAV"
+   (("f" sp-forward-sexp "forward" :exit nil)
+    ("b" sp-backward-sexp "backward" :exit nil)
+    ("p" sp-up-sexp "up" :exit nil)
+    ("n" sp-down-sexp "down" :exit nil)
+    )))
+
+(pretty-hydra-define leader-windows-hydra (:hint nil :color blue :quit-key "q" :title "WINDOWS")
+  ("MODIFY"
+   (("d" kill-this-buffer "kill")
+    ("-" split-window-below "Split below")
+    ("/" split-window-right "Split right")
+    ("u" winner-undo "Winner Undo"))
+   "SWITCH"
+   (("s" scratch-buffer "scratch")
+    ("m" message-buffer)
+    )))
+
+
+(pretty-hydra-define leader-lsp-hydra (:hint nil :color blue :quit-key "q" :title "LSP")
+  ("NAV"
+   (
+    ("n" lsp-bridge-diagnostic-jump-next "next" :exit nil)
+    ("p" lsp-bridge-diagnostic-jump-prev "prev" :exit nil)
+    ("s" lsp-bridge-peek "select")
+    ("l" lsp-bridge-diagnostic-list "list error")
+    ("R" lsp-bridge-find-references "ref")
+    ("d" lsp-bridge-jump "def"))
+   "ACTION"
+   (("r" lsp-bridge-rename "rename")
+    ("a" lsp-bridge-code-action "action"))))
+
+
+(pretty-hydra-define leader-file-hydra (:hint nil :color blue :quit-key "q" :title "FILE")
+  ("FILE"
+   (("r" rename-visited-file "rename")
+    ("d" harumi/delete-file-and-buffer "delete"))
+   "CONTENT"
+   (
+    ("u" dos2unix)
+    ("U" unix2dos)
+    ("M" delete-carrage-returns "delete ^M"))))
+
+(pretty-hydra-define leader-search-hydra (:hint nil :color blue :quit-key "q" :title "SEARCH")
+  ("GLOBAL"
+   (("b" consult-bookmark "bookmark")
+    ("t" tab-switch "tab"))
+   "Project"
+   (
+    ("d" color-rg-search-input "dir")
+    ("p" color-rg-search-input-in-project "project"))
+
+   "FILE"
+   (
+    ("c" avy-goto-char "char")
+    ("l" consult-goto-line "line")
+    ("f" color-rg-search-input-in-current-file "file"))))
+
+(pretty-hydra-define leader-tool-hydra (:hint nil :color blue :quit-key "q")
+  ("TOOL"
+   (("e" elfeed)
+    ("c" calibredb)
+    ("s" hydra-smerge/body "smerge")
+    ("c" erc))))
+
+(pretty-hydra-define leader-tab-hydra (:hint nil :color blue :quit-key "q" :title "TAB")
+  ("NAV"
+   (
+    ("n" tab-next "next" :exit nil)
+    ("p" tab-previous "previous" :exit nil))
+   "ACTION"
+   (
+    ("d" tab-close :exit nil))))
+
+(defun meow--select-expandable-p ()
+  (when (meow-normal-mode-p)
+    (when-let ((sel (meow--selection-type)))
+      (let ((type (cdr sel)))
+        (member type '(word line block find till fun))))))
+  
 
 (defun meow-setup ()
-  (defun meow--select-expandable-p ()
-    (when (meow-normal-mode-p)
-      (when-let ((sel (meow--selection-type)))
-        (let ((type (cdr sel)))
-          (member type '(word line block find till fun))))))
-  
-  (one-key-create-menu
-   "PAREN"
-   '((("c" . "Change paren") . sp-rewrap-sexp)
-     (("d" . "Delete paren") . sp-unwrap-sexp))
-   t)
-  
-  (one-key-create-menu
-   "ORG"
-   '((("p" . "Pomodoro") . org-pomodoro)
-     (("c" . "Capture") . org-capture)
-     (("d" . "Diary") . org-journal-new-entry)
-     (("a" . "Agenda") . org-agenda-list))
-   t)
-
-  (one-key-create-menu
-   "WINDOWS"
-   '((("d" . "Destroy") . kill-this-buffer)
-     (("-" . "Split below") . split-window-below)
-     (("/" . "Split right") . split-window-right)
-     (("c" . "Chat") . erc)
-     (("r" . "RSS") . elfeed)
-     (("m" . "Message") . (lambda () (interactive) (switch-to-buffer "*Messages*")))
-     (("s" . "scratch") . scratch-buffer)
-     (("u" . "Winner Undo") . winner-undo))
-   t)
-
-  (one-key-create-menu
-   "LSP"
-   '((("r" . "Rename") . lsp-bridge-rename)
-     (("n" . "Next") . lsp-bridge-diagnostic-jump-next)
-     (("p" . "Prev") . lsp-bridge-diagnostic-jump-prev)
-     (("s" . "Select") . lsp-bridge-peek)
-     (("l" . "List") . lsp-bridge-diagnostic-list)
-     (("a" . "Action") . lsp-bridge-code-action)
-     (("R" . "reference") . lsp-bridge-find-references)
-     (("d" . "Def") . lsp-bridge-jump)))
-
-  (one-key-create-menu
-   "FILE"
-   '((("r" . "Rename File") . rename-visited-file)
-     (("d" . "delete File") . harumi/delete-file-and-buffer)
-     (("u" . "Dos2Unix") . dos2unix)
-     (("U" . "Unix2Dos") . unix2dos)
-     (("R" . "run script") . quickrun)
-     (("M" . "DELETE^M") . delete-carrage-returns)))
-
-  (one-key-create-menu
-   "SEARCH"
-   '((("b" . "Bookmark") . consult-bookmark)
-     (("t" . "tab") . tab-switch)
-     (("P" . "Project") . consult-project-buffer)
-     (("c" . "Char") . avy-goto-char)
-     (("l" . "Line") . consult-goto-line)
-     (("d" . "Search Directory") . color-rg-search-input)
-     (("f" . "Search file") . color-rg-search-input-in-current-file)
-     (("p" . "Search Project") . color-rg-search-input-in-project)))
-
-  (one-key-create-menu
-   "TOOL"
-   '((("e" . "elfeed") . elfeed)
-     (("c" . "calibre") . calibredb)
-     (("s" . "smerge") . hydra-smerge/body)
-     ))
-  (one-key-create-menu
-   "TAB"
-   '((("d" . "delete") . tab-close)
-     (("D" . "delete other") . tab-close-other)
-     (("s" . "tab switch") . tab-switch)
-     (("g" . "group") . tab-group)
-     (("n" . "new") . tab-new)
-     (("l" . "left") . tab-next)
-     (("h" . "right") . tab-previous)))
-  
   (meow-leader-define-key
-   '("f" . one-key-menu-file)
-   '("w" . one-key-menu-windows)
-   '("l" . one-key-menu-lsp)
-   '("o" . one-key-menu-org)
-   '("t" . one-key-menu-tab)
-   '("T" . one-key-menu-tool)
-   '("p" . one-key-menu-paren)
+   '("f" . leader-file-hydra/body)
+   '("w" . leader-windows-hydra/body)
+   '("l" . leader-lsp-hydra/body)
+   '("o" . leader-org-hydra/body)
+   '("t" . leader-tab-hydra/body)
+   '("T" . leader-tool-hydra/body)
+   '("p" . leader-paren-hydra/body)
+   '("s" . leader-search-hydra/body)
    '("m" . set-mark-command)
-   '("s" . one-key-menu-search)
    '("TAB" . meow-last-buffer)
    ;; Use SPC (0-9) for digit arguments.
    '("1" . meow-digit-argument)
@@ -250,12 +260,12 @@ A non-expandable, function selection will be created."
    '("y" . meow-save)
    '("Y" . meow-sync-grab)
    '("z" . meow-pop-selection)
-   '("Z" . one-key-menu-search)
+   '("Z" . leader-search-hydra/body)
    '("'" . repeat)
    '("<escape>" . ignore)))
 
 (use-package meow
-  :after (one-key recentf consult)
+  :after (recentf consult)
   :custom
   (meow-use-clipboard t)
   (meow-goto-line-function 'avy-goto-line)
