@@ -29,7 +29,6 @@
           "\\*Compile-Log\\*"
           "\\*Completions\\*"
           "\\*frequencies\\*"
-          "\\*One-Key\\*"
           "\\*Warnings\\*"
           "\\*Flymake diagnostics.*\\*"
           "\\*Async Shell Command\\*"
