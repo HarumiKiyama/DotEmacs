@@ -59,7 +59,7 @@
 (require 'init-tools)
 (require 'init-org)
 (require 'init-git)
-(require 'init-irc)
+;; (require 'init-irc)
 (require 'init-completion)
 
 

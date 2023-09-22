@@ -50,7 +50,7 @@
           tabulated-list-mode
           Buffer-menu-mode
           occur-mode
-          gnus-article-mode devdocs-mode
+          devdocs-mode
           grep-mode occur-mode rg-mode deadgrep-mode ag-mode pt-mode
           ivy-occur-mode ivy-occur-grep-mode
           process-menu-mode list-environment-mode cargo-process-mode
@@ -78,8 +78,7 @@
           "\\*docker-containers\\*" "\\*docker-images\\*" "\\*docker-networks\\*" "\\*docker-volumes\\*"
           "\\*prolog\\*" inferior-python-mode inf-ruby-mode swift-repl-mode
           "\\*rustfmt\\*$" rustic-compilation-mode rustic-cargo-clippy-mode
-          rustic-cargo-outdated-mode rustic-cargo-test-mode)
-        )
+          rustic-cargo-outdated-mode rustic-cargo-test-mode))
   (setq popper-echo-dispatch-actions t)
   (setq popper-group-function nil)
   :config

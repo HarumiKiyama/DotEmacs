@@ -15,7 +15,7 @@
   (tabspaces-session t)
   :config
   ;; hide full buffer list (still available with "b" prefix)
-  (consult-customize consult--source-buffer :hidden t :default nil)
+  ;; (consult-customize consult--source-buffer :hidden t :default nil)
   ;; set consult-workspace buffer list
   (defvar consult--source-workspace
     (list :name "Workspace Buffers"
