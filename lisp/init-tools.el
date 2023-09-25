@@ -21,6 +21,13 @@
   (setq rmh-elfeed-org-files (list "~/org-mode/elfeed.org"))
   (elfeed-org))
 
+
+(use-package org-msg)
+
+
+(use-package org-contacts)
+
+
 (use-package gnus
   :ensure nil
   :config
@@ -38,7 +45,6 @@
                         (nnimap-address "imap.exmail.qq.com")
                         (nnimap-server-port 993)
                         (nnimap-stream ssl)
-                        (nnmail-expiry-target "nnimap+tbamc:[tbamc]/Trash")
                         (nnmail-expiry-wait 90)))
 
   ;; OPTIONAL, the setup for Microsoft Hotmail

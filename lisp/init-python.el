@@ -1,7 +1,5 @@
 (use-package py-isort
-  :commands py-isort-buffer
-  :bind (:map python-ts-mode-map
-              ("C-c = i" . py-isort-buffer)))
+  :commands py-isort-buffer)
 
 (use-package blacken
   :commands blacken-buffer)
