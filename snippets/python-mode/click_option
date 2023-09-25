@@ -1,0 +1,4 @@
+# key: opt
+# name: option
+# --
+@click.option("--$1", "-$2", required=${3:$$(yas-choose-value '(True False))})
