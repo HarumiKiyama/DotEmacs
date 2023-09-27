@@ -14,13 +14,25 @@
                                       "*Ibuffer*"
                                       "*esh command on file*")))
 
+
+(use-package ace-window
+  :config
+  (setq aw-keys '(?q ?w ?e ?r)
+        aw-ignore-on t
+        aw-ignored-buffers '(eat-mode))
+  )
+
+
 ;; Enforce rules for popups
 (use-package popper
+  :after ace-window
   :defines popper-echo-dispatch-actions
   :commands popper-group-by-directory
   :bind (:map popper-mode-map
               ("s-a" . popper-toggle)
-              ("s-o" . popper-cycle))
+              ("s-o" . popper-cycle)
+              ("s-t" . popper-toggle-type)
+              ("s-f" . windmove-down))
   :hook (emacs-startup . popper-mode)
   :init
   (setq popper-reference-buffers
@@ -79,29 +91,35 @@
           "\\*prolog\\*" inferior-python-mode inf-ruby-mode swift-repl-mode
           "\\*rustfmt\\*$" rustic-compilation-mode rustic-cargo-clippy-mode
           rustic-cargo-outdated-mode rustic-cargo-test-mode))
+
   (setq popper-echo-dispatch-actions t)
   (setq popper-group-function nil)
   :config
   (popper-echo-mode 1)
-  (with-no-warnings
-    (defun my-popper-fit-window-height (win)
-      "Determine the height of popup window WIN by fitting it to the buffer's content."
-      (fit-window-to-buffer
-       win
-       (floor (frame-height) 3)
-       (floor (frame-height) 3)))
-    (setq popper-window-height #'my-popper-fit-window-height)
+  (defun harumi/is-in-popper (window)
+    (let ((buffer (window-buffer window)))
+      (popper-popup-p buffer)))
+  (advice-add 'aw-ignored-p :after-until 'harumi/is-in-popper)
 
-    (defun popper-close-window-hack (&rest _)
-      "Close popper window via `C-g'."
-      ;; `C-g' can deactivate region
-      (when (and (called-interactively-p 'interactive)
-                 (not (region-active-p))
-                 popper-open-popup-alist)
-        (let ((window (caar popper-open-popup-alist)))
-          (when (window-live-p window)
-            (delete-window window)))))
-    (advice-add #'keyboard-quit :before #'popper-close-window-hack)))
+
+  (defun my-popper-fit-window-height (win)
+    "Determine the height of popup window WIN by fitting it to the buffer's content."
+    (fit-window-to-buffer
+     win
+     (floor (frame-height) 3)
+     (floor (frame-height) 3)))
+  (setq popper-window-height #'my-popper-fit-window-height)
+
+  (defun popper-close-window-hack (&rest _)
+    "Close popper window via `C-g'."
+    ;; `C-g' can deactivate region
+    (when (and (called-interactively-p 'interactive)
+               (not (region-active-p))
+               popper-open-popup-alist)
+      (let ((window (caar popper-open-popup-alist)))
+        (when (window-live-p window)
+          (delete-window window)))))
+  (advice-add #'keyboard-quit :before #'popper-close-window-hack))
 
 
 (provide 'init-window)
