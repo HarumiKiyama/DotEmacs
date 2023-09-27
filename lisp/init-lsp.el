@@ -47,9 +47,6 @@
                                         ("PROJECT" "~/projects/"))))
 
 
-(use-package eat
-  :vc (:fetcher "codeberg"
-             :repo "akib/emacs-eat"))
 
 
 ;; config tree-sitter

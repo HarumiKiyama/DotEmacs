@@ -18,9 +18,7 @@
 (use-package ace-window
   :config
   (setq aw-keys '(?q ?w ?e ?r)
-        aw-ignore-on t
-        aw-ignored-buffers '(eat-mode))
-  )
+        aw-ignore-on t))
 
 
 ;; Enforce rules for popups
@@ -71,7 +69,7 @@
           "^\\*shell.*\\*.*$" shell-mode
           "^\\*terminal.*\\*.*$" term-mode
           "^\\*vterm.*\\*.*$" vterm-mode
-          "^\\*eat.*\\*.*$" eat-mode
+          "^\\*eat.*\\*.*$"
           "\\*DAP Templates\\*$" dap-server-log-mode
           "\\*ELP Profiling Restuls\\*" profiler-report-mode
           "\\*Flycheck errors\\*$" " \\*Flycheck checker\\*$"
@@ -120,6 +118,41 @@
         (when (window-live-p window)
           (delete-window window)))))
   (advice-add #'keyboard-quit :before #'popper-close-window-hack))
+
+
+(use-package eat
+  :vc (:fetcher "codeberg"
+                :repo "akib/emacs-eat")
+
+  :config
+  ;;TODO: write helper function to use eat as term multiplexer
+  ;; create tablespace group all eat buffer, add machine name after buffer
+  ;; open default tab as eat tab, only open eat buffer in this tab.
+  ;; use other command to open eat buffer and rename it
+  (defun harumi/open-server-term (server)
+    (interactive "P")
+    (let ((shell (or explicit-shell-file-name
+                       (getenv "ESHELL")
+                       shell-file-name))
+          (buffer
+           (cond
+            ((numberp arg)
+             (get-buffer-create (format "%s<%d>" eat-buffer-name arg)))
+            (arg
+             (generate-new-buffer eat-buffer-name))
+            (t
+             (get-buffer-create eat-buffer-name)))))
+      (with-current-buffer buffer
+        (unless (eq major-mode #'eat-mode)
+          (eat-mode))
+        (pop-to-buffer-same-window buffer)
+        (unless (and eat--terminal
+                     (eat-term-parameter eat--terminal 'eat--process))
+          (eat-exec buffer (buffer-name) "/usr/bin/env" nil
+                    (list "sh" "-c" shell)))
+        buffer)))
+
+  )
 
 
 (provide 'init-window)
