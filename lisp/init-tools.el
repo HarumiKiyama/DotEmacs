@@ -27,6 +27,7 @@
   :config
   (setq mail-user-agent 'gnus-user-agent)
   (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil \\n:t"
+        
         org-msg-startup "hidestars indent inlineimages"
         org-msg-greeting-fmt "\nHi%s,\n\n"
         org-msg-recipient-names '(("jeremy.compostella@gmail.com" . "Jérémy"))

@@ -14,7 +14,7 @@
 (use-package gcmh
   :init
   (setq gcmh-idle-delay 5
-	    gcmh-high-cons-threshold 16777216) ; 16mb
+        gcmh-high-cons-threshold 16777216) ; 16mb
   (gcmh-mode 1))
 
 
@@ -40,6 +40,8 @@
   :hook (after-init . which-key-mode)
   :init
   (setq which-key-side-window-location 'bottom))
+
+(use-package dash)
 
 (use-package major-mode-hydra)
 

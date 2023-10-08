@@ -16,19 +16,10 @@
     (add-hook hook (lambda () (flyspell-mode 1))))
   (ispell-change-dictionary "american" t))
 
-(defun pangu-real-space-hook ()
-  (setq-local pangu-spacing-real-insert-separtor t))
+(use-package wraplish
+  ;; use manateelazycat/wraplish
+  :load-path "elpa/wraplish"
+  :hook (emacs-startup . wraplish-mode))
 
-(use-package pangu-spacing
-  :defer t
-  ;; Always insert `real' space in org-mode.
-  :hook ((org-mode . pangu-spacing-real-insert-separtor)
-         (org-journal-mode . pangu-spacing-real-insert-separtor))
-  :init
-  (global-pangu-spacing-mode 1))
-
-(use-package atomic-chrome
-  :config
-  (atomic-chrome-start-server))
 
 (provide 'init-writing)

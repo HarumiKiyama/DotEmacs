@@ -6,7 +6,7 @@
 
 (use-package denote
   :custom
-  (denote-directory (expand-file-name "~/org-mode/notes")))
+  (denote-directory "~/org-mode/notes"))
 
 (use-package ox-hugo
   :after ox
@@ -35,7 +35,7 @@ unwanted space when exporting org-mode to hugo markdown."
   (setq org-journal-date-format "%Y-%m-%d %A"
         org-journal-time-format ""
         org-journal-time-prefix ""
-        org-journal-dir (expand-file-name "~/org-mode/journal")))
+        org-journal-dir  "~/org-mode/journal"))
 
 (use-package org-super-agenda
   :after org

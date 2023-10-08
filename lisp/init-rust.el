@@ -27,7 +27,7 @@
   :custom (rust-playground-run-command "cargo run --color never")
   :commands (rust-playground-get-snippet-basedir)
   :config
-  (setq rust-playground-basedir (expand-file-name "~/workspace/rust/playground")))
+  (setq rust-playground-basedir "~/workspace/rust/playground"))
 
 
 (provide 'init-rust)

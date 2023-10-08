@@ -1,6 +1,4 @@
 ;;; init.el -*- lexical-binding: t no-byte-compile: t -*-
-
-
 (require 'cl-lib)
 
 ;; speed up startup
@@ -41,13 +39,10 @@
 (exec-path-from-shell-initialize)
 
 ;; config lsp
+(require 'init-basic)
 (require 'init-lsp)
-;; config meow
 (require 'init-meow)
 
-;; core
-(require 'init-basic)
-(require 'init-writing)
 
 ;; uis
 (require 'init-ui)
@@ -59,9 +54,11 @@
 (require 'init-tools)
 (require 'init-org)
 (require 'init-git)
+(require 'init-server)
+(require 'init-writing)
+
 ;; (require 'init-irc)
 (require 'init-completion)
-
 
 ;; languages
 (require 'init-lisp)

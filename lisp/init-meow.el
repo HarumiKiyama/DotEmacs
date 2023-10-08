@@ -1,6 +1,4 @@
 ;;; init-meow.el -*- lexical-binding: t no-byte-compile: t -*-
-(require 'dash)
-
 (use-package undo-tree
   :init
   (global-undo-tree-mode 1)
@@ -103,8 +101,12 @@ A non-expandable, function selection will be created."
     ("u" winner-undo "Winner Undo"))
    "SWITCH"
    (("s" scratch-buffer "scratch")
-    ("m" message-buffer)
-    )))
+    ("m" message-buffer "message"))
+   "NAV"
+   (("h" windmove-left "left" :exit nil)
+    ("l" windmove-right "right" :exit nil)
+    ("j" windmove-down "down" :exit nil)
+    ("k" windmove-up "up" :exit nil))))
 
 
 (pretty-hydra-define leader-lsp-hydra (:hint nil :color blue :quit-key "q" :title "LSP")
@@ -126,8 +128,7 @@ A non-expandable, function selection will be created."
    (("r" rename-visited-file "rename")
     ("d" harumi/delete-file-and-buffer "delete"))
    "CONTENT"
-   (
-    ("u" dos2unix)
+   (("u" dos2unix)
     ("U" unix2dos)
     ("M" delete-carrage-returns "delete ^M"))))
 
@@ -139,7 +140,6 @@ A non-expandable, function selection will be created."
    (
     ("d" color-rg-search-input "dir")
     ("p" color-rg-search-input-in-project "project"))
-
    "FILE"
    (
     ("c" avy-goto-char "char")
@@ -235,6 +235,7 @@ A non-expandable, function selection will be created."
    '("l" . meow-right)
    '("L" . meow-right-expand)
    '("m" . meow-line)
+   '("M" . harumi/open-server-term)
    '("n" . meow-open-below)
    '("N" . meow-open-above)
    '("o" . meow-next-defun)
