@@ -85,4 +85,7 @@
             ("X-Message-SMTP-Method" "smtp smtp-mail.outlook.com 587"))))))
 
 
+(use-package aria2)
+
+
 (provide 'init-tools)
