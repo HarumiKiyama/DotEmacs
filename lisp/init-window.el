@@ -69,7 +69,7 @@
           "^\\*shell.*\\*.*$" shell-mode
           "^\\*terminal.*\\*.*$" term-mode
           "^\\*vterm.*\\*.*$" vterm-mode
-          "^\\*eat.*\\*.*$"
+          "^\\*eat.*\\*$"
           "\\*DAP Templates\\*$" dap-server-log-mode
           "\\*ELP Profiling Restuls\\*" profiler-report-mode
           "\\*Flycheck errors\\*$" " \\*Flycheck checker\\*$"

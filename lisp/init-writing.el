@@ -7,7 +7,8 @@
         rime-posframe-properties
         (list :background-color "#333333"
               :foreground-color "#dcdccc"
-              :internal-border-width 10)))
+              :internal-border-width 10))
+  )
 
 (use-package ispell
   :ensure nil

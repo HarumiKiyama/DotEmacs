@@ -96,7 +96,6 @@ parameters."
            rest)))
 
 (defun doom/escape (&optional interactive)
-  "Run `doom-escape-hook'."
   (interactive (list 'interactive))
   (cond ((minibuffer-window-active-p (minibuffer-window))
          ;; quit the minibuffer if open.
@@ -108,9 +107,9 @@ parameters."
         ;; Back to the default
         ((unwind-protect (keyboard-quit)
            (when interactive
-             (setq this-command 'keyboard-quit))))))
+             (setq this-command 'keyboard-quit)))))) 
 
-(global-set-key [remap keyboard-quit] #'doom/escape)
+
 
 
 (with-eval-after-load 'eldoc

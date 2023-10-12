@@ -263,10 +263,12 @@ A non-expandable, function selection will be created."
    '("z" . meow-pop-selection)
    '("Z" . leader-search-hydra/body)
    '("'" . repeat)
-   '("<escape>" . ignore)))
+   '("<escape>" . doom/escape)))
 
 (use-package meow
   :after (recentf consult)
+  :config
+  (add-to-list 'meow-insert-exit-hook 'deactivate-input-method)
   :custom
   (meow-use-clipboard t)
   (meow-goto-line-function 'avy-goto-line)
@@ -298,6 +300,8 @@ A non-expandable, function selection will be created."
   (keymap-substitute global-map 'bookmark-jump 'consult-bookmark)
   (keymap-substitute global-map 'other-window 'ace-window)
   (keymap-substitute global-map 'recentf-open-files 'consult-recent-file)
+  (keymap-substitute global-map 'keyboard-quit #'doom/escape)
+
 
   (keymap-global-set "C-x f" 'consult-project-buffer)
   (keymap-global-set "C-x (" 'meow-start-kmacro-or-insert-counter)
