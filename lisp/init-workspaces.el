@@ -31,6 +31,14 @@
     "Set workspace buffer list for consult-buffer.")
   )
 
+
+(use-package projectile
+  :init
+  (projectile-mode +1)
+  :bind (:map projectile-mode-map
+              ("C-x p" . projectile-command-map)))
+
+
 (use-package ibuffer-vc
   :config
   (add-hook 'ibuffer-hook
