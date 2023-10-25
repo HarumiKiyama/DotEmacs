@@ -574,7 +574,7 @@ unnecessary tab."
 (defvar tabspaces-mode-map
   (let ((map (make-sparse-keymap)))
     (when tabspaces-keymap-prefix
-      (keymap-set map 'tabspaces-keymap-prefix 'tabspaces-command-map))
+      (keymap-set map tabspaces-keymap-prefix 'tabspaces-command-map))
     map)
   "Keymap for Tabspaces mode.")
 
