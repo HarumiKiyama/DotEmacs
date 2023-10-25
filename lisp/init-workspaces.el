@@ -2,6 +2,7 @@
 
 (use-package tabspaces
   ;; use this next line only if you also use straight, otherwise ignore it.
+  :load-path "site-list/tabspaces.el"
   :hook (after-init . tabspaces-mode) ;; use this only if you want the minor-mode loaded at startup.
   :commands (tabspaces-switch-or-create-workspace
              tabspaces-open-or-create-project-and-workspace)
