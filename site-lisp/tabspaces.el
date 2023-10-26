@@ -412,14 +412,14 @@ workspace. If PROJECT does not exist, create it, along with a
      ;; 3. Open new tab and create project
      (t
       (tab-bar-new-tab)
-      (setq default-directory project-directory)
-      (ignore-errors (mkdir project-directory t))
-      (magit-init project-directory)
-      (delete-other-windows)
-      (magit-status-setup-buffer)
-      (dired-jump-other-window)
-      (tab-bar-rename-tab tab-name)
-      (let ((pr (project--find-in-directory default-directory)))
+      (let* ((default-directory project-directory)
+             (pr (project--find-in-directory default-directory)))
+        (ignore-errors (mkdir project-directory t))
+        (magit-init project-directory)
+        (delete-other-windows)
+        (magit-status-setup-buffer)
+        (dired-jump-other-window)
+        (tab-bar-rename-tab tab-name)
         (project-remember-project pr))))))
 
 ;;;; Tabspace Sessions
