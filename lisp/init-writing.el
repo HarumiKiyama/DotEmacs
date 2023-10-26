@@ -20,7 +20,7 @@
 (use-package wraplish
   ;; use manateelazycat/wraplish
   :load-path "elpa/wraplish"
-  :hook (emacs-startup . wraplish-mode))
+  :hook (after-init . wraplish-mode))
 
 
 (provide 'init-writing)
