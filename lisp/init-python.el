@@ -10,6 +10,7 @@
    (("b" blacken-buffer "buffer")
     ("i" py-isort-buffer "import"))))
 
+(use-package jupyter)
 
 
 (provide 'init-python)
