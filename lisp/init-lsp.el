@@ -34,6 +34,8 @@
           (yaml "https://github.com/ikatyang/tree-sitter-yaml"))))
 
 
+
+
 (use-package yasnippet
   :config
   (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets")
@@ -44,15 +46,15 @@
                              mode))))
 
   ;; 在 *-ts-mode 下保存 snippets 到 *-mode 目录 （也可以试试直接在 yas--table-get-create 上 advice 看看有没有不良影响）
-(advice-add 'yas-new-snippet :around
-            (defun yas-new-snippet@reverse-ts-mode (&rest args)
-              (cl-letf* ((yas--orig-table-get-create (symbol-function 'yas--table-get-create))
-                         ((symbol-function 'yas--table-get-create)
-                          (lambda (mode)
-                            (funcall yas--orig-table-get-create
-                                     (or (car (rassq (or mode major-mode) major-mode-remap-alist))
-                                         mode)))))
-                (apply args))))
+  (advice-add 'yas-new-snippet :around
+              (defun yas-new-snippet@reverse-ts-mode (&rest args)
+                (cl-letf* ((yas--orig-table-get-create (symbol-function 'yas--table-get-create))
+                           ((symbol-function 'yas--table-get-create)
+                            (lambda (mode)
+                              (funcall yas--orig-table-get-create
+                                       (or (car (rassq (or mode major-mode) major-mode-remap-alist))
+                                           mode)))))
+                  (apply args))))
   (yas-global-mode 1))
 
 (use-package posframe)
@@ -79,7 +81,8 @@
 
 (use-package color-rg
   :vc (:fetcher "github"
-                :repo "manateelazycat/color-rg"))
+                :repo "manateelazycat/color-rg")
+  )
 
 
 (use-package blink-search

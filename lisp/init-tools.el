@@ -84,10 +84,4 @@
             (address "lucius0720@hotmail.com")
             ("X-Message-SMTP-Method" "smtp smtp-mail.outlook.com 587"))))))
 
-
-(use-package aria2
-  :init
-  (setq aria2-rcp-secret "P3TERX"))
-
-
 (provide 'init-tools)

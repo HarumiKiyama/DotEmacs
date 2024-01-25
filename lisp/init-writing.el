@@ -19,8 +19,7 @@
 
 (use-package wraplish
   ;; use manateelazycat/wraplish
-  :load-path "elpa/wraplish"
-  :hook (after-init . wraplish-mode))
+  :load-path "elpa/wraplish")
 
-
+  
 (provide 'init-writing)
