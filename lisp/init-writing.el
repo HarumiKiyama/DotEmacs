@@ -19,7 +19,10 @@
 
 (use-package wraplish
   ;; use manateelazycat/wraplish
-  :load-path "elpa/wraplish")
+  :load-path "elpa/wraplish"
+  :init
+  (dolist (hook '(text-mode-hook))
+    (add-hook hook #'(lambda () (wraplish-mode 1)))))
 
   
 (provide 'init-writing)

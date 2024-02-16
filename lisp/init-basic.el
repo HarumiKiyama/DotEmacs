@@ -18,23 +18,25 @@
   (gcmh-mode 1))
 
 
-(with-no-warnings
-  ;; key modifiers
-  (setq ns-function-modifier 'hyper)
-  (cond
-   (sys/mac-port-p
-    (setq mac-option-modifier 'meta
-	  mac-command-modifier 'super)))
-  ;; optimization
-  ;; read more at a time (was 4k)
-  (unless sys/macp
-    (setq command-line-ns-option-alist nil))
-  (unless sys/linuxp
-    (setq command-line-x-option-alist nil))
-  ;; increase how much is read from processes in a single chunk (default is 4kb)
-  (setq read-process-output-max (* 1024 1024)) ; 64kb
-  ;; don't ping things that look like domain names.
-  (setq ffap-machine-p-known 'reject))
+(setq ns-function-modifier 'hyper)
+
+(when sys/macp
+  (setq mac-option-modifier 'meta
+        mac-command-modifier 'super
+        command-line-ns-option-alist nil
+        rime-emacs-module-header-root "/opt/homebrew/Cellar/emacs-plus@29/29.2/include"
+        rime-librime-root "~/.emacs.d/librime/dist"
+        rime-user-data-dir "~/Library/Rime"))
+
+;; optimization
+;; read more at a time (was 4k)
+(unless sys/linuxp
+  (setq command-line-x-option-alist nil))
+;; increase how much is read from processes in a single chunk (default is 4kb)
+(setq read-process-output-max (* 1024 1024))  ; 64kb
+;; don't ping things that look like domain names.
+(setq ffap-machine-p-known 'reject)
+
 
 (use-package which-key
   :hook (after-init . which-key-mode)
