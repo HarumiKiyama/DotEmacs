@@ -193,8 +193,5 @@ targets."
     (setq xref-show-definitions-function #'xref-show-definitions-completing-read)
     (setq xref-show-xrefs-function #'xref-show-definitions-completing-read)))
 
-(setq acm-candidate-match-function 'orderless-flex)
-
-
 
 (provide 'init-completion)

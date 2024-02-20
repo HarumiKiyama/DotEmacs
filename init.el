@@ -35,8 +35,8 @@
 (require 'init-package)
 
 ;; config path env
-(use-package exec-path-from-shell)
-(exec-path-from-shell-initialize)
+;; (use-package exec-path-from-shell)
+;; (exec-path-from-shell-initialize)
 
 ;; config lsp
 (require 'init-basic)
@@ -44,7 +44,7 @@
 (require 'init-meow)
 
 
-;; uis
+;; ui
 (require 'init-ui)
 (require 'init-window)
 (require 'init-better-defaults)
@@ -65,14 +65,10 @@
 (require 'init-rust)
 (require 'init-python)
 (require 'init-cpp)
+(require 'init-go)
 
 ;; (require 'init-coq)
-;; (require 'init-go)
 ;; (require 'init-idris)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
-(put 'dired-find-alternate-file 'disabled nil)
-(put 'upcase-region 'disabled nil)
-(put 'downcase-region 'disabled nil)

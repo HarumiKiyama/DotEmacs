@@ -1,1 +1,1 @@
-("~/.emacs.d/" "~/projects/XQall/")
+("~/.emacs.d/" "~/projects/powtain_backend/" "~/projects/XQall/")
