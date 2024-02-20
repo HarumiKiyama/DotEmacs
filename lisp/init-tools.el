@@ -15,12 +15,6 @@
 (use-package pdf-tools)
 
 
-(use-package elfeed-org
-  :defer t
-  :config
-  (setq rmh-elfeed-org-files (list "~/org-mode/elfeed.org"))
-  (elfeed-org))
-
 
 (use-package org-msg
   :after gnus
@@ -30,7 +24,7 @@
         
         org-msg-startup "hidestars indent inlineimages"
         org-msg-greeting-fmt "\nHi%s,\n\n"
-        org-msg-recipient-names '(("jeremy.compostella@gmail.com" . "Jérémy"))
+        org-msg-recipient-names '(("lucius0720@hotmail.com" . "harumi"))
         org-msg-greeting-name-limit 3
         org-msg-default-alternatives '((new text html)
                                        (reply-to-html text html)
@@ -43,6 +37,7 @@
  *harumi*
  #+end_signature")
   (org-msg-mode))
+
 
 (use-package org-contacts)
 
