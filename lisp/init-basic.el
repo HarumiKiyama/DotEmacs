@@ -27,6 +27,8 @@
         rime-emacs-module-header-root "/opt/homebrew/Cellar/emacs-plus@29/29.2/include"
         rime-librime-root "~/.emacs.d/librime/dist"
         rime-user-data-dir "~/Library/Rime"))
+(when sys/linuxp
+  (setq rime-user-data-dir "~/.local/share/fcitx5/rime"))
 
 ;; optimization
 ;; read more at a time (was 4k)
@@ -46,7 +48,6 @@
 (use-package dash)
 
 (use-package major-mode-hydra)
-
 
 
 (use-package server
