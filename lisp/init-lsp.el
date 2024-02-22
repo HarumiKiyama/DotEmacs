@@ -5,6 +5,7 @@
   (dolist (mapping '((python-mode . python-ts-mode)
                      (css-mode . css-ts-mode)
                      (typescript-mode . tsx-ts-mode)
+                     (go-mode . go-ts-mode)
                      (json-mode . json-ts-mode)
                      (js-mode . js-ts-mode)
                      (css-mode . css-ts-mode)
@@ -22,6 +23,7 @@
           (cmake "https://github.com/uyha/tree-sitter-cmake")
           (css "https://github.com/tree-sitter/tree-sitter-css")
           (go "https://github.com/tree-sitter/tree-sitter-go")
+          (gomod "https://github.com/camdencheek/tree-sitter-go-mod")
           (html "https://github.com/tree-sitter/tree-sitter-html")
           (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
           (json "https://github.com/tree-sitter/tree-sitter-json")
@@ -31,7 +33,8 @@
           (toml "https://github.com/tree-sitter/tree-sitter-toml")
           (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
           (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-          (yaml "https://github.com/ikatyang/tree-sitter-yaml"))))
+          (yaml "https://github.com/ikatyang/tree-sitter-yaml")
+          (dockerfile "https://github.com/camdencheek/tree-sitter-dockerfile"))))
 
 
 

@@ -1,1 +1,1 @@
-("~/.emacs.d/" "~/projects/powtain_backend/" "~/projects/XQall/")
+("~/personal_project/powtain_backend/" "~/python_scripts/" "~/.emacs.d/" "~/projects/utililty/")
