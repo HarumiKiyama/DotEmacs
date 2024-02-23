@@ -1,7 +1,10 @@
 ;; config tree-sitter
 (use-package treesit
   :ensure nil
-  :preface
+  :config
+  (add-to-list 'auto-mode-alist '("\\.go\\'" . go-ts-mode))
+  (add-to-list 'auto-mode-alist '("\\.mod\\'" . go-mod-ts-mode))
+  
   (dolist (mapping '((python-mode . python-ts-mode)
                      (css-mode . css-ts-mode)
                      (typescript-mode . tsx-ts-mode)
