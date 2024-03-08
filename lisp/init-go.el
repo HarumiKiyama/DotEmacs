@@ -96,7 +96,7 @@ function."
           ;; We're using errbuf for the mixed stdout and stderr output. This
           ;; is not an issue because gofmt -w does not produce any stdout
           ;; output in case of success.
-          (if (zerop (apply #'process-file "gofmt" nil nil nil our-gofmt-args))
+          (if (zerop (apply #'process-file "goimports" nil nil nil our-gofmt-args))
               (progn
                 ;; There is no remote variant of ‘call-process-region’, but we
                 ;; can invoke diff locally, and the results should be the same.

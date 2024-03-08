@@ -82,6 +82,8 @@
         acm-enable-quick-access t
         acm-backend-yas-match-by-trigger-keyword t
         lsp-bridge-code-action-enable-popup-menu nil
+        acm-enable-copilot t
+        acm-enable-tabnine nil
         lsp-bridge-python-multi-lsp-server "pyright_ruff"
         lsp-bridge-python-command "python3"))
 
