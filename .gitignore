@@ -34,3 +34,4 @@ blink-search.db
 !/elpa/.dir-locals.el
 
 /tabsession.el
+*.eld

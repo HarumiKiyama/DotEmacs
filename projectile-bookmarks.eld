@@ -1,1 +1,0 @@
-("~/personal_project/powtain_backend/" "~/python_scripts/" "~/.emacs.d/" "~/projects/utililty/")
