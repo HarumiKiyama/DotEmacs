@@ -148,8 +148,7 @@ A non-expandable, function selection will be created."
 
 (pretty-hydra-define leader-tool-hydra (:hint nil :color blue :quit-key "q")
   ("TOOL"
-   (("e" elfeed)
-    ("c" calibredb)
+   (("c" calibredb)
     ("s" hydra-smerge/body "smerge")
     ("c" erc))))
 

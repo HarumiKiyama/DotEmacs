@@ -41,6 +41,7 @@
 
 
 (use-package which-key
+  :load-path "elpa/which-key"
   :hook (after-init . which-key-mode)
   :init
   (setq which-key-side-window-location 'bottom))

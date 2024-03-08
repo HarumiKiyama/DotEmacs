@@ -118,7 +118,7 @@ function."
 (major-mode-hydra-define go-ts-mode
   (:hint nil :color blue :quit-key "q")
   ("format"
-   (("f" gofmt "format"))))
+   (("b" gofmt "format"))))
 
 (setq go-ts-mode-indent-offset 4)
 
