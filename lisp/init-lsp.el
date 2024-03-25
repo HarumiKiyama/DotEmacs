@@ -85,7 +85,7 @@
         acm-enable-copilot t
         acm-enable-tabnine nil
         lsp-bridge-python-multi-lsp-server "pyright_ruff"
-        lsp-bridge-python-command "python3"))
+        lsp-bridge-python-command "/usr/bin/python"))
 
 
 (use-package color-rg
