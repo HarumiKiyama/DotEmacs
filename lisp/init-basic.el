@@ -133,6 +133,10 @@
   :config
   (global-hl-todo-mode))
 
+(use-package hungry-delete
+  :config
+  (global-hungry-delete-mode))
+
 
 (use-package quickrun)
 
