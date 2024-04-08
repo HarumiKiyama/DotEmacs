@@ -15,6 +15,9 @@
 (use-package pdf-tools)
 
 
+(use-package nov)
+
+
 
 (use-package org-msg
   :after gnus
