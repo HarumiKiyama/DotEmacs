@@ -115,7 +115,7 @@ function."
       (delete-file tmpfile))))
 
 
-(major-mode-hydra-define go-ts-mode
+(major-mode-hydra-define go-mode
   (:hint nil :color blue :quit-key "q")
   ("format"
    (("b" gofmt "format"))))

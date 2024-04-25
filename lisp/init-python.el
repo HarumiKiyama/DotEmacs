@@ -5,7 +5,7 @@
   :commands blacken-buffer)
 
 
-(major-mode-hydra-define python-ts-mode (:color blue :hint nil :quit-key "q")
+(major-mode-hydra-define python-mode (:color blue :hint nil :quit-key "q")
   ("FORMAT"
    (("b" blacken-buffer "buffer")
     ("i" py-isort-buffer "import")

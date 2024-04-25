@@ -2,23 +2,24 @@
 (use-package treesit
   :ensure nil
   :config
-  (add-to-list 'auto-mode-alist '("\\.go\\'" . go-ts-mode))
+  (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
   (add-to-list 'auto-mode-alist '("\\.mod\\'" . go-mod-ts-mode))
   (add-to-list 'auto-mode-alist '("[Dd]ockerfile\\'" . dockerfile-ts-mode))
   
-  (dolist (mapping '((python-mode . python-ts-mode)
-                     (css-mode . css-ts-mode)
-                     (typescript-mode . tsx-ts-mode)
-                     (go-mode . go-ts-mode)
-                     (json-mode . json-ts-mode)
-                     (js-mode . js-ts-mode)
-                     (css-mode . css-ts-mode)
-                     (yaml-mode . yaml-ts-mode)
-                     (sh-mode . bash-ts-mode)
-                     (rust-mode . rust-ts-mode)
-                     (c++-mode . c++-ts-mode)
-                     (c-mode . c-ts-mode)))
-    (add-to-list 'major-mode-remap-alist mapping))
+  ;; (dolist (mapping '(
+  ;;                    (python-mode . python-ts-mode)
+  ;;                    (css-mode . css-ts-mode)
+  ;;                    (typescript-mode . tsx-ts-mode)
+  ;;                    (go-mode . go-ts-mode)
+  ;;                    (json-mode . json-ts-mode)
+  ;;                    (js-mode . js-ts-mode)
+  ;;                    (css-mode . css-ts-mode)
+  ;;                    (yaml-mode . yaml-ts-mode)
+  ;;                    (sh-mode . bash-ts-mode)
+  ;;                    (rust-mode . rust-ts-mode)
+  ;;                    (c++-mode . c++-ts-mode)
+  ;;                    (c-mode . c-ts-mode)))
+  ;;   (add-to-list 'major-mode-remap-alist mapping))
   (setq treesit-language-source-alist
         '((bash "https://github.com/tree-sitter/tree-sitter-bash")
           (rust "https://github.com/tree-sitter/tree-sitter-rust")
@@ -91,6 +92,8 @@
 (use-package color-rg
   :vc (:fetcher "github"
                 :repo "manateelazycat/color-rg")
+  :config
+  (setq color-rg-kill-temp-buffer-p nil)
   )
 
 
