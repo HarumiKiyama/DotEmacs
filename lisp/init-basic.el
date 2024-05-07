@@ -10,13 +10,6 @@
 (setq visible-bell nil
       ring-bell-function 'ignore)
 
-;; garbage collector magic hack
-(use-package gcmh
-  :init
-  (setq gcmh-idle-delay 5
-        gcmh-high-cons-threshold 16777216) ; 16mb
-  (gcmh-mode 1))
-
 
 (setq ns-function-modifier 'hyper)
 
@@ -27,6 +20,7 @@
         rime-emacs-module-header-root "/opt/homebrew/Cellar/emacs-plus@29/29.2/include"
         rime-librime-root "~/.emacs.d/librime/dist"
         rime-user-data-dir "~/Library/Rime"))
+
 (when sys/linuxp
   (setq rime-user-data-dir "~/.local/share/fcitx5/rime"))
 
@@ -41,7 +35,6 @@
 
 
 (use-package which-key
-  :load-path "elpa/which-key"
   :hook (after-init . which-key-mode)
   :init
   (setq which-key-side-window-location 'bottom))
