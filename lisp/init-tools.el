@@ -33,7 +33,7 @@
          ((string-match "hotmail.com" server)
           (setq smtpmail-smtp-server "smtp-mail.outlook.com"
                 smtpmail-smtp-service 587
-                smtpmail-stream-type 'starttls))))))
+                smtpmail-stream-type 'starttls)))))
 
   (add-hook 'message-send-hook 'harumi-change-smtp)
 
