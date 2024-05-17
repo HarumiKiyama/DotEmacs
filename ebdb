@@ -1,0 +1,210 @@
+;; Object ebdb-db-file-172bbec44dfa
+;; EBDB file-persistent database
+(ebdb-db-file "ebdb-db-file-172bbec44dfa"
+:file "ebdb"
+:label "File: ~/.emacs.d/ebdb"
+:uuid
+(ebdb-field-uuid "ebdb-field-uuid-172bc05551ae"
+:uuid "afc23ab2-6328-40e6-8c5b-bfef511de9f4")
+:sync-time '(26183 7554 74895 375000)
+:records
+(list
+(ebdb-record-person "ebdb-record-person-172bc0a93854"
+:uuid
+(ebdb-field-uuid "ebdb-field-uuid-172bc01c443a"
+:uuid "4935c9a5-bb63-400f-ab4d-7b4ae1bb1888")
+:creation-date
+(ebdb-field-creation-date "ebdb-field-creation-date-172bc0edcdc6"
+:timestamp '(26183 8868 890814 794000))
+:timestamp
+(ebdb-field-timestamp "ebdb-field-timestamp-172bc1716c7e"
+:timestamp '(26183 8868 890659 340000))
+:mail
+(list
+(ebdb-field-mail "ebdb-field-mail-172bc0310bf6"
+:mail "wanglc@tbamc.com"
+:priority primary))
+:name
+(ebdb-field-name-complex "ebdb-field-name-complex-172bbfe991f8"
+:surname "王力超"))
+(ebdb-record-person "ebdb-record-person-172bc0a938a6"
+:uuid
+(ebdb-field-uuid "ebdb-field-uuid-172bbeb38dc4"
+:uuid "d40140e0-8f97-4906-be9a-26efae9fd00a")
+:creation-date
+(ebdb-field-creation-date "ebdb-field-creation-date-172bc00e5718"
+:timestamp '(26183 7541 356243 916000))
+:timestamp
+(ebdb-field-timestamp "ebdb-field-timestamp-172bbf4fe1da"
+:timestamp '(26183 7541 356236 709000))
+:mail
+(list
+(ebdb-field-mail "ebdb-field-mail-172bbfdf8a3e"
+:mail "liuk@tbamc.com"
+:priority normal))
+:name
+(ebdb-field-name-complex "ebdb-field-name-complex-172bbfdf8516"
+:surname "刘凯"))
+(ebdb-record-person "ebdb-record-person-172bc0a938f0"
+:uuid
+(ebdb-field-uuid "ebdb-field-uuid-172bc01a31ca"
+:uuid "f1e1acd2-d7ff-4b7e-8b8b-f4cfc9afd1f8")
+:creation-date
+(ebdb-field-creation-date "ebdb-field-creation-date-172bbfd05870"
+:timestamp '(26183 7541 358692 663000))
+:timestamp
+(ebdb-field-timestamp "ebdb-field-timestamp-172bbfd05868"
+:timestamp '(26183 7541 358681 649000))
+:mail
+(list
+(ebdb-field-mail "ebdb-field-mail-172bc1b1cd8c"
+:mail "liq@tbamc.com"
+:priority normal))
+:name
+(ebdb-field-name-complex "ebdb-field-name-complex-172bbfcd9000"
+:surname "李芊"))
+(ebdb-record-person "ebdb-record-person-172bc187195c"
+:uuid
+(ebdb-field-uuid "ebdb-field-uuid-172bc0659562"
+:uuid "c4c0eef0-656e-41c8-9a02-aca612950037")
+:creation-date
+(ebdb-field-creation-date "ebdb-field-creation-date-172bbe96c1b0"
+:timestamp '(26183 7541 362924 313000))
+:timestamp
+(ebdb-field-timestamp "ebdb-field-timestamp-172bbe96c1a8"
+:timestamp '(26183 7541 362882 35000))
+:mail
+(list
+(ebdb-field-mail "ebdb-field-mail-172bc160bca2"
+:mail "zhangcl@tbamc.com"
+:priority normal))
+:name
+(ebdb-field-name-complex "ebdb-field-name-complex-172bbfcd46d4"
+:surname "张弛良"))
+(ebdb-record-person "ebdb-record-person-172bc18719ae"
+:uuid
+(ebdb-field-uuid "ebdb-field-uuid-172bc173604c"
+:uuid "5fe7ec24-d899-4c0f-930b-054be03a5ee4")
+:creation-date
+(ebdb-field-creation-date "ebdb-field-creation-date-172bc1e7ae60"
+:timestamp '(26183 7541 364123 295000))
+:timestamp
+(ebdb-field-timestamp "ebdb-field-timestamp-172bc1e7ae58"
+:timestamp '(26183 7541 364115 773000))
+:mail
+(list
+(ebdb-field-mail "ebdb-field-mail-172bc19ca9cc"
+:mail "anyn@tbamc.com"
+:priority normal))
+:name
+(ebdb-field-name-complex "ebdb-field-name-complex-172bc204bd22"
+:surname "安毅宁"))
+(ebdb-record-person "ebdb-record-person-172bc220356c"
+:uuid
+(ebdb-field-uuid "ebdb-field-uuid-172bc1bcdc82"
+:uuid "7145ffcc-41a7-4403-8150-1b3f88e21902")
+:creation-date
+(ebdb-field-creation-date "ebdb-field-creation-date-172bc017c40a"
+:timestamp '(26183 7541 367607 678000))
+:timestamp
+(ebdb-field-timestamp "ebdb-field-timestamp-172bc0626102"
+:timestamp '(26183 7541 367572 328000))
+:mail
+(list
+(ebdb-field-mail "ebdb-field-mail-172bc23072b2"
+:mail "zhangn@tbamc.com"
+:priority normal))
+:name
+(ebdb-field-name-complex "ebdb-field-name-complex-172bbf588e88"
+:surname "张楠"))
+(ebdb-record-person "ebdb-record-person-172bc2203592"
+:uuid
+(ebdb-field-uuid "ebdb-field-uuid-172bbe79e612"
+:uuid "11987cb1-dc41-4bf3-acd1-4aeafe2f54ba")
+:creation-date
+(ebdb-field-creation-date "ebdb-field-creation-date-172bbf35bc6a"
+:timestamp '(26183 7541 369799 993000))
+:timestamp
+(ebdb-field-timestamp "ebdb-field-timestamp-172bbf35bc62"
+:timestamp '(26183 7541 369753 35000))
+:mail
+(list
+(ebdb-field-mail "ebdb-field-mail-172bbfb3e86a"
+:mail "zhangbz@tbamc.com"
+:priority normal))
+:name
+(ebdb-field-name-complex "ebdb-field-name-complex-172bc22c461e"
+:surname "章步战"))
+(ebdb-record-person "ebdb-record-person-172bc22035ec"
+:uuid
+(ebdb-field-uuid "ebdb-field-uuid-172bbfad5034"
+:uuid "56e0aeb7-ed94-4434-8f2b-fc2e99d75884")
+:creation-date
+(ebdb-field-creation-date "ebdb-field-creation-date-172bbf3755b8"
+:timestamp '(26183 7541 372280 523000))
+:timestamp
+(ebdb-field-timestamp "ebdb-field-timestamp-172bbf3755b0"
+:timestamp '(26183 7541 372271 800000))
+:mail
+(list
+(ebdb-field-mail "ebdb-field-mail-172bbf7e837c"
+:mail "qianmx@tbamc.com"
+:priority normal))
+:name
+(ebdb-field-name-complex "ebdb-field-name-complex-172bbf750c94"
+:surname "钱明晰"))
+(ebdb-record-person "ebdb-record-person-172bc220363e"
+:uuid
+(ebdb-field-uuid "ebdb-field-uuid-172bc079e4c8"
+:uuid "12f1f4fb-ce9b-493d-8d21-ca893f5cba4c")
+:creation-date
+(ebdb-field-creation-date "ebdb-field-creation-date-172bbec1ac94"
+:timestamp '(26183 7541 376797 569000))
+:timestamp
+(ebdb-field-timestamp "ebdb-field-timestamp-172bbe98bd8c"
+:timestamp '(26183 7541 376786 515000))
+:mail
+(list
+(ebdb-field-mail "ebdb-field-mail-172bc21d45a0"
+:mail "fangx@tbamc.com"
+:priority normal))
+:name
+(ebdb-field-name-complex "ebdb-field-name-complex-172bc0f46d48"
+:surname "方雄"))
+(ebdb-record-person "ebdb-record-person-172bc22bca48"
+:uuid
+(ebdb-field-uuid "ebdb-field-uuid-172bbf74594c"
+:uuid "5f33b057-cce0-4065-a23f-11373ee9c410")
+:creation-date
+(ebdb-field-creation-date "ebdb-field-creation-date-172bbf6ba3d8"
+:timestamp '(26183 7541 378716 418000))
+:timestamp
+(ebdb-field-timestamp "ebdb-field-timestamp-172bbf6ba3d0"
+:timestamp '(26183 7541 378707 630000))
+:mail
+(list
+(ebdb-field-mail "ebdb-field-mail-172bc24a9f80"
+:mail "wangt@tbamc.com"
+:priority normal))
+:name
+(ebdb-field-name-complex "ebdb-field-name-complex-172bc2613ffc"
+:surname "王特"))
+(ebdb-record-person "ebdb-record-person-172bc22bca96"
+:uuid
+(ebdb-field-uuid "ebdb-field-uuid-172bbfd13d86"
+:uuid "cf4b996b-e971-4118-8f11-7f42930f53db")
+:creation-date
+(ebdb-field-creation-date "ebdb-field-creation-date-172bc06c9f4c"
+:timestamp '(26183 7454 194415 491000))
+:timestamp
+(ebdb-field-timestamp "ebdb-field-timestamp-172bc06c9f30"
+:timestamp '(26183 7454 194331 994000))
+:mail
+(list
+(ebdb-field-mail "ebdb-field-mail-172bc0ef14b4"
+:mail "yemj@tbamc.com"
+:priority primary))
+:name
+(ebdb-field-name-complex "ebdb-field-name-complex-172bc0555798"
+:surname "叶敏娇")))
+:record-class ebdb-record-person)

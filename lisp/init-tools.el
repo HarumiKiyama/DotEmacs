@@ -24,7 +24,7 @@
              (address
               (cadr (mail-extract-address-components from)))
              (start (string-match "@\\(.*\\)" address))
-             (server (match-string 1 address))))
+             (server (match-string 1 address)))
         (cond
          ((string-match "tbamc.com" server)
           (setq smtpmail-smtp-server "smtp.exmail.qq.com"
@@ -33,10 +33,9 @@
          ((string-match "hotmail.com" server)
           (setq smtpmail-smtp-server "smtp-mail.outlook.com"
                 smtpmail-smtp-service 587
-                smtpmail-stream-type 'starttls)))))
-
+                smtpmail-stream-type 'starttls))))))
+  
   (add-hook 'message-send-hook 'harumi-change-smtp)
-
 
   (setq
    mail-user-agent 'gnus-user-agent
@@ -45,24 +44,27 @@
 
   (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil \\n:t"
         org-msg-startup "hidestars indent inlineimages"
-        org-msg-greeting-fmt "\nHi%s,\n\n"
-        org-msg-recipient-names '(("lucius0720@hotmail.com" . "harumi"))
+        org-msg-recipient-names '(("lucius0720@hotmail.com" . "harumi")
+                                  ("h.kiyam0720@gmail.com" . "harumi")
+                                  ("wanglc@tbamc.com" . "wanglc"))
         org-msg-greeting-name-limit 3
-        org-msg-default-alternatives '((new text html)
-                                       (reply-to-html text html)
-                                       (reply-to-text text))
+        org-msg-default-alternatives '((new html)
+                                       (reply-to-html html)
+                                       (reply-to-text html))
         org-msg-convert-citation t
         org-msg-signature "
  #+begin_signature
  --
  Regards,
  *harumi*
- #+end_signature")
+ #+end_signature"
+        )
   (org-msg-mode)
   (org-msg-mode-message)
   (org-msg-mode-gnus))
 
-(use-package org-contacts)
+(use-package ebdb)
+
 
 
 (use-package gnus

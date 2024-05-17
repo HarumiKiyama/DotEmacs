@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: company_email_signature
+# key: comp
+# --
+ #+begin_signature
+ --
+*王力超*
+
+拾贝投资管理有限公司
+杭州市江干区新业路200号华峰国际3001
+Tel:+86-18668042190
+Email：wanglc@tbamc.com
+
+ #+end_signature
