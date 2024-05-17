@@ -8,6 +8,12 @@
         (list :background-color "#333333"
               :foreground-color "#dcdccc"
               :internal-border-width 10))
+  :config
+  (when sys/macp
+    (setq
+     rime-emacs-module-header-root "/opt/homebrew/Cellar/emacs-plus@29/29.2/include"
+     rime-librime-root "~/.emacs.d/librime/dist"
+     rime-user-data-dir "~/Library/Rime"))
   )
 
 (use-package ispell

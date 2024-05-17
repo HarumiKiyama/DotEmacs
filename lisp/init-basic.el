@@ -16,10 +16,7 @@
 (when sys/macp
   (setq mac-option-modifier 'meta
         mac-command-modifier 'super
-        command-line-ns-option-alist nil
-        rime-emacs-module-header-root "/opt/homebrew/Cellar/emacs-plus@29/29.2/include"
-        rime-librime-root "~/.emacs.d/librime/dist"
-        rime-user-data-dir "~/Library/Rime"))
+        command-line-ns-option-alist nil))
 
 (when sys/linuxp
   (setq rime-user-data-dir "~/.local/share/fcitx5/rime"))

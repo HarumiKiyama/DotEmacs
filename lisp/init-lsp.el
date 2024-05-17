@@ -86,7 +86,12 @@
         acm-enable-copilot t
         acm-enable-tabnine nil
         lsp-bridge-python-multi-lsp-server "pyright_ruff"
-        lsp-bridge-python-command "/usr/bin/python"))
+        lsp-bridge-python-command "/usr/bin/python")
+  
+  (when sys/macp
+    (setq lsp-bridge-python-command "/opt/homebrew/bin/python3"))
+  )
+
 
 
 (use-package color-rg
