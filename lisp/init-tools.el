@@ -63,8 +63,33 @@
   (org-msg-mode-message)
   (org-msg-mode-gnus))
 
-(use-package ebdb)
-
+(use-package ebdb
+  :config
+  (defun ebdb-consult ()
+    (interactive)
+    (let* ((candidaties
+            (mapcar
+             (lambda (rec)
+               (let* ((rec-string (ebdb-string rec))
+                      (mails (ebdb-record-mail-canon rec))
+                      (mail-list (when mails
+                                   (mapconcat #'identity
+                                              mails
+                                              " "))))
+                 (cons (if mail-list
+                           (concat rec-string
+                                   " => "
+                                   mail-list)
+                         rec-string)
+                       rec)))
+             (ebdb-records)))
+           (result
+            (consult--read
+             candidaties
+             :prompt "Select Email: "))
+           (email (when (string-match "\\(.*\\) => \\(.*\\)" result)
+                    (match-string 2 result))))
+      (insert email))))
 
 
 (use-package gnus
