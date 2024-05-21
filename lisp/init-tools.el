@@ -2,14 +2,18 @@
 
 (use-package sudo-edit)
 
-(use-package calibredb
-  :config
-  (setq calibredb-root-dir "~/Calibre Library/"
-        calibredb-db-dir (expand-file-name "metadata.db" calibredb-root-dir)))
+(unless sys/linuxp
+  (use-package calibredb
+    :defer t
+    :config
+    (setq calibredb-root-dir "~/Calibre Library/"
+          calibredb-db-dir (expand-file-name "metadata.db" calibredb-root-dir)))
+  (use-package pdf-tools
+    :defer t)
 
-(use-package pdf-tools)
+  (use-package nov
+    :defer t))
 
-(use-package nov)
 
 (use-package org-msg
   :after gnus
@@ -95,8 +99,18 @@
 (use-package gnus
   :ensure nil
   :config
+  ;; config gnus summary show format
+  (setq gnus-summary-line-format "%U%z %(%&user-date; %-15,15f %B%s%)\n"
+        gnus-user-date-format-alist
+        '(((gnus-seconds-today) . "Today, %H:%M")
+          ((+ 86400 (gnus-seconds-today)) . "Yesterday, %H:%M")
+          (604800 . "%A, %H:%M")
+          ((gnus-seconds-month) . "%A, %d")
+          ((gnus-seconds-year) . "%B, %d")
+          (t . "%Y-%m-%d")))
+  
+  
   ;; Send email through SMTP
-
   (setq gnus-select-method '(nntp "news.gwene.org")) ;; Read feeds/atom through gwene
 
   ;; @see http://gnus.org/manual/gnus_397.html

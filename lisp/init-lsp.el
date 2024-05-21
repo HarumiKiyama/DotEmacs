@@ -87,10 +87,16 @@
         acm-enable-tabnine nil
         lsp-bridge-python-multi-lsp-server "pyright_ruff"
         lsp-bridge-python-command "/usr/bin/python")
-  
+
   (when sys/macp
-    (setq lsp-bridge-python-command "/opt/homebrew/bin/python3"))
-  )
+    (setq lsp-bridge-python-command "/opt/homebrew/bin/python3")))
+
+
+(unless (display-graphic-p)
+  (use-package popon)
+  (use-package acm-terminal
+    :vc (:fetcher "github"
+                  :repo "twlz0ne/acm-terminal")))
 
 
 
