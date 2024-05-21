@@ -41,8 +41,9 @@
 (use-package major-mode-hydra)
 
 
-(use-package server
-  :hook (after-init . server-mode))
+(unless (display-graphic-p)
+  (use-package server
+    :hook (after-init . server-mode)))
 
 ;; encoding
 ;; utf-8 as the default coding system
