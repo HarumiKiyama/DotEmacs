@@ -14,7 +14,9 @@
 (use-package doom-themes
   :init
   (set-face-attribute 'default nil :height 180 :family "FiraCode Nerd Font")
-  (load-theme 'doom-material-dark))
+  (if (display-graphic-p)
+      (load-theme 'doom-material-dark)
+    (load-theme 'doom-solarized-light)))
 
 (use-package valign
   :hook ((markdown-mode org-mode) . valign-mode))
