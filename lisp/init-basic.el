@@ -41,7 +41,7 @@
 (use-package major-mode-hydra)
 
 
-(unless (display-graphic-p)
+(when (display-graphic-p)
   (use-package server
     :hook (after-init . server-mode)))
 

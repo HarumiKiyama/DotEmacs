@@ -95,6 +95,7 @@
 (unless (display-graphic-p)
   (use-package popon)
   (use-package acm-terminal
+    :after lsp-bridge
     :vc (:fetcher "github"
                   :repo "twlz0ne/acm-terminal")))
 
