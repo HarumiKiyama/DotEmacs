@@ -67,47 +67,19 @@
   (org-msg-mode-message)
   (org-msg-mode-gnus))
 
-(use-package ebdb
-  :config
-  (defun ebdb-consult ()
-    (interactive)
-    (let* ((candidaties
-            (mapcar
-             (lambda (rec)
-               (let* ((rec-string (ebdb-string rec))
-                      (mails (ebdb-record-mail-canon rec))
-                      (mail-list (when mails
-                                   (mapconcat #'identity
-                                              mails
-                                              " "))))
-                 (cons (if mail-list
-                           (concat rec-string
-                                   " => "
-                                   mail-list)
-                         rec-string)
-                       rec)))
-             (ebdb-records)))
-           (result
-            (consult--read
-             candidaties
-             :prompt "Select Email: "))
-           (email (when (string-match "\\(.*\\) => \\(.*\\)" result)
-                    (match-string 2 result))))
-      (insert email))))
+(use-package ebdb)
 
 
 (use-package gnus
   :ensure nil
   :config
+  (keymap-substitute gnus-summary-mode-map 'gnus-summary-reply 'gnus-article-wide-reply-with-original)
+  (keymap-substitute gnus-article-mode-map 'gnus-summary-reply 'gnus-article-wide-reply-with-original)
+
   ;; config gnus summary show format
   (setq gnus-summary-line-format "%U%z %(%&user-date; %-15,15f %B%s%)\n"
         gnus-user-date-format-alist
-        '(((gnus-seconds-today) . "Today, %H:%M")
-          ((+ 86400 (gnus-seconds-today)) . "Yesterday, %H:%M")
-          (604800 . "%A, %H:%M")
-          ((gnus-seconds-month) . "%A, %d")
-          ((gnus-seconds-year) . "%B, %d")
-          (t . "%Y-%m-%d")))
+        '((t . "%Y-%m-%dT%H:%M")))
   
   
   ;; Send email through SMTP
