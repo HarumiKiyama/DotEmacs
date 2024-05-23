@@ -2,14 +2,17 @@
 
 (use-package sudo-edit)
 
-(unless sys/linuxp
+(when sys/linuxp
   (use-package calibredb
     :defer t
     :config
     (setq calibredb-root-dir "~/Calibre Library/"
           calibredb-db-dir (expand-file-name "metadata.db" calibredb-root-dir)))
+  
   (use-package pdf-tools
-    :defer t)
+    :mode ("\\.pdf\\'" . pdf-view-mode)
+    :config
+    (pdf-loader-install))
 
   (use-package nov
     :defer t))
