@@ -4,8 +4,14 @@
 (require 'init-funcs)
 
 ;; Personal information
-(setq user-full-name "Harumi Kiyama"
-      user-mail-address "lucius0720@hotmail.com")
+;; (setq user-full-name "Harumi Kiyama"
+;;       user-mail-address "lucius0720@hotmail.com")
+
+;; Company email info
+(setq user-full-name "王力超"
+      user-mail-address "wanglc@tbamc.com")
+
+
 
 (setq visible-bell nil
       ring-bell-function 'ignore)

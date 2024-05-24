@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: theme
+# key: th
+# --
+#+SETUPFILE: ~/.emacs.d/org-themes/solarized_light.theme

@@ -62,12 +62,16 @@
                                   (reply-to-text html))
    org-msg-convert-citation t
    org-msg-signature "
- #+begin_signature
- --
- Regards,
- *harumi*
- #+end_signature"
-   )
+  #+begin_signature
+  --
+  *王力超*
+
+  拾贝投资管理有限公司
+  杭州市江干区新业路 200 号华峰国际 3001
+  Tel:+86-18668042190
+  Email：wanglc@tbamc.com
+  #+end_signature
+")
   (org-msg-mode)
   (org-msg-mode-message)
   (org-msg-mode-gnus))
