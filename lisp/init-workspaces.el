@@ -12,8 +12,7 @@
   (tabspaces-default-tab "Default")
   (tabspaces-include-buffers '("*scratch*"))
   ;; sessions
-  (tabspaces-session t)
-  )
+  (tabspaces-session t))
 
 
 (use-package projectile

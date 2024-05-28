@@ -150,7 +150,8 @@ A non-expandable, function selection will be created."
   ("TOOL"
    (("c" calibredb)
     ("s" hydra-smerge/body "smerge")
-    ("c" erc))))
+    ("c" erc)
+    ("g" gnus))))
 
 (pretty-hydra-define leader-tab-hydra (:hint nil :color blue :quit-key "q" :title "TAB")
   ("NAV"
@@ -159,7 +160,9 @@ A non-expandable, function selection will be created."
     ("p" tab-previous "previous" :exit nil))
    "ACTION"
    (
-    ("d" tab-close :exit nil))))
+    ("d" tab-close "close tab" :exit nil)
+    ("c" tabspaces-open-or-create-project-and-workspace "open project")
+    ("C" tabspaces-switch-or-create-workspace "create workspace"))))
 
 (defun meow--select-expandable-p ()
   (when (meow-normal-mode-p)

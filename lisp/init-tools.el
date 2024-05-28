@@ -50,7 +50,6 @@
    smtpmail-local-domain "compypc")
 
   (setq
-   org-msg-enforce-css nil
    org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil \\n:t"
    org-msg-startup "hidestars indent inlineimages"
    org-msg-recipient-names '(("lucius0720@hotmail.com" . "harumi")
@@ -63,7 +62,7 @@
    org-msg-convert-citation t
    org-msg-signature "
   #+begin_signature
-  --
+  ---
   *王力超*
 
   拾贝投资管理有限公司
