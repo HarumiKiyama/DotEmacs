@@ -73,8 +73,7 @@
 
 
 (use-package lsp-bridge
-  :vc (:fetcher "github"
-                :repo "manateelazycat/lsp-bridge")
+  :vc (:url "https://github.com/manateelazycat/lsp-bridge")
   :after (posframe markdown-mode)
   :hook (after-init . global-lsp-bridge-mode)
   :config
@@ -83,11 +82,14 @@
         acm-enable-quick-access t
         acm-backend-yas-match-by-trigger-keyword t
         lsp-bridge-code-action-enable-popup-menu nil
+        lsp-bridge-enable-inlay-hint t
         acm-enable-copilot t
         acm-enable-tabnine nil
         lsp-bridge-python-multi-lsp-server "pyright_ruff"
-        lsp-bridge-python-command "/usr/bin/python")
-
+        lsp-bridge-python-command "/usr/bin/python"
+        acm-completion-backend-merge-order '("copilot-candidates" "mode-first-part-candidates" "template-first-part-candidates"
+                                             "template-second-part-candidates" "mode-second-part-candidates")
+        acm-candidate-match-function 'orderless-flex)
   (when sys/macp
     (setq lsp-bridge-python-command "/opt/homebrew/bin/python3")))
 
@@ -96,29 +98,30 @@
   (use-package popon)
   (use-package acm-terminal
     :after lsp-bridge
-    :vc (:fetcher "github"
-                  :repo "twlz0ne/acm-terminal")))
+    :vc (:url "https://github.com/twlz0ne/acm-terminal")))
 
 
 
 (use-package color-rg
-  :vc (:fetcher "github"
-                :repo "manateelazycat/color-rg")
+  :vc (:url "https://github.com/manateelazycat/color-rg")
   :config
   (setq color-rg-kill-temp-buffer-p nil)
   )
 
 
 (use-package blink-search
-  :vc (:fetcher "github"
-                :repo "manateelazycat/blink-search")
+  :vc (:url "https://github.com/manateelazycat/blink-search")
   :config
+  (when sys/macp
+    (setq blink-search-python-command "/opt/homebrew/bin/python3"))
   (setq blink-search-search-backends '("Common Directory" "Find File" "IMenu")
         blink-search-common-directory '(("HOME" "~/")
                                         ("ELISP" "~/.emacs.d/lisp/")
                                         ("EMACS" "~/.emacs.d/")
                                         ("PROJECT" "~/projects/"))))
 
+(use-package dape
+  :vc (:url "https://github.com/svaante/dape.git"))
 
 (use-package realgud)
 (use-package realgud-ipdb)

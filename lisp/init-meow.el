@@ -16,8 +16,7 @@
 
 
 (use-package combobulate
-  :vc (:fetcher github
-                :repo "mickeynp/combobulate"))
+  :vc (:url "https://github.com/mickeynp/combobulate"))
 
 
 (defun meow-ts--get-defun-at-point ()
@@ -143,6 +142,7 @@ A non-expandable, function selection will be created."
    "FILE"
    (
     ("c" avy-goto-char "char")
+    ("w" avy-goto-word-1-below "word")
     ("l" consult-goto-line "line")
     ("f" color-rg-search-input-in-current-file "file"))))
 
@@ -309,6 +309,7 @@ A non-expandable, function selection will be created."
   (keymap-global-set "C-x (" 'meow-start-kmacro-or-insert-counter)
   (keymap-global-set "C-x )" 'meow-end-or-call-kmacro)
   (keymap-global-set "C-o" 'major-mode-hydra)
+  (keymap-global-set "M-j" 'avy-goto-char-timer)
 
 
   (keymap-unset yas-minor-mode-map "TAB")

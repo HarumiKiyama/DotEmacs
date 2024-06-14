@@ -2,12 +2,12 @@
 
 (use-package rust-mode
   :config
-  (setq rust-format-on-save nil)
-  )
+  (setq rust-format-on-save nil))
 
 
 (use-package cargo
-  :hook (rust-ts-mode . cargo-minor-mode)
+  :hook ((rust-ts-mode . cargo-minor-mode)
+         (rust-mode . cargo-minor-mode))
   :config
   (defun my/cargo-test-current ()
     (interactive)
@@ -21,6 +21,11 @@
 
 (use-package cargo-mode)
 
+
+(major-mode-hydra-define rust-mode
+  (:hint nil :color blue :quit-key "q")
+  ("format"
+   (("b" rust-format-buffer "format"))))
 
 (use-package rust-playground
   :defer t

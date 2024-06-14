@@ -37,6 +37,12 @@
 (setq ffap-machine-p-known 'reject)
 
 
+;; add proxy
+(setq url-proxy-services
+   '(("no_proxy" . "^\\(localhost\\|10.*\\)")
+     ("http" . "localhost:7890")
+     ("https" . "localhost:7890")))
+
 (use-package which-key
   :hook (after-init . which-key-mode)
   :init
@@ -51,14 +57,13 @@
   (use-package server
     :hook (after-init . server-mode)))
 
+;; add compilation-mode ansi color
+(add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
+
 ;; encoding
 ;; utf-8 as the default coding system
 (when (fboundp 'set-charset-priority)
   (set-charset-priority 'unicode))
-
-
-(prefer-coding-system 'utf-8)
-(set-file-name-coding-system 'utf-8)
 
 ;; history
 (use-package saveplace

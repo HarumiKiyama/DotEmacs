@@ -90,7 +90,6 @@
         '((t . "%Y-%m-%dT%H:%M")))
   
   
-  ;; Send email through SMTP
   (setq gnus-select-method '(nntp "news.gwene.org")) ;; Read feeds/atom through gwene
 
   ;; @see http://gnus.org/manual/gnus_397.html

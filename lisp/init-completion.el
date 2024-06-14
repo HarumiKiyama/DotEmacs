@@ -127,6 +127,22 @@
 (use-package marginalia
   :hook (after-init . marginalia-mode))
 
+(use-package avy-embark-collect
+  :after (emaberk avy))
+
+(use-package avy
+  :after meow
+  :config
+  (defun avy-action-embark (pt)
+    (unwind-protect
+        (save-excursion
+          (goto-char pt)
+          (embark-act))
+      (select-window
+       (cdr (ring-ref avy-ring 0))))
+    t)
+  (setf (alist-get ?. avy-dispatch-alist) 'avy-action-embark))
+
 
 (use-package embark
   :bind (("C-." . embark-act)

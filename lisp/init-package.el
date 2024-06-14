@@ -28,11 +28,6 @@
 (assq-delete-all 'org package--builtin-versions)
 
 
-;; Setup `package-vc`
-
-(unless (package-installed-p 'vc-use-package)
-  (package-vc-install "https://github.com/slotThe/vc-use-package"))
-
 (setq use-package-always-ensure t
       use-package-enable-imenu-support t
       use-package-expand-minimally t)

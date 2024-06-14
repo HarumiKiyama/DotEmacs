@@ -120,7 +120,6 @@
   (advice-add #'keyboard-quit :before #'popper-close-window-hack))
 
 (use-package eat
-  :vc (:fetcher "codeberg"
-                :repo "akib/emacs-eat"))
+  :vc (:url "https://codeberg.org/akib/emacs-eat"))
 
 (provide 'init-window)
