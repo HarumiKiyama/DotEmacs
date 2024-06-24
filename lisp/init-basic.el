@@ -50,6 +50,8 @@
 
 (use-package dash)
 
+
+;;TODO replace with transient
 (use-package major-mode-hydra)
 
 

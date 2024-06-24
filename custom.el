@@ -12,7 +12,8 @@
      "51c71bb27bdab69b505d9bf71c99864051b37ac3de531d91fdad1598ad247138"
      "eca44f32ae038d7a50ce9c00693b8986f4ab625d5f2b4485e20f22c47f2634ae" default))
  '(package-vc-selected-packages
-   '((emt :url "https://github.com/roife/emt")
+   '((lasgun :url "https://github.com/aatmunbaxi/lasgun.el")
+     (emt :url "https://github.com/roife/emt")
      (dape :url "https://github.com/svaante/dape.git")
      (acm-terminal :vc-backend Git :url
                    "https://github.com/twlz0ne/acm-terminal")

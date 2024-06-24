@@ -4,6 +4,34 @@
   (global-undo-tree-mode 1)
   (setq undo-tree-auto-save-history nil))
 
+
+(use-package lasgun
+  :vc (:url "https://github.com/aatmunbaxi/lasgun.el")
+  :config
+  (define-lasgun-action lasgun-action-upcase-word t upcase-word)
+  (define-lasgun-action lasgun-action-downcase-word t downcase-word)
+  (define-lasgun-action lasgun-action-kill-word nil kill-word)
+
+  (transient-define-prefix lasgun-transient ()
+    "Main transient for lasgun."
+    [["Marks"
+      ("c" "Char timer" lasgun-mark-char-timer :transient t)
+      ("w" "Word" lasgun-mark-word-0 :transient t)
+      ("l" "Begin of line" lasgun-mark-line :transient t)
+      ("s" "Symbol" lasgun-mark-symbol-1 :transient t)
+      ("o" "Whitespace end" lasgun-mark-whitespace-end :transient t)
+      ("x" "Clear lasgun mark ring" lasgun-clear-lasgun-mark-ring :transient t)
+      ("u" "Undo lasgun mark" lasgun-pop-lasgun-mark :transient t)]
+     ["Actions"
+      ("SPC" "Make cursors" lasgun-make-multiple-cursors)
+      ("." "Embark act all" lasgun-embark-act-all)
+      ("U" "Upcase" lasgun-action-upcase-word)
+      ("l" "Downcase" lasgun-action-downcase-word)
+      ("K" "Kill word" lasgun-action-kill-word)
+      ("q" "Quit" transient-quit-one)]])
+  
+  (global-set-key (kbd "C-l") 'lasgun-transient))
+
 (defun lsp-bridge-jump ()
   (interactive)
   (cond
@@ -21,9 +49,7 @@
 
 (defun meow-ts--get-defun-at-point ()
   (let ((node (treesit-defun-at-point)))
-    `(,(treesit-node-start node) . ,(treesit-node-end node))
-    ))
-
+    `(,(treesit-node-start node) . ,(treesit-node-end node))))
 ;; TODO meow next / previous defun (just like words) - also make an expandable defun too!
 
 ;; TODO meow next / previous defun (just like words) - also make an expandable defun too!
@@ -319,5 +345,7 @@ A non-expandable, function selection will be created."
   ;; register thing
   (meow-thing-register 'ts-fun #'meow-ts--get-defun-at-point #'meow-ts--get-defun-at-point)
   (add-to-list 'meow-char-thing-table '(?f . ts-fun)))
+
+
 
 (provide 'init-meow)

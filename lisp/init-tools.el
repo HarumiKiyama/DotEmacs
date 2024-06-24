@@ -83,6 +83,7 @@
   :config
   (keymap-substitute gnus-summary-mode-map 'gnus-summary-reply 'gnus-article-wide-reply-with-original)
   (keymap-substitute gnus-article-mode-map 'gnus-summary-reply 'gnus-article-wide-reply-with-original)
+  (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 
   ;; config gnus summary show format
   (setq gnus-summary-line-format "%U%z %(%&user-date; %-15,15f %B%s%)\n"
